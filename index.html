@@ -91,10 +91,11 @@ h3,.card-h{font-size:var(--fs-h3);line-height:1.4;font-weight:600}
 .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
 header.top{position:sticky;top:0;z-index:20;background:var(--color-background);padding-top:env(safe-area-inset-top);border-bottom:1px solid var(--color-border)}
 header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:52px}
-.brand{display:flex;align-items:baseline;gap:10px;font-weight:600;font-size:13px;letter-spacing:.08em}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:13px;letter-spacing:.08em;white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:420px){.brand{font-size:11.5px;letter-spacing:.05em;gap:8px}}
 .brand .mark{font-family:var(--font-mono);font-weight:500;font-size:12px;padding:1px 6px;border:1px solid var(--color-text-primary);border-radius:var(--r-sm);letter-spacing:0}
 .brand small{font-weight:400;font-size:12px;color:var(--color-text-tertiary);letter-spacing:.02em}
-.iconbtn{background:transparent;border:1px solid var(--color-border-strong);border-radius:var(--r);min-width:44px;height:36px;padding:0 12px;font-size:13px;color:var(--color-text-secondary);transition:background var(--dur) var(--ease)}
+.iconbtn{white-space:nowrap;flex:none;background:transparent;border:1px solid var(--color-border-strong);border-radius:var(--r);min-width:44px;height:36px;padding:0 12px;font-size:13px;color:var(--color-text-secondary);transition:background var(--dur) var(--ease)}
 .iconbtn:hover{background:var(--color-surface-2)}
 nav.bottom{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--color-surface);border-top:1px solid var(--color-border);padding-bottom:env(safe-area-inset-bottom);transition:transform var(--dur) var(--ease)}
 nav.bottom .wrap{display:grid;grid-template-columns:repeat(5,1fr);padding:0}
@@ -140,7 +141,7 @@ main#app{padding-top:4px;animation:pagein 180ms var(--ease)}
    SECTIONS & LAYOUT
    ============================================================ */
 .sec{padding:22px 0 6px}
-.sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding-bottom:10px;border-bottom:1px solid var(--color-border);margin-bottom:4px}
+.sec-h{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 12px;padding-bottom:10px;border-bottom:1px solid var(--color-border);margin-bottom:4px}
 .sec-h h2{font-size:var(--fs-h2)}
 .sec-h .aside{font-size:var(--fs-cap);color:var(--color-text-tertiary);font-family:var(--font-mono)}
 .grid2{display:block}
@@ -383,22 +384,95 @@ details.more summary::-webkit-details-marker{display:none}
 @media (min-width:1024px){.toast{bottom:24px;margin-left:calc(var(--side-w)/2)}}
 .back{background:none;border:0;color:var(--color-accent);padding:14px 0 0;font-size:14px;min-height:44px;font-weight:500}
 .foot{font-size:var(--fs-cap);color:var(--color-text-tertiary);margin:28px 0 8px;padding-top:12px;border-top:1px solid var(--color-border)}
+
+/* ---- step-by-step today ---- */
+.stepbar{display:flex;align-items:center;gap:12px;margin:16px 0 4px;font-size:14px;color:var(--color-text-secondary)}
+.stepbar b{color:var(--color-text-primary)}
+.stepbar i{flex:1;height:4px;background:var(--color-border);border-radius:2px;overflow:hidden;display:block}
+.stepbar s{display:block;height:100%;background:var(--color-accent);transition:width 240ms var(--ease)}
+.sgroup{font-size:12px;letter-spacing:.12em;color:var(--color-text-tertiary);margin:22px 0 6px;font-weight:600}
+.step{display:grid;grid-template-columns:32px 1fr auto;gap:0 12px;padding:14px 0;border-top:1px solid var(--color-border);align-items:start}
+.step .sn{width:28px;height:28px;border:1.5px solid var(--color-border-strong);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:13px;color:var(--color-text-secondary);margin-top:1px}
+.step .sb{min-width:0;grid-column:2/3}
+.step .st1{font-size:17px;font-weight:600;line-height:1.4}
+.step .st2{font-size:15px;color:var(--color-text-secondary);margin-top:4px;line-height:1.6}
+.step.cur{background:var(--color-surface);border:1px solid var(--color-border-strong);border-left:3px solid var(--color-accent);border-radius:0 var(--r) var(--r) 0;padding:16px 14px 16px 12px;margin:6px 0}
+.step.cur .sn{background:var(--color-accent);border-color:var(--color-accent);color:var(--color-on-accent)}
+.step.done{padding:10px 0;align-items:center}
+.step.done .st1{font-size:15px;font-weight:500;color:var(--color-text-tertiary)}
+.step.done .st2{font-size:13px;margin-top:1px;color:var(--color-text-tertiary)}
+.step.done .sn{background:var(--color-accent-soft);border-color:transparent}
+.step.done .sn i{width:6px;height:11px;border:solid var(--color-accent);border-width:0 2px 2px 0;transform:rotate(45deg) translate(-1px,-1px);display:block}
+.nexttag{display:inline-block;font-size:11px;font-weight:600;color:var(--color-accent);border:1px solid var(--color-accent);border-radius:var(--r-sm);padding:0 5px;margin-left:6px;vertical-align:2px;letter-spacing:.04em}
+.alldone{margin:24px 0;padding:22px 16px;text-align:center;border:1px solid var(--color-border);border-radius:var(--r);background:var(--color-surface);color:var(--color-text-secondary);font-size:15px;line-height:1.8}
+.alldone b{font-family:var(--font-display);font-size:20px;color:var(--color-text-primary)}
+
+/* ---- v3: agenda ---- */
+.agenda{border-top:1px solid var(--color-border)}
+.ag{display:grid;grid-template-columns:44px 1fr auto;gap:0 10px;align-items:center;min-height:64px;padding:10px 0;border-bottom:1px solid var(--color-border)}
+.ag-slot{font-size:11px;color:var(--color-text-tertiary);letter-spacing:.04em;line-height:1.3}
+.ag-t{font-size:16px;font-weight:600;line-height:1.35}
+.ag-m{font-size:12.5px;color:var(--color-text-tertiary);margin-top:2px}
+.ag-m .ok{color:var(--color-success)}.ag-m .warn{color:var(--color-warning)}
+.ag-r{display:flex;align-items:center;gap:2px}
+.ag.is-next{background:linear-gradient(90deg,var(--color-accent-soft),transparent 70%);box-shadow:inset 3px 0 0 var(--color-accent);padding-left:8px;margin-left:-8px}
+.ag.is-done .ag-t,.ag.is-off .ag-t{color:var(--color-text-tertiary);font-weight:500}
+.more-btn{width:36px;height:44px;border:0;background:none;color:var(--color-text-tertiary);font-size:18px;letter-spacing:1px}
+.resume{display:flex;align-items:center;gap:8px;padding:12px 14px;margin:14px 0 0;border:1px solid var(--color-accent);border-radius:var(--r);background:var(--color-accent-soft)}
+.resume>div{flex:1;min-width:0}
+/* ---- v3: session ---- */
+body.in-session nav.bottom,body.in-session header.top{display:none}
+body.in-session{padding-bottom:24px}
+@media (min-width:1024px){body.in-session{padding-left:0}}
+body.in-session main#app{max-width:560px}
+.ses-top{display:flex;justify-content:space-between;align-items:center;padding-top:calc(env(safe-area-inset-top) + 6px)}
+.ses-prog{margin:12px 0 0;display:flex;align-items:center;gap:12px;font-size:13px;color:var(--color-text-secondary)}
+.ses-prog i{flex:1;display:flex;gap:4px}
+.ses-prog s{flex:1;height:4px;border-radius:2px;background:var(--color-border);text-decoration:none}
+.ses-prog s.ok{background:var(--color-accent)}.ses-prog s.sk{background:var(--color-warning)}.ses-prog s.cur{background:var(--color-text-primary)}
+.ses-title{margin-top:28px;font-size:13px;color:var(--color-text-tertiary)}
+.ses-step{font-size:30px;margin:6px 0 10px;line-height:1.25}
+.ses-body{font-size:18px;line-height:1.7;color:var(--color-text-secondary);margin:0 0 18px}
+.ses-timer{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px;border:1px solid var(--color-border-strong);border-radius:var(--r);background:var(--color-surface);margin:8px 0 16px}
+.ses-timer .tv{font-size:44px;line-height:1;letter-spacing:.02em}
+.ses-timer .tv.end{color:var(--color-accent)}
+.ses-bar{position:sticky;bottom:calc(env(safe-area-inset-bottom) + 10px);display:flex;gap:8px;margin-top:22px;padding:10px;background:var(--color-background);border:1px solid var(--color-border);border-radius:var(--r);box-shadow:0 8px 24px -16px rgba(0,0,0,.35)}
+.ses-foot{display:flex;justify-content:space-between;margin-top:6px}
+/* ---- v3: lifecycle ---- */
+.lc{list-style:none;margin:12px 0 4px;padding:0;display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
+.lc li{font-size:11px;text-align:center;color:var(--color-text-tertiary);padding-top:8px;border-top:3px solid var(--color-border);line-height:1.3}
+.lc li.past{border-top-color:var(--color-accent-soft);color:var(--color-text-secondary)}
+.lc li.on{border-top-color:var(--color-accent);color:var(--color-text-primary);font-weight:600}
+.xprev{padding:12px 0;border-bottom:1px solid var(--color-border)}
+/* ---- v3: calendar ---- */
+.cal-h,.cal-g{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal-h span{font-size:11px;color:var(--color-text-tertiary);text-align:center;padding-bottom:4px}
+.cd{position:relative;min-height:54px;border:1px solid var(--color-border);border-radius:var(--r-sm);background:var(--color-surface);padding:4px 3px 3px;display:flex;flex-direction:column;align-items:center;gap:3px}
+.cd b{font-size:13px;font-weight:500}
+.cd i{width:80%;height:4px;background:var(--color-border);border-radius:2px;overflow:hidden;display:block}
+.cd i.e{background:transparent}
+.cd i s{display:block;height:100%;background:var(--color-accent)}
+.cd em{font-style:normal;font-size:9px;color:var(--color-accent);line-height:1;min-height:9px}
+.cd.today{border-color:var(--color-text-primary)}
+.cd.sel{outline:2px solid var(--color-accent);outline-offset:1px}
+.cd.miss{border-color:var(--color-danger);background:var(--color-danger-soft)}
+.ok{color:var(--color-success)}.warn{color:var(--color-warning)}
 </style>
 
 </head>
 <body>
 <header class="top"><div class="wrap">
   <div class="brand"><span class="mark">N=1</span>HUMAN MICRO-EXPERIMENT</div>
-  <button class="iconbtn" data-act="settings" aria-label="資料與設定">資料</button>
+  <span style="display:flex;gap:6px"><a class="iconbtn" href="#guide" style="display:inline-flex;align-items:center;text-decoration:none">指南</a><button class="iconbtn" data-act="settings" aria-label="資料與設定">資料</button></span>
 </div></header>
 <main class="wrap" id="app"></main>
 <nav class="bottom" aria-label="主要導覽"><div class="wrap">
   <a href="#today" data-nav="today"><b>今日</b>Today</a>
   <a href="#experiments" data-nav="experiments"><b>實驗</b>Experiments</a>
-  <a href="#progress" data-nav="progress"><b>進度</b>Progress</a>
-  <a href="#journal" data-nav="journal"><b>日誌</b>Journal</a>
-  <a href="#research" data-nav="research"><b>文獻</b>Research</a>
-  <div class="side-data"><button class="linkbtn" data-act="settings">資料與設定 →</button><div class="caption">資料僅存於此瀏覽器</div></div>
+  <a href="#tracker" data-nav="tracker"><b>追蹤</b>Tracker</a>
+  <a href="#insights" data-nav="insights"><b>分析</b>Insights</a>
+  <a href="#library" data-nav="library"><b>文獻</b>Library</a>
+  <div class="side-data"><a class="linkbtn" href="#guide" style="display:block;text-decoration:none">使用指南 →</a><button class="linkbtn" data-act="settings">資料與設定 →</button><div class="caption">資料僅存於此瀏覽器</div></div>
 </div></nav>
 <div id="modal"></div>
 <script>
@@ -526,11 +600,11 @@ const EXP={
   target:'夢境回憶、清醒夢頻率',primary:'每週可回憶的夢數',secondary:'清醒夢次數（含短暫清醒）、夢中「這好怪」的念頭',guard:'睡眠時數、主觀睡眠品質、隔日精神',
   tasks(date,i){
     const w=Math.floor(i/7)+1,p=e01Plan(w),dow=weekday(date),out=[];
-    out.push({id:'E01.diary',title:'醒來夢境日記',slot:'起床',minutes:2,kind:'check',how:'醒來先不動、閉眼回想 30 秒，再寫下關鍵畫面、人物、情緒（片段也算）。記得的夢數填在「紀錄」頁。',trigger:'醒來、拿手機之前',mech:'持續記錄會提高夢境回憶（logbook enhancement，P-0053）；夢境回憶是 MILD 成功的預測因子（P-0051、P-0052）。',grade:'B',caution:'只花 1–3 分鐘；沒有夢也記「無」。'});
+    out.push({id:'E01.diary',title:'醒來夢境日記',slot:'起床',minutes:2,kind:'check',how:'醒來先不動、閉眼回想 30 秒，再寫下關鍵畫面、人物、情緒（片段也算）。記得的夢數填在「日誌」頁。',trigger:'醒來、拿手機之前',mech:'持續記錄會提高夢境回憶（logbook enhancement，P-0053）；夢境回憶是 MILD 成功的預測因子（P-0051、P-0052）。',grade:'B',caution:'只花 1–3 分鐘；沒有夢也記「無」。'});
     if(p.intent)out.push({id:'E01.intent',title:'睡前一句意圖',slot:'睡前',minutes:0.2,kind:'check',how:'躺下後說一次：「下次做夢時，我會記得自己在做夢。」只說一次，不反覆練習。',trigger:'關燈躺下',mech:'MILD 的核心是前瞻記憶意圖（P-0051）。睡前單句是簡化版，未經直接驗證。',grade:'C',caution:'躺床 20 分鐘睡不著就放下練習。'});
     if(p.rt)out.push({id:'E01.rt',title:'白天現實檢查',slot:'白天',minutes:1,kind:'counter',min:p.rtMin,max:p.rtMax,how:'遇到夢境徵兆或固定觸發（進門、看時間）時：問「我在做夢嗎？」再讀一次文字或看時鐘確認。每次數秒。',trigger:'夢境徵兆、進門、看時間',mech:'單獨使用的短期研究無效（P-0052、Taitz 2011 經 P-0052 引述）；在組合中的貢獻不明。',grade:'C',caution:'不在過馬路、騎車、開車時做。'});
     if(p.mild)out.push({id:'E01.mild',title:'半夜自然醒時做 MILD',slot:'夜間',minutes:2,kind:'cond',how:'只在自然醒來時：回想剛才的夢 → 默念「下次做夢時，我會記得自己在做夢」→ 想像回到夢中並察覺是夢 → 盡快入睡。',trigger:'半夜自然醒來（不設鬧鐘）',mech:'MILD 為目前證據最佳的認知技術（P-0050、P-0052）；完成後 5 分鐘內入睡的成功率最高（P-0051）。',grade:'B',caution:'沒自然醒就選「今晚不適用」，不計入完成率。'});
-    if((w===2||w===8)&&dow===6)out.push({id:w===2?'E01.signs':'E01.review8',title:w===2?'找出 3 個夢境徵兆':'8 週回顧與結算',slot:'週日',minutes:w===2?3:10,kind:'check',how:w===2?'翻閱本週日記，寫下 3 個反覆出現的人物、地點或怪事，作為現實檢查的觸發。':'到「進度 → 月回顧」查看夢數、清醒夢次數與守門指標，對實驗 01 做 KEEP／MODIFY／PAUSE 決策。',trigger:'週日晚上',mech:w===2?'夢境徵兆用來提高現實檢查與 MILD 的相關性（INFERENCE）。':'依資料決策，而不是依完成率。',grade:'—',caution:''});
+    if((w===2||w===8)&&dow===6)out.push({id:w===2?'E01.signs':'E01.review8',title:w===2?'找出 3 個夢境徵兆':'8 週回顧與結算',slot:'週日',minutes:w===2?3:10,kind:'check',how:w===2?'翻閱本週日記，寫下 3 個反覆出現的人物、地點或怪事，作為現實檢查的觸發。':'到「分析 → 月回顧」查看夢數、清醒夢次數與守門指標，對實驗 01 做 KEEP／MODIFY／PAUSE 決策。',trigger:'週日晚上',mech:w===2?'夢境徵兆用來提高現實檢查與 MILD 的相關性（INFERENCE）。':'依資料決策，而不是依完成率。',grade:'—',caution:''});
     return out;
   }},
  E02:{id:'E02',name:'實驗 02：提取練習＋延遲回憶',short:'提取練習',domain:'記憶與學習',grade:'A',intervention:'I-MEM-001',
@@ -565,6 +639,7 @@ function load(){
   for(const k of ['days','experiments'])if(!state[k])state[k]={};
   if(!state.measurements)state.measurements=[];
   if(!state.reviews)state.reviews={weekly:{},monthly:{}};
+  ensureMeta();
 }
 function save(){
   try{localStorage.setItem(KEY,JSON.stringify(state));storageOK=true;return true}
@@ -634,6 +709,7 @@ function taskStats(dates){
 function expAdherence(id,dates){const st=taskStats(dates);let den=0,num=0;Object.values(st).filter(o=>o.exp===id&&o.kind!=='cond'&&o.kind!=='measure').forEach(o=>{den+=o.sched-o.na;num+=o.done});return den?num/den:null}
 const METRICS=[['sleepH','睡眠時數','h',0,12],['sleepQ','睡眠品質','',1,10],['alert','起床精神','',1,10],['clarity','精神清晰度','',1,10],['focus','專注程度','',1,10],['memory','主觀記憶','',1,10],['fatigue','身體疲勞（高＝累）','',1,10],['soreness','肌肉痠痛（高＝痠）','',1,10]];
 function vals(dates,k){return dates.map(s=>{const l=logOf(s);return l&&l[k]!=null&&l[k]!==''?+l[k]:null})}
+function sd(a){const v=a.filter(x=>x!=null&&!isNaN(x));if(v.length<2)return null;const m=v.reduce((p,c)=>p+c,0)/v.length;return Math.sqrt(v.reduce((p,c)=>p+(c-m)**2,0)/(v.length-1))}
 function mean(a){const v=a.filter(x=>x!=null&&!isNaN(x));return v.length?{m:v.reduce((p,c)=>p+c,0)/v.length,n:v.length}:{m:null,n:0}}
 function periodsSplit(today){
   const S=state.settings.startDate,B=state.settings.baselineDays,bEnd=addDays(S,B-1),iStart=addDays(S,B);
@@ -744,8 +820,9 @@ function lineChart(dates,ys,min,max,unit){
   let path='',seg=false,dots='';
   ys.forEach((v,i)=>{if(v==null){seg=false;return}path+=(seg?'L':'M')+x(i).toFixed(1)+' '+y(v).toFixed(1);seg=true;dots+='<circle cx="'+x(i).toFixed(1)+'" cy="'+y(v).toFixed(1)+'" r="'+(n>45?2:3)+'" fill="var(--accent)" stroke="var(--surface)" stroke-width="1.5"/>'});
   charts[id]={dates,ys,x,unit,W,H,T,ih};
-  const has=ys.some(v=>v!=null);
-  return '<div class="chart" data-chart="'+id+'"><svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="趨勢圖，'+n+' 天">'+axisFrame(W,H,L,R,T,ih,min,max,ticks,y)+(has?'<path d="'+path+'" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>'+dots:'<text x="'+(L+iw/2)+'" y="'+(T+ih/2)+'" font-size="11" text-anchor="middle" fill="var(--muted)">尚無資料</text>')+xLabels(dates,x,H)+'<line class="cross" x1="0" x2="0" y1="'+T+'" y2="'+(T+ih)+'" stroke="var(--ink2)" stroke-width="1" stroke-dasharray="2 2" visibility="hidden"/></svg><div class="tip">點按圖表查看單日數值</div></div>';
+  const has=ys.some(v=>v!=null);let band='';
+  if(/^\d{4}-\d{2}-\d{2}$/.test(dates[0])){const S=state.settings.startDate,E=addDays(S,state.settings.baselineDays-1),idx=dates.map((d,i)=>d>=S&&d<=E?i:-1).filter(i=>i>=0);if(idx.length){const step=n>1?iw/(n-1):iw,x0=Math.max(L,x(idx[0])-step/2),x1=Math.min(W-R,x(idx[idx.length-1])+step/2);band='<rect x="'+x0+'" y="'+T+'" width="'+Math.max(1,x1-x0)+'" height="'+ih+'" fill="var(--color-surface-2)"/><text x="'+(x0+3)+'" y="'+(T+9)+'" font-size="8.5" fill="var(--muted)">基準期</text>'}}
+  return '<div class="chart" data-chart="'+id+'"><svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="趨勢圖，'+n+' 天">'+band+axisFrame(W,H,L,R,T,ih,min,max,ticks,y)+(has?'<path d="'+path+'" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>'+dots:'<text x="'+(L+iw/2)+'" y="'+(T+ih/2)+'" font-size="11" text-anchor="middle" fill="var(--muted)">尚無資料</text>')+xLabels(dates,x,H)+'<line class="cross" x1="0" x2="0" y1="'+T+'" y2="'+(T+ih)+'" stroke="var(--ink2)" stroke-width="1" stroke-dasharray="2 2" visibility="hidden"/></svg><div class="tip">點按圖表查看單日數值</div></div>';
 }
 function barChart(labels,ys,max,unit,fmt){
   const id='c'+(chartSeq++),W=320,H=124,L=28,R=8,T=10,Bm=22,n=labels.length,iw=W-L-R,ih=H-T-Bm,bw=Math.max(2,Math.min(22,iw/n-3));
@@ -776,8 +853,9 @@ let view={date:null,route:'today',progTab:'trend',progRange:30,weekOf:null,month
 function render(){
   chartSeq=0;for(const k in charts)delete charts[k];
   const r=(location.hash||'#today').slice(1),[name,arg]=r.split('/');view.route=name;
-  document.querySelectorAll('nav.bottom a').forEach(a=>{const on=a.dataset.nav===(name==='exp'?'experiments':name);a.classList.toggle('on',on);if(on)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
-  const fn={today:vToday,experiments:vExperiments,exp:()=>vExpDetail(arg),progress:vProgress,journal:vJournal,research:vResearch}[name]||vToday;
+  document.querySelectorAll('nav.bottom a').forEach(a=>{const NAVMAP={exp:'experiments',journal:'tracker',progress:'insights',research:'library'};const on=a.dataset.nav===(NAVMAP[name]||name);a.classList.toggle('on',on);if(on)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+  const fn={today:vToday,experiments:vExperiments,exp:()=>vExpDetail(arg),progress:vProgress,journal:()=>{view.trTab='log';return vTracker()},tracker:vTracker,insights:vProgress,progress:vProgress,research:vLibrary,library:vLibrary,session:vSession,guide:vGuide}[name]||vToday;
+  document.body.classList.toggle('in-session',name==='session');clearInterval(sesTimer);if(name==='session')sesTimer=setInterval(sesTick,250);
   const app=$('#app');app.innerHTML=fn();app.style.animation='none';void app.offsetWidth;app.style.animation='';
 }
 function longDate(s){const d=parseYmd(s);return d.getFullYear()+' 年 '+(d.getMonth()+1)+' 月 '+d.getDate()+' 日・星期'+WD[weekday(s)]}
@@ -810,42 +888,121 @@ function recentActivity(today,limit){
   return evs.sort((a,b)=>b.at.localeCompare(a.at)).slice(0,limit);
 }
 function whenText(iso,today){const d=new Date(iso),s=ymd(d);return s===ymd(new Date())?fmtTime(iso):fmtDate(s,false)}
-function vToday(){
-  const today=logicalToday(),date=view.date||today,ph=phaseOf(date),c=dayCompletion(date),log=logOf(date);
-  const ws=weekStart(date),wk=aggCompletion(range(ws,date));
-  let h='<div class="phead"><div class="eyebrow">'+longDate(date)+(date===today?'':date<today?'・過去日期':'・未來日期')+'</div><div class="row"><h1>'+(ph.i>=0?'第 <span class="num">'+(ph.i+1)+'</span> 天':'開始前 <span class="num">'+(-ph.i)+'</span> 天')+'</h1><div class="dnav"><button data-act="day" data-d="-1" aria-label="前一天">‹</button><button data-act="day" data-d="1" aria-label="後一天">›</button></div></div>';
-  const wr=e01WeekRange(date);
-  h+='<div class="ctx"><span>'+esc(ph.label)+'</span>'+(wr?'<span>本週內容：'+esc(e01Plan(wr.w).label)+'</span>'+(e01Plan(wr.w).wbtbCap||wbtbUsed(wr.a,wr.b)?'<span>本週 WBTB <span class="num">'+wbtbUsed(wr.a,wr.b)+'／上限 '+e01Plan(wr.w).wbtbCap+'</span></span>':''):'')+(date!==today?'<a href="#today" data-act="gotoday">回到今天</a>':'')+'</div></div>';
-  // alerts first (functional color only)
-  let alerts='';
-  if(ph.key==='pre')alerts+='<div class="info">專案預定 <b>'+fmtDate(state.settings.startDate)+'</b> 開始。開始前可先：加到主畫面、在「日誌」試填一次、在「資料」試做 JSON 匯出。</div>';
-  if(wr){const p=e01Plan(wr.w),used=wbtbUsed(wr.a,wr.b);
-    if(used>p.wbtbCap)alerts+='<div class="notice"><b>WBTB 超過本週上限</b>（'+used+'／'+p.wbtbCap+'）。依睡眠保護規則，本週不再做。</div>';
-    if(guardAlert(date))alerts+='<div class="notice"><b>守門指標警示</b>　連續 2 天睡眠品質 ≤ 4。取消本週剩下的 WBTB；若持續，考慮暫停。</div>';}
-  // focus
-  const pend=c.tasks.filter(t=>{const r=taskRec(date,t.id);return !r||(t.kind==='counter'&&!isDone(t,r)&&r.status!=='skipped')});
-  const focus=pend.find(t=>t.kind!=='cond')||pend[0];
-  let left='';
-  if(focus){const meta=expMeta(focus.exp);
-    left+='<section class="focus" aria-label="今日焦點"><div class="k"><span class="eyebrow">今日焦點</span>'+ev(focus.grade)+'</div><h2>'+esc(focus.title)+'</h2><div class="meta">'+esc(meta.name)+'・'+esc(focus.slot)+'・<span class="num">'+minsText(focus.minutes)+'</span></div><p>'+esc(focus.how)+'</p>'+taskActions(focus,date,true)+'<details class="more"><summary>依據與注意事項</summary>'+taskDetail(focus)+'</details></section>';
-  }else if(c.tasks.length){left+='<section class="focus clear"><span class="eyebrow">今日實驗</span><h2>今日排定項目已全部處理</h2><p>完成 <span class="num">'+c.done+'／'+c.req+'</span>。'+(log?'':'還差每日日誌。')+'</p>'+(log?'':'<div class="btnrow"><a class="btn pri" href="#journal">填寫日誌</a></div>')+'</section>'}
-  else left+='<section class="focus clear"><span class="eyebrow">今日實驗</span><h2>今天沒有排定的實驗</h2><p>'+(ph.key==='pre'?'專案尚未開始。':'可以只填寫每日日誌。')+'</p></section>';
-  const rest=c.tasks.filter(t=>t!==focus);
-  left+='<section class="sec">'+sectionHead('今日實驗','<span class="num">'+(c.req?c.done+'/'+c.req:'—')+'</span> 完成・約 '+Math.ceil(c.mins)+' 分')+(rest.length?'<div class="tasks">'+rest.map(t=>taskRow(t,date)).join('')+'</div>':'<div class="empty">'+(focus?'沒有其他項目。':'—')+'</div>')+'</section>';
-  // right column
-  let right='<section class="sec">'+sectionHead('今日狀態',log?'日誌已存 '+fmtTime(log.savedAt):'日誌未填');
-  const fig=(v,unit,l)=>'<div><div class="fig-v'+(v==null?' na':'')+'">'+(v==null?'未記錄':v+(unit?'<small>'+unit+'</small>':''))+'</div><div class="fig-l">'+l+'</div></div>';
-  right+='<div class="figs four">'+fig(log&&log.sleepH!=null?log.sleepH:null,'h','睡眠時數')+fig(log&&log.sleepQ||null,'/10','睡眠品質')+fig(log&&log.clarity||null,'/10','精神清晰度')+fig(log&&log.fatigue||null,'/10','身體疲勞')+'</div>';
-  if(!log&&ph.key!=='pre')right+='<div class="btnrow"><a class="btn grow" href="#journal">填寫今日日誌（約 1–2 分）</a></div>';
-  right+='</section>';
-  const d7=range(addDays(date,-6),date);
-  right+='<section class="sec">'+sectionHead('近期變化','近 7 天・'+fmtDate(d7[0],false)+'–'+fmtDate(date,false));
-  [['sleepQ','睡眠品質',1,10],['clarity','精神清晰度',1,10],['focus','專注程度',1,10],['fatigue','身體疲勞',1,10]].forEach(([k,l,mn,mx])=>{const ys=vals(d7,k),m=mean(ys);
-    right+='<div class="spark"><span>'+l+'</span>'+(m.n>=3?spark(ys,mn,mx):'<span class="na">尚無足夠資料（n='+m.n+'，需 ≥ 3）</span>')+'<span class="sv">'+(m.n>=3?f1(m.m):'—')+'</span></div>'});
-  right+='<div class="spark"><span>本週完成率</span><span class="caption">'+fmtDate(ws,false)+' 起</span><span class="sv">'+pct(wk.rate)+'</span></div><p class="caption">右側數值為 7 天平均。單週波動不代表介入效果。</p></section>';
-  const acts=recentActivity(today,6);
-  right+='<section class="sec">'+sectionHead('近期活動')+(acts.length?'<ul class="activity">'+acts.map(a=>'<li><time>'+whenText(a.at)+'</time><span>'+esc(a.txt)+'</span></li>').join('')+'</ul>':'<div class="empty">尚無活動</div>')+'</section>';
-  return h+alerts+'<div class="grid2"><div class="col-l">'+left+'</div><div class="col-r">'+right+backupReminder()+'</div></div>';
+/* ---------- TODAY：一步一步的今日清單 ---------- */
+const STEP_COPY={
+ 'E01.diary':{title:'寫下昨晚的夢',line:'先別動，閉眼回想 30 秒，再寫在筆記本或備忘錄。記不得就寫「沒有」。',ok:'寫好了'},
+ 'E01.rt':{title:'現實檢查',line:'問自己「我在做夢嗎？」再看一次手上的字或時間。每做一次就按 ＋。'},
+ 'E02.recall':{title:'讀書前，先回想上次讀的',line:'闔上筆記，用 2 分鐘寫下上次的 3–5 個重點，再對答案。',ok:'做了',na:'今天沒讀書'},
+ 'E02.test':{title:'這週的回憶小考',line:'不看資料，寫出這週的 10 個概念，對答案後記下分數。',ok:'記錄分數'},
+ 'E01.intent':{title:'躺下後說一次',line:'「下次做夢時，我會記得自己在做夢。」說一次就好，然後睡覺。',ok:'說了'},
+ 'E01.mild':{title:'如果半夜自然醒來',line:'回想剛才的夢 → 默念上面那句話 → 想像回到夢裡、發現是夢 → 馬上睡回去。明早再回來勾。',ok:'做了',na:'沒醒來'},
+ 'E01.signs':{title:'找出 3 個夢境徵兆',line:'翻這週寫的夢，找 3 個常出現的人、地方或怪事，記在日誌。',ok:'找好了'},
+ 'E01.review8':{title:'8 週回顧',line:'到「分析 → 月回顧」看結果，決定要不要繼續。',ok:'看完了'}
+};
+const WEEK_NEW={1:'寫夢境日記',2:'睡前說一句話',3:'白天做現實檢查',4:'半夜醒來做 MILD',5:'可以試一次 WBTB',6:'WBTB 最多 2 次',7:'休息週，不做 WBTB',8:'最後一週'};
+const Q_LABEL={sleepQ:['睡得好嗎？','1 很差','10 很好'],alert:['起床時精神？','1 很昏沉','10 很清醒'],clarity:['今天腦袋清楚嗎？','1 很混亂','10 很清楚'],focus:['專注得怎樣？','1 一直分心','10 很專注'],fatigue:['身體累嗎？','1 不累','10 很累']};
+function copyFor(t){const c=STEP_COPY[t.id];if(c)return c;return{title:t.title,line:t.how,ok:'完成',na:t.kind==='cond'?'今天不適用':null}}
+function buildSteps(date){
+  const ts=tasksFor(date),take=id=>{const i=ts.findIndex(t=>t.id===id);return i<0?null:ts.splice(i,1)[0]},steps=[];
+  const add=(g,x)=>x&&steps.push(Object.assign({g},x.id?{type:'task',t:x}:x));
+  add('起床',take('E01.diary'));add('起床',{type:'am'});
+  add('白天',take('E01.rt'));add('白天',take('E02.recall'));
+  ts.filter(t=>t.id.startsWith('C.')).forEach(t=>{take(t.id);add('白天',t)});
+  add('睡前',{type:'pm'});add('睡前',take('E01.intent'));add('半夜',take('E01.mild'));
+  ts.slice().forEach(t=>add('週日',take(t.id)));
+  if(weekday(date)===6)add('週日',{type:'backup'});
+  return steps;
+}
+function stepHandled(s,date){
+  const log=logOf(date)||{};
+  if(s.type==='task'){const r=taskRec(date,s.t.id);return isDone(s.t,r)||!!(r&&(r.status==='skipped'||r.status==='na'))}
+  if(s.type==='am')return log.sleepQ!=null||!!log.bed;
+  if(s.type==='pm')return log.clarity!=null||log.focus!=null||log.fatigue!=null;
+  if(s.type==='backup')return !!(state.settings.lastExport&&ymd(new Date(state.settings.lastExport))>=date);
+  return false;
+}
+function qInit(date){
+  if(view.q&&view.q.date===date)return view.q;
+  const l=logOf(date)||{};
+  view.q={date,am:{bed:l.bed||'',wake:l.wake||'',sleepQ:l.sleepQ||null,alert:l.alert||null,dreams:(l.e01&&l.e01.dreams)||0,wbtb:l.e01?l.e01.wbtb:null},pm:{clarity:l.clarity||null,focus:l.focus||null,fatigue:l.fatigue||null,conf:(l.conf||[]).slice()},edit:{}};
+  return view.q;
+}
+function qScale(part,k){const v=view.q[part][k],[q,lo,hi]=Q_LABEL[k];
+  return '<div class="field"><span class="flabel">'+q+'</span><div class="scale" role="group" aria-label="'+q+'">'+Array.from({length:10},(_,i)=>'<button data-act="qrate" data-part="'+part+'" data-k="'+k+'" data-v="'+(i+1)+'" class="'+(v==i+1?'on':'')+'" aria-pressed="'+(v==i+1)+'">'+(i+1)+'</button>').join('')+'</div><div class="scaledef" style="display:flex;justify-content:space-between"><span>'+lo+'</span><span>'+hi+'</span></div></div>'}
+function amForm(date){
+  const q=view.q.am,e01on=state.experiments.E01&&activeOn(state.experiments.E01,date),wr=e01WeekRange(date),cap=wr?e01Plan(wr.w).wbtbCap:0,sh=sleepHours(q.bed,q.wake);
+  let h='<div class="two" style="margin-top:12px"><div class="field" style="margin:0"><label for="qbed">幾點睡著</label><input type="time" id="qbed" data-q="bed" value="'+esc(q.bed)+'"></div><div class="field" style="margin:0"><label for="qwake">幾點起床</label><input type="time" id="qwake" data-q="wake" value="'+esc(q.wake)+'"></div></div><div class="hint" id="qsleepH">'+(sh!=null?'睡了 <span class="num">'+sh+'</span> 小時':'')+'</div>';
+  h+=qScale('am','sleepQ')+qScale('am','alert');
+  if(e01on)h+='<div class="field"><span class="flabel">記得幾個夢？</span><div class="counter big" style="display:inline-flex"><button data-act="qstep" data-d="-1" aria-label="減一">−</button><div class="n">'+q.dreams+'</div><button data-act="qstep" data-d="1" aria-label="加一">＋</button></div></div>';
+  if(cap>0||q.wbtb)h+='<div class="field"><span class="flabel">昨晚有做 WBTB 嗎？</span><div class="chips">'+[[true,'有'],[false,'沒有']].map(([v,l])=>'<button data-act="qsel" data-v="'+v+'" class="'+(q.wbtb===v?'on':'')+'">'+l+'</button>').join('')+'</div></div>';
+  return h+'<div class="btnrow"><button class="btn pri grow" data-act="qsave" data-part="am">儲存</button></div>';
+}
+function pmForm(){
+  const q=view.q.pm;
+  return qScale('pm','clarity')+qScale('pm','focus')+qScale('pm','fatigue')+'<div class="field"><span class="flabel">今天有特別狀況嗎？（可不選）</span><div class="chips">'+['熬夜／晚睡','考試或截止日','生病','飲酒','高壓事件','咖啡因晚於 14:00'].map(c=>'<button data-act="qconf" data-v="'+c+'" class="'+(q.conf.includes(c)?'on':'')+'">'+c+'</button>').join('')+'</div></div><div class="btnrow"><button class="btn pri grow" data-act="qsave" data-part="pm">儲存</button></div><p class="caption" style="margin-top:8px">想多寫一點？到「日誌」。</p>';
+}
+function stepSummary(s,date){
+  const l=logOf(date)||{};
+  if(s.type==='am')return '睡了 '+(l.sleepH!=null?l.sleepH+' 小時':'—')+'・睡眠 '+(l.sleepQ||'—')+'/10'+(l.e01&&l.e01.dreams!=null?'・夢 '+l.e01.dreams+' 個':'');
+  if(s.type==='pm')return '清楚 '+(l.clarity||'—')+'・專注 '+(l.focus||'—')+'・疲勞 '+(l.fatigue||'—');
+  if(s.type==='backup')return '已備份';
+  const r=taskRec(date,s.t.id);if(!r)return '';
+  if(r.status==='skipped')return '今天跳過（'+r.reason+'）';if(r.status==='na')return copyFor(s.t).na||'不適用';
+  return (r.count!=null?r.count+' 次・':'')+'完成 '+fmtTime(r.at);
+}
+function stepBody(s,date){
+  if(s.type==='am')return {title:'記錄睡眠',line:'',form:amForm(date)};
+  if(s.type==='pm')return {title:'記錄今天的狀態',line:'',form:pmForm()};
+  if(s.type==='backup')return {title:'備份資料',line:'資料只存在這支手機。按一下存一份到雲端硬碟。',form:'<div class="btnrow"><button class="btn pri grow" data-act="export-json">匯出備份</button></div>'};
+  const t=s.t,c=copyFor(t),r=taskRec(date,t.id);let a;
+  if(t.kind==='counter'){const n=r&&r.count||0;a='<div class="btnrow" style="align-items:center"><div class="counter big"><button data-act="cnt" data-d="-1" data-t="'+t.id+'" aria-label="減一">−</button><div class="n" aria-live="polite">'+n+'</div><button data-act="cnt" data-d="1" data-t="'+t.id+'" aria-label="加一">＋</button></div><span class="small ink2">今天 '+t.min+'–'+t.max+' 次</span></div>'+(n<t.min?'<button class="linkbtn" data-act="skip" data-t="'+t.id+'">今天不做</button>':'')}
+  else if(t.kind==='measure')a='<div class="btnrow"><button class="btn pri grow" data-act="measure" data-t="'+t.id+'">'+c.ok+'</button></div><button class="linkbtn" data-act="skip" data-t="'+t.id+'">這週不做</button>';
+  else a='<div class="btnrow"><button class="btn pri grow" data-act="done" data-t="'+t.id+'">'+(c.ok||'完成')+'</button>'+(c.na?'<button class="btn" data-act="na" data-t="'+t.id+'">'+c.na+'</button>':'')+'</div>'+(c.na?'':'<button class="linkbtn" data-act="skip" data-t="'+t.id+'">今天不做</button>');
+  return {title:c.title,line:c.line,form:a};
+}
+function greet(){const h=new Date().getHours();return h<5?'夜深了':h<11?'早安':h<14?'午安':h<18?'午後好':'晚安'}
+function vToday_v2(){
+  const today=logicalToday(),date=view.date||today,ph=phaseOf(date),wr=e01WeekRange(date);qInit(date);
+  let h='<div class="phead" style="padding-bottom:16px"><div class="eyebrow">'+(date===today?greet():date<today?'補登過去的日子':'未來的日子')+'</div><div class="row"><h1 style="font-size:28px">'+fmtDate(date)+'</h1><div class="dnav"><button data-act="day" data-d="-1" aria-label="前一天">‹</button><button data-act="day" data-d="1" aria-label="後一天">›</button></div></div><div class="ctx">'+(ph.key==='pre'?'<span>還有 <span class="num">'+(-ph.i)+'</span> 天開始</span>':'<span>第 <span class="num">'+(ph.i+1)+'</span> 天</span>'+(wr?'<span>這週新增：'+esc(WEEK_NEW[wr.w]||'維持')+'</span>':''))+(date!==today?'<a href="#today" data-act="gotoday">回到今天</a>':'')+'</div></div>';
+  if(ph.key==='pre')return h+vPrestart(date);
+  if(wr&&guardAlert(date))h+='<div class="notice">最近兩晚都沒睡好。<b>這週先不要做 WBTB。</b></div>';
+  const steps=buildSteps(date),done=steps.filter(s=>stepHandled(s,date)).length,cur=steps.find(s=>!stepHandled(s,date));
+  h+='<div class="stepbar"><span>今天 <b class="num">'+done+' / '+steps.length+'</b></span><i><s style="width:'+(steps.length?Math.round(done/steps.length*100):0)+'%"></s></i></div>';
+  let g='',n=0;
+  steps.forEach(s=>{n++;const handled=stepHandled(s,date),isCur=s===cur,key=s.type==='task'?s.t.id:s.type,editing=view.q.edit[key]&&!(s.type==='task'&&handled);
+    if(s.g!==g){g=s.g;h+='<div class="sgroup">'+g+'</div>'}
+    const b=stepBody(s,date);
+    if(handled&&!editing){h+='<div class="step done"><span class="sn"><i></i></span><div class="sb"><div class="st1">'+esc(b.title)+'</div><div class="st2">'+esc(stepSummary(s,date))+'</div></div><button class="linkbtn" data-act="'+(s.type==='task'?'undo':s.type==='backup'?'export-json':'qedit')+'" data-t="'+key+'" data-part="'+key+'">'+(s.type==='task'?'復原':s.type==='backup'?'再存一次':'修改')+'</button></div>';return}
+    const open=isCur||editing||s.type==='task'&&s.t.kind==='counter';
+    h+='<div class="step'+(isCur?' cur':'')+'"><span class="sn">'+n+'</span><div class="sb"><div class="st1">'+esc(b.title)+(isCur?' <span class="nexttag">下一步</span>':'')+'</div>'+(b.line?'<div class="st2">'+esc(b.line)+'</div>':'')+(open?b.form:'<button class="linkbtn" data-act="qopen" data-t="'+key+'">開始</button>')+'</div></div>';
+  });
+  if(wr&&!guardAlert(date)){const cap=e01Plan(wr.w).wbtbCap,left=cap-wbtbUsed(wr.a,wr.b);if(left>0)h+='<div class="info small">這週還可以做 <b>'+left+'</b> 次 WBTB（可不做）。選隔天能睡晚的晚上：睡 5 小時後起來 10–30 分鐘，再做 MILD 回去睡。</div>'}
+  if(!cur)h+='<div class="alldone"><b>今天都完成了。</b><br>明天見。</div>';
+  return h+(weekday(date)===6?'':backupReminder());
+}
+function vPrestart(date){
+  const S=state.settings.startDate,setup=state.settings.setup||{},hasLog=Object.values(state.days).some(d=>d.log),exp=!!state.settings.lastExport;
+  const items=[
+    ['把這個網頁加到主畫面','iPhone：Safari 下方「分享」→「加入主畫面」。Android：Chrome 右上「⋮」→「安裝應用程式」。',!!setup.home,'<button class="btn pri grow" data-act="setup-home">加好了</button>'],
+    ['試記一次睡眠','到「日誌」隨便填幾格、按儲存，熟悉一下就好。',hasLog,'<a class="btn pri grow" href="#journal">去日誌</a>'],
+    ['試存一次備份','按下去會下載一個檔案，存到雲端硬碟。',exp,'<button class="btn pri grow" data-act="export-json">匯出備份</button>']
+  ];
+  const cur=items.findIndex(x=>!x[2]);
+  let h='<div class="stepbar"><span>開始前準備 <b class="num">'+items.filter(x=>x[2]).length+' / 3</b></span><i><s style="width:'+Math.round(items.filter(x=>x[2]).length/3*100)+'%"></s></i></div><div class="sgroup">這幾天</div>';
+  items.forEach(([t,l,ok,btn],i)=>{h+=ok?'<div class="step done"><span class="sn"><i></i></span><div class="sb"><div class="st1">'+t+'</div></div></div>':'<div class="step'+(i===cur?' cur':'')+'"><span class="sn">'+(i+1)+'</span><div class="sb"><div class="st1">'+t+(i===cur?' <span class="nexttag">下一步</span>':'')+'</div><div class="st2">'+l+'</div><div class="btnrow">'+(i===cur?btn:btn.replace('btn pri','btn'))+'</div></div></div>'});
+  h+='<div class="sgroup">'+fmtDate(S)+' 開始後，每天會是這樣</div><div class="step"><span class="sn">1</span><div class="sb"><div class="st1">起床：寫下夢、記錄睡眠</div><div class="st2">約 2 分鐘</div></div></div><div class="step"><span class="sn">2</span><div class="sb"><div class="st1">睡前：記錄今天的狀態</div><div class="st2">約 1 分鐘</div></div></div><p class="caption">之後每週會多一個小項目，時間到了會自己出現在這裡。</p>';
+  return h;
+}
+
+function quickSave(part){
+  const date=view.q.date,q=view.q[part];
+  if(part==='am'&&!q.sleepQ&&!q.bed){toast('至少填睡著時間或「睡得好嗎」');return}
+  if(part==='pm'&&!q.clarity&&!q.focus&&!q.fatigue){toast('至少選一個分數');return}
+  const d=day(date,true),o=d.log?JSON.parse(JSON.stringify(d.log)):{};if(!o.e01)o.e01={};if(!o.conf)o.conf=[];
+  if(part==='am'){o.bed=q.bed||o.bed;o.wake=q.wake||o.wake;o.sleepQ=q.sleepQ;o.alert=q.alert;o.sleepH=sleepHours(o.bed,o.wake);if(state.experiments.E01&&activeOn(state.experiments.E01,date))o.e01.dreams=q.dreams;if(q.wbtb!=null)o.e01.wbtb=q.wbtb}
+  else{o.clarity=q.clarity;o.focus=q.focus;o.fatigue=q.fatigue;const quick=['熬夜／晚睡','考試或截止日','生病','飲酒','高壓事件','咖啡因晚於 14:00'];o.conf=o.conf.filter(c=>!quick.includes(c)).concat(q.conf)}
+  const now=new Date().toISOString();o.savedAt=now;o.createdAt=o.createdAt||now;d.log=o;
+  if(save()){view.q=null;jDraft=null;jDirty=false;closeSheet();toast('已儲存');render()}
 }
 function backupReminder(){
   const le=state.settings.lastExport,n=Object.keys(state.days).length;if(!n)return '';
@@ -855,7 +1012,7 @@ function backupReminder(){
 }
 
 /* ---------- EXPERIMENTS ---------- */
-function vExperiments(){
+function vExperiments_v2(){
   const today=logicalToday();
   let h='<div class="phead"><div class="eyebrow">Experiments</div><h1>實驗管理</h1><p class="lede">一次引入一項主要介入。候選方法等前一項資料足夠後再加入；啟用前請先確認證據等級與微型版本是否有直接證據。</p></div>';
   h+='<section class="sec">'+sectionHead('正式實驗','2 項');
@@ -886,7 +1043,7 @@ function specSheet(id,meta,iv){
    row('證據等級',ev(meta.grade)+'　<span class="ink2">'+esc(iv.gradeNote||'')+'</span>',true)+
    (e?row('守門指標',esc(e.guard),true):'')+'</dl>';
 }
-function vExpDetail(id){
+function vExpDetail_v2(id){
   const today=logicalToday(),meta=expMeta(id);if(!meta)return '<div class="empty">找不到此實驗</div>';
   const iv=INTERVENTIONS.find(x=>x.id===(EXP[id]?EXP[id].intervention:id))||{};
   const st=expStatus(id,today),ex=state.experiments[id];
@@ -906,7 +1063,7 @@ function vExpDetail(id){
   if(ex)h+='<p class="caption" style="margin-top:12px">執行期間：'+ex.periods.map(p=>fmtDate(p.start,false)+'–'+(p.end?fmtDate(p.end,false):'進行中')).join('、')+'</p>';
   h+='</section>';
   if(id==='E02'){const ms=state.measurements.filter(m=>m.key==='recall').sort((a,b)=>b.date.localeCompare(a.date));h+='<section class="sec">'+sectionHead('測量結果',ms.length+' 次')+(ms.length?ms.map(measRow).join(''):'<div class="empty">尚無測驗紀錄</div>')+'</section>'}
-  h+='<section class="sec">'+sectionHead('決策紀錄')+(ex&&ex.decisions.length?ex.decisions.map(d=>'<div class="list-row small"><span class="num">'+d.month+'</span><span><b>'+d.decision+'</b>　'+esc(d.note||'')+'</span></div>').join(''):'<div class="empty">尚無月度決策。於「進度 → 月回顧」記錄。</div>')+'</section></div></div>';
+  h+='<section class="sec">'+sectionHead('決策紀錄')+(ex&&ex.decisions.length?ex.decisions.map(d=>'<div class="list-row small"><span class="num">'+d.month+'</span><span><b>'+d.decision+'</b>　'+esc(d.note||'')+'</span></div>').join(''):'<div class="empty">尚無月度決策。於「分析 → 月回顧」記錄。</div>')+'</section></div></div>';
   return h;
 }
 function activationWarnings(id,today){
@@ -982,7 +1139,7 @@ function vJournal(){
   h+='<div class="entry">'+no()+'<div><h3>干擾因素與特殊狀況</h3><div class="field"><div class="chips">'+CONFOUNDERS.map(c=>'<button data-act="jconf" data-v="'+c+'" class="'+(d.conf.includes(c)?'on':'')+'" aria-pressed="'+d.conf.includes(c)+'">'+c+'</button>').join('')+'</div></div><div class="field"><label for="caf">最後一次咖啡因</label><input type="time" id="caf" data-j="caf" value="'+esc(d.caf||'')+'"></div><div class="field"><label for="note">特殊狀況</label><textarea id="note" data-j="note" placeholder="生病、異常感受、當天的干擾">'+esc(d.note||'')+'</textarea></div></div></div>';
   h+='<div class="entry">'+no()+'<div><h3>重要發現</h3><div class="caption">值得在週／月回顧時重看的觀察。會顯示在「近期活動」。</div><div class="field"><textarea id="finding" data-j="finding" placeholder="例：WBTB 隔天下午專注明顯下降。">'+esc(d.finding||'')+'</textarea></div></div></div>';
   const c=dayCompletion(date);
-  if(c.tasks.length){h+='<section class="sec">'+sectionHead('今日執行狀態','於「今日」操作')+c.tasks.map(t=>{const r=taskRec(date,t.id);return '<div class="list-row small"><span>'+esc(t.title)+'</span><span class="'+(isDone(t,r)?'':'muted')+'">'+(isDone(t,r)?'完成'+(r.count!=null?'（'+r.count+'）':''):r&&r.status==='skipped'?'跳過：'+esc(r.reason):r&&r.status==='na'?'不適用':t.kind==='counter'&&r?'進行中 '+r.count:'未完成')+'</span></div>'}).join('')+'</section>'}
+  if(c.tasks.length){h+='<section class="sec">'+sectionHead('今日執行狀態','於「今日」操作')+c.tasks.map(t=>{const r=taskRec(date,t.id);return '<div class="list-row small"><span>'+esc(copyFor(t).title)+'</span><span class="'+(isDone(t,r)?'':'muted')+'">'+(isDone(t,r)?'完成'+(r.count!=null?'（'+r.count+'）':''):r&&r.status==='skipped'?'跳過：'+esc(r.reason):r&&r.status==='na'?'不適用':t.kind==='counter'&&r?'進行中 '+r.count:'未完成')+'</span></div>'}).join('')+'</section>'}
   if(saved)h+='<div class="btnrow"><button class="btn ghost sm" data-act="jdelete">刪除這一天的日誌</button></div>';
   h+='<div class="savebar"><span class="state" id="saveState">'+(saved?'已儲存':'尚未儲存')+'</span><button class="btn acc" data-act="jsave">'+(saved?'更新日誌':'儲存日誌')+'</button></div>';
   return h;
@@ -1000,7 +1157,7 @@ function saveJournal(){
 
 /* ---------- PROGRESS ---------- */
 function vProgress(){
-  let h='<div class="phead"><div class="eyebrow">Progress & Analytics</div><h1>進度與數據</h1><p class="lede">主觀評分、客觀測量與執行率分開呈現。所有圖表直接讀取你的紀錄；缺漏日留白，不視為 0。</p></div><div class="seg" role="tablist">'+[['trend','趨勢'],['week','週回顧'],['month','月回顧']].map(([k,l])=>'<button role="tab" aria-selected="'+(view.progTab===k)+'" data-act="ptab" data-v="'+k+'" class="'+(view.progTab===k?'on':'')+'">'+l+'</button>').join('')+'</div>';
+  let h='<div class="phead"><div class="eyebrow">Insights</div><h1>分析</h1><p class="lede">執行情況、主觀感受與客觀測量分開看。資料不足時會直接寫出來，不推論改善。</p></div><div class="seg" role="tablist">'+[['trend','總覽'],['week','週回顧'],['month','月回顧']].map(([k,l])=>'<button role="tab" aria-selected="'+(view.progTab===k)+'" data-act="ptab" data-v="'+k+'" class="'+(view.progTab===k?'on':'')+'">'+l+'</button>').join('')+'</div>';
   return h+({trend:vTrend,week:vWeek,month:vMonth}[view.progTab])();
 }
 function vTrend(){
@@ -1024,8 +1181,8 @@ function vTrend(){
   h+='</section>';
   // 3. subjective
   h+='<section class="sec">'+sectionHead('主觀感受','自評 1–10')+'<div class="charts">';
-  METRICS.forEach(([k,l,u,mn,mx])=>{const ys=vals(dates,k),m=mean(ys);h+='<div class="chartbox"><div class="ct"><b>'+l+'</b><span>平均 '+f1(m.m)+u+'・n='+m.n+'</span></div>'+(k==='sleepH'?'<div class="cs">由入睡／起床時間計算</div>':'')+lineChart(dates,ys,mn,mx,u)+'</div>'});
-  h+='</div></section>';
+  METRICS.forEach(([k,l,u,mn,mx])=>{const ys=vals(dates,k),m=mean(ys),v=sd(ys);h+='<div class="chartbox"><div class="ct"><b>'+l+'</b><span>'+(m.n?'平均 '+f1(m.m)+u+(v!=null?' ± '+f1(v):''):'無資料')+'・n='+m.n+'</span></div>'+(k==='sleepH'?'<div class="cs">由入睡／起床時間計算</div>':'')+lineChart(dates,ys,mn,mx,u)+'</div>'});
+  h+='</div><p class="caption">灰底＝基準期。± 為標準差（日間波動）；變化若落在這個範圍內，可能只是平常的起伏。</p><details class="more"><summary>看原始數據（'+logged+' 筆）</summary><div class="tbl-wrap"><table class="t"><tr><th>日期</th><th>睡h</th><th>睡眠</th><th>精神</th><th>專注</th><th>疲勞</th><th>干擾</th></tr>'+dates.slice().reverse().filter(s=>logOf(s)).map(s=>{const l=logOf(s);return '<tr><td class="num">'+fmtDate(s,false)+'</td><td class="num">'+(l.sleepH??'—')+'</td><td class="num">'+(l.sleepQ??'—')+'</td><td class="num">'+(l.clarity??'—')+'</td><td class="num">'+(l.focus??'—')+'</td><td class="num">'+(l.fatigue??'—')+'</td><td class="l">'+esc((l.conf||[]).join('、'))+(l.e01&&l.e01.wbtb?' WBTB':'')+'</td></tr>'}).join('')+'</table></div></details></section>';
   // 4. objective + 5. experiment results
   const rec=state.measurements.filter(m=>m.key==='recall').sort((x,y)=>x.date.localeCompare(y.date));
   const customs={};state.measurements.filter(m=>m.key==='custom').forEach(m=>(customs[m.name]=customs[m.name]||[]).push(m));
@@ -1097,6 +1254,303 @@ function decisionHint(id,dates,base){
   return '資料量足夠。依主指標與守門指標判斷；效果不確定時先 EXTEND 一次，第二次仍不確定則 REMOVE 或重新設計。';
 }
 
+/* ---------- GUIDE（使用指南＋首次引導） ---------- */
+function vGuide(){
+  const S=state.settings.startDate,e2=state.experiments.E02,row=(a,b)=>'<div class="step"><span class="sn" style="border:0;width:auto;font-size:12px;color:var(--color-text-tertiary)">'+a+'</span><div class="sb"><div class="st2" style="margin:0;color:var(--color-text-primary)">'+b+'</div></div></div>';
+  let h='<div class="phead"><div class="eyebrow">指南</div><h1>怎麼用</h1></div>';
+  h+='<div class="sgroup">每天</div>'+row('1','打開「今日」')+row('2','按實驗旁的「開始」，照步驟做，最後按「儲存」')+row('3','早上、睡前各點一次「填寫」')+row('4','做不到就按「⋯」→ 今天跳過')+'<p class="caption">起床約 2 分鐘，睡前約 1 分鐘。</p>';
+  h+='<div class="sgroup">每週日</div>'+row('1','「今日」會多出備份那一列，按「匯出」')+row('2','有空到「分析 → 週回顧」看一眼');
+  h+='<div class="sgroup">接下來 8 週</div><div class="tbl-wrap"><table class="t"><tr><th>從</th><th style="text-align:left">多做什麼</th></tr>'+[[S,'寫夢、記錄睡眠'],[addDays(S,7),'睡前說一句話'],[addDays(S,14),'白天做現實檢查'+(e2&&!e2.removed?'、讀書前先回想':'')],[addDays(S,21),'半夜醒來做 MILD'],[addDays(S,28),'可以試做 WBTB'],[addDays(S,42),'休息一週'],[addDays(S,49),'最後一週，週日回顧']].map(([d,t])=>'<tr><td class="num">'+fmtDate(d,false)+'</td><td class="l">'+t+'</td></tr>').join('')+'</table></div><p class="caption">不用記，時間到了會自己出現在「今日」。</p>';
+  h+='<div class="sgroup">讀書回想（'+(e2?fmtDate(e2.periods[0].start,false):'')+' 開始）</div>'+row('週一','挑這週要讀的 10 個概念，分成兩組各 5 個')+row('平常','A 組：讀書前閉書回想。B 組：只重看')+row('週日','兩組都考一次，把分數記進 App');
+  h+='<div class="sgroup">常見問題</div>'+[['忘了填昨天？','到「追蹤 → 日曆」點那一天補登。'],['凌晨填算哪天？','凌晨 4 點前都算前一天。'],['「今天不做」會怎樣？','會記下原因，週回顧時看得到。不用硬做。'],['資料會不見嗎？','只存在這支手機。每週日備份一次就好。']].map(([q,a])=>'<div class="step"><span></span><div class="sb"><div class="st1" style="font-size:15px">'+q+'</div><div class="st2">'+a+'</div></div></div>').join('');
+  h+='<div class="btnrow"><button class="btn grow" data-act="onboard">再看一次開頭介紹</button><a class="btn pri grow" href="#today">回到今日</a></div>';
+  return h;
+}
+const OB_STEPS=[
+  ['嗨，這是你的實驗紀錄','每天打開「今日」，<br>照著上面的步驟做就好。'],
+  ['一次一步','亮起來的那格就是下一步。<br>做完按按鈕，下一步會自己亮起。<br>做不到就按「今天不做」。'],
+  ['不用記課表','每週會多一個小項目，<br>時間到了會自己出現。<br>週日記得備份一次。']
+];
+function openOnboarding_v2(i){
+  i=Math.max(0,Math.min(OB_STEPS.length-1,i||0));const [t,b]=OB_STEPS[i],last=i===OB_STEPS.length-1;
+  openSheet('<div class="eyebrow">'+(i+1)+' / '+OB_STEPS.length+'</div><h3 style="margin-top:6px">'+t+'</h3><p class="ink2" style="line-height:1.8;margin:8px 0 4px">'+b+'</p><div style="display:flex;gap:4px;margin:16px 0 4px">'+OB_STEPS.map((_,k)=>'<i style="flex:1;height:2px;background:'+(k<=i?'var(--color-accent)':'var(--color-border)')+'"></i>').join('')+'</div><div class="btnrow">'+(i>0?'<button class="btn" data-act="ob-go" data-i="'+(i-1)+'">上一步</button>':'<button class="btn ghost" data-act="ob-done">略過</button>')+(last?'<button class="btn pri grow" data-act="ob-done" data-guide="1">開始使用</button>':'<button class="btn pri grow" data-act="ob-go" data-i="'+(i+1)+'">下一步</button>')+'</div>');
+}
+
+/* =========================================================
+   v3 — SESSION / TODAY / TRACKER / LIFECYCLE / LIBRARY
+   ========================================================= */
+/* ---------- protocol versions & changelog（向下相容） ---------- */
+function ensureMeta(){
+  if(!Array.isArray(state.changelog))state.changelog=[];
+  if(state.settings.budget==null)state.settings.budget=10;
+  if(!Array.isArray(state.settings.focus))state.settings.focus=[];
+  Object.entries(state.experiments).forEach(([id,ex])=>{
+    if(!Array.isArray(ex.protocol)||!ex.protocol.length){const iv=INTERVENTIONS.find(x=>x.id===(EXP[id]?EXP[id].intervention:id))||{};ex.protocol=[{v:1,at:state.createdAt||new Date().toISOString(),summary:'初始方案：'+((DOSE[iv.id]||{}).mine||(iv.tmpl?iv.tmpl.how:'—')),start:ex.periods&&ex.periods[0]?ex.periods[0].start:null}]}
+    if(!Array.isArray(ex.decisions))ex.decisions=[];
+  });
+}
+function logChange(id,type,detail,version){
+  const now=new Date().toISOString();state.changelog.push({at:now,exp:id,type,detail});
+  const ex=state.experiments[id];if(version&&ex){ex.protocol=ex.protocol||[];ex.protocol.push({v:ex.protocol.length+1,at:now,summary:detail})}
+}
+/* ---------- lifecycle：個人實驗狀態（與研究證據等級分開） ---------- */
+const LC=[['review','研究審查'],['approved','已核准'],['baseline','基準期'],['intervention','介入期'],['evaluation','評估'],['archived','封存']];
+function lifecycle(id,date){
+  const st=expStatus(id,date),ex=state.experiments[id];
+  if(st==='candidate')return 'review';if(st==='removed')return 'archived';if(st==='scheduled')return 'approved';if(st==='paused')return 'paused';
+  if(id==='E01'){const w=Math.floor(diffDays(ex.periods[0].start,date)/7)+1;if(w<=2)return 'baseline';if(w<=8)return 'intervention';return ex.decisions.some(d=>d.month>=monthKey(addDays(ex.periods[0].start,56)))?'intervention':'evaluation'}
+  return 'intervention';
+}
+function lcLabel(k){return k==='paused'?'暫停中':(LC.find(x=>x[0]===k)||[,'—'])[1]}
+function lcStepper(k){const idx=LC.findIndex(x=>x[0]===k);return '<ol class="lc">'+LC.map(([key,l],i)=>'<li class="'+(key===k?'on':i<idx?'past':'')+'">'+l+'</li>').join('')+'</ol>'+(k==='paused'?'<p class="caption">目前暫停；恢復後回到介入期。</p>':'')}
+
+/* ---------- session 定義：每一步只說一件事 ---------- */
+const SESSIONS={
+ 'E01.diary':{steps:[{t:'先別動',b:'閉上眼睛，回想昨晚的夢。從最後一個畫面往回想。',sec:30},{t:'寫下來',b:'寫在筆記本或手機備忘錄：畫面、人物、情緒。片段也算；記不得就寫「沒有」。'}],log:['dreams','diff']},
+ 'E01.intent':{steps:[{t:'躺下、關燈',b:'準備睡覺，把手機放遠一點。'},{t:'說一次這句話',b:'「下次做夢時，我會記得自己在做夢。」說一次就好。'}],log:['diff']},
+ 'E01.mild':{steps:[{t:'回想剛才的夢',b:'不要起身，回想剛才夢到的畫面。',sec:30},{t:'默念這句話',b:'「下次做夢時，我會記得自己在做夢。」'},{t:'想像回到夢裡',b:'想像自己回到剛才的夢，並在夢裡發現「這是夢」。',sec:60},{t:'睡回去',b:'放下手機，閉眼入睡。明早再回來按「完成」。'}],log:['sleepFast','diff']},
+ 'E02.recall':{steps:[{t:'選範圍',b:'想好要回想哪一段：上次讀的內容，或這週 A 組的概念。'},{t:'闔上資料，開始回想',b:'把想得到的重點寫下來，關鍵字即可。',sec:90},{t:'對答案',b:'打開資料核對，圈出漏掉或寫錯的。',sec:30}],log:['recall','diff']},
+ 'E02.test':{steps:[{t:'不看資料作答',b:'寫出這週 A 組與 B 組所有概念的內容。',sec:240},{t:'對答案',b:'分別算出 A 組、B 組各答對幾個。'}],log:['recallTest']},
+ 'E01.signs':{steps:[{t:'翻這週的夢',b:'看這週寫下的夢境紀錄。'},{t:'找 3 個徵兆',b:'找出常出現的人、地方或怪事，下一步寫下來。'}],log:['note']},
+ 'E01.review8':{steps:[{t:'看結果',b:'到「分析 → 月回顧」看夢數、清醒夢次數與睡眠。'},{t:'做決定',b:'在月回顧選擇 KEEP／MODIFY／PAUSE，並寫下理由。'}],log:['note']}
+};
+function sessionDef(t){
+  if(SESSIONS[t.id])return SESSIONS[t.id];
+  const iv=INTERVENTIONS.find(x=>'C.'+x.id===t.id);const prepost=iv&&/^I-ANS/.test(iv.id);
+  const steps=[];if(prepost)steps.push({t:'先記下現在的壓力',b:'1 很放鬆，10 壓力很大。',input:'stressPre'});
+  steps.push({t:t.title,b:t.how,sec:t.minutes>=1?Math.round(t.minutes*60):0});
+  return{steps,log:prepost?['stressPost','diff']:['diff']};
+}
+function sessionable(t){return t.kind!=='counter'}
+
+/* ---------- session state（存在 state.activeSession，可恢復） ---------- */
+let sesTimer=null;
+function sesNowSec(s){const base=s.elapsed[s.i]||0;return s.runAt?base+(Date.now()-s.runAt)/1000:base}
+function sesStop(s){if(s.runAt){s.elapsed[s.i]=sesNowSec(s);s.runAt=null}}
+function startSession(tid,date){
+  const t=tasksFor(date).find(x=>x.id===tid);if(!t)return;
+  const cur=state.activeSession;if(cur&&!(cur.task===tid&&cur.date===date)){toast('先完成或放棄目前進行中的實驗');location.hash='#session';return}
+  if(!cur){const def=sessionDef(t);state.activeSession={task:tid,date,exp:t.exp,i:0,phase:'steps',st:def.steps.map(()=>null),elapsed:def.steps.map(()=>0),runAt:null,startedAt:new Date().toISOString(),inputs:{dreams:(logOf(date)&&logOf(date).e01&&logOf(date).e01.dreams)||0}};save()}
+  location.hash='#session';
+}
+function vSession(){
+  const s=state.activeSession;
+  if(!s)return '<div class="phead"><h1>沒有進行中的實驗</h1></div><div class="btnrow"><a class="btn pri grow" href="#today">回到今日</a></div>';
+  const t=tasksFor(s.date).find(x=>x.id===s.task)||{title:s.task,exp:s.exp,minutes:0},def=sessionDef(t),meta=expMeta(t.exp)||{short:''},N=def.steps.length;
+  let h='<div class="ses-top"><button class="linkbtn" data-act="ses-leave">‹ 暫停離開</button><span class="caption">'+esc(meta.short)+(s.date!==logicalToday()?'・'+fmtDate(s.date,false):'')+'</span></div>';
+  if(s.phase==='log')return h+sesLogView(s,t,def);
+  const st=def.steps[s.i],sec=st.sec||0,el=sesNowSec(s),left=Math.max(0,sec-el);
+  h+='<div class="ses-prog"><span class="num">步驟 '+(s.i+1)+' / '+N+'</span><i>'+def.steps.map((_,k)=>'<s class="'+(k<s.i?(s.st[k]==='skipped'?'sk':'ok'):k===s.i?'cur':'')+'"></s>').join('')+'</i></div>';
+  h+='<div class="ses-title">'+esc(copyFor(t).title)+'</div><h1 class="ses-step">'+esc(st.t)+'</h1><p class="ses-body">'+esc(st.b)+'</p>';
+  if(sec)h+='<div class="ses-timer"><div class="tv num" id="sesTv">'+fmtSec(left)+'</div><button class="btn '+(s.runAt?'':'pri')+'" data-act="ses-timer" id="sesTb">'+(s.runAt?'暫停':el>0?(left>0?'繼續':'再計一次'):'開始計時')+'</button></div>';
+  if(st.input==='stressPre')h+=sesRate('stressPre','現在的壓力',s.inputs.stressPre);
+  h+='<div class="ses-bar"><button class="btn" data-act="ses-prev" '+(s.i===0?'disabled':'')+'>上一步</button><button class="btn ghost" data-act="ses-skip">跳過此步</button><button class="btn pri grow" data-act="ses-next">'+(s.i===N-1?'完成':'下一步')+'</button></div>';
+  h+='<div class="ses-foot"><button class="linkbtn" data-act="ses-end">提早結束</button><button class="linkbtn" data-act="ses-abandon">放棄這次</button></div>';
+  return h;
+}
+function fmtSec(x){x=Math.ceil(x);return Math.floor(x/60)+':'+pad(x%60)}
+function sesRate(k,label,v,max){max=max||10;return '<div class="field"><span class="flabel">'+label+'</span><div class="scale" style="grid-template-columns:repeat('+max+',1fr)">'+Array.from({length:max},(_,i)=>'<button data-act="ses-in" data-k="'+k+'" data-v="'+(i+1)+'" class="'+(v==i+1?'on':'')+'">'+(i+1)+'</button>').join('')+'</div></div>'}
+function sesLogView(s,t,def){
+  const skipped=s.st.filter(x=>x==='skipped').length,done=s.st.filter(x=>x==='done').length,dur=s.elapsed.reduce((a,b)=>a+b,0);
+  let h='<div class="ses-prog"><span class="num">快速紀錄</span><i>'+def.steps.map((_,k)=>'<s class="'+(s.st[k]==='skipped'?'sk':'ok')+'"></s>').join('')+'</i></div><h1 class="ses-step" style="margin-top:18px">'+esc(copyFor(t).title)+'</h1><p class="ses-body">完成 '+done+' 步'+(skipped?'・跳過 '+skipped+' 步':'')+(dur>=5?'・計時 '+fmtSec(dur):'')+'</p>';
+  const I=s.inputs;
+  def.log.forEach(f=>{
+    if(f==='diff')h+='<div class="field"><span class="flabel">這次做起來？ <span class="caption">主觀感受</span></span><div class="chips">'+[[1,'很輕鬆'],[2,'輕鬆'],[3,'普通'],[4,'有點吃力'],[5,'很吃力']].map(([v,l])=>'<button data-act="ses-in" data-k="diff" data-v="'+v+'" class="'+(I.diff==v?'on':'')+'">'+l+'</button>').join('')+'</div></div>';
+    if(f==='dreams')h+='<div class="field"><span class="flabel">記得幾個夢？</span><div class="counter big" style="display:inline-flex"><button data-act="ses-step" data-d="-1" aria-label="減一">−</button><div class="n">'+(I.dreams||0)+'</div><button data-act="ses-step" data-d="1" aria-label="加一">＋</button></div><div class="hint">會同步到當天日誌。</div></div>';
+    if(f==='sleepFast')h+='<div class="field"><span class="flabel">做完後很快睡著了嗎？</span><div class="chips">'+[['y','5 分鐘內'],['n','沒有'],['u','不確定']].map(([v,l])=>'<button data-act="ses-in" data-k="sleepFast" data-v="'+v+'" class="'+(I.sleepFast===v?'on':'')+'">'+l+'</button>').join('')+'</div></div>';
+    if(f==='recall')h+='<div class="field"><span class="flabel">想起幾個重點？</span><div class="two"><input type="number" inputmode="numeric" min="0" id="sesRc" placeholder="想起" value="'+(I.rc!=null?I.rc:'')+'"><input type="number" inputmode="numeric" min="1" id="sesRn" placeholder="總共" value="'+(I.rn!=null?I.rn:'')+'"></div><div class="hint">選填。對照資料後的數字，屬於本次練習的紀錄。</div></div>';
+    if(f==='recallTest')h+='<div class="two"><div class="field"><label for="sesA">A 組答對</label><input type="number" inputmode="numeric" min="0" id="sesA" value="'+(I.ac!=null?I.ac:'')+'"></div><div class="field"><label for="sesAn">A 組題數</label><input type="number" inputmode="numeric" min="1" id="sesAn" value="'+(I.an!=null?I.an:5)+'"></div></div><div class="two"><div class="field"><label for="sesB">B 組答對</label><input type="number" inputmode="numeric" min="0" id="sesB" value="'+(I.bc!=null?I.bc:'')+'"></div><div class="field"><label for="sesBn">B 組題數</label><input type="number" inputmode="numeric" min="1" id="sesBn" value="'+(I.bn!=null?I.bn:5)+'"></div></div><p class="caption">A 組＝回想練習過的；B 組＝只重讀的。這是客觀測量，會存到「追蹤 → 測量」。</p>';
+    if(f==='stressPost')h+=sesRate('stressPost','做完後的壓力',I.stressPost);
+    if(f==='note')h+='<div class="field"><label for="sesNote">寫下來</label><textarea id="sesNote" placeholder="例：學校、遲到、會飛">'+esc(I.note||'')+'</textarea></div>';
+  });
+  if(!def.log.includes('note'))h+='<details class="more"><summary>加一句備註（選填）</summary><textarea id="sesNote">'+esc(I.note||'')+'</textarea></details>';
+  h+='<p class="caption" id="sesErr" role="alert"></p><div class="ses-bar"><button class="btn" data-act="ses-back">回到步驟</button><button class="btn acc grow" data-act="ses-save">儲存</button></div>';
+  return h;
+}
+function sesTick(){
+  const s=state.activeSession,tv=document.getElementById('sesTv');if(!s||!tv||s.phase!=='steps'){return}
+  const t=tasksFor(s.date).find(x=>x.id===s.task);if(!t)return;const st=sessionDef(t).steps[s.i];if(!st.sec)return;
+  const left=st.sec-sesNowSec(s);tv.textContent=fmtSec(Math.max(0,left));
+  if(left<=0&&s.runAt){sesStop(s);save();tv.textContent='0:00';const b=document.getElementById('sesTb');if(b){b.textContent='再計一次';b.classList.remove('pri')}tv.classList.add('end');try{navigator.vibrate&&navigator.vibrate([120,80,120])}catch(_){}toast('時間到')}
+}
+function sesCollect(s){
+  const g=id=>{const e=document.getElementById(id);return e&&e.value!==''?+e.value:null};
+  const n=document.getElementById('sesNote');if(n)s.inputs.note=n.value.trim();
+  if(document.getElementById('sesRc')){s.inputs.rc=g('sesRc');s.inputs.rn=g('sesRn')}
+  if(document.getElementById('sesA')){s.inputs.ac=g('sesA');s.inputs.an=g('sesAn');s.inputs.bc=g('sesB');s.inputs.bn=g('sesBn')}
+}
+function sesSave(){
+  const s=state.activeSession;if(!s)return;sesCollect(s);const I=s.inputs,t=tasksFor(s.date).find(x=>x.id===s.task),def=t?sessionDef(t):{log:[]};
+  const err=m=>{const e=$('#sesErr');if(e){e.textContent=m;e.style.color='var(--color-danger)'}};
+  if(def.log.includes('recallTest')){if(I.ac==null||I.bc==null||!(I.an>0)||!(I.bn>0)||I.ac>I.an||I.bc>I.bn||I.ac<0||I.bc<0)return err('請填 A、B 兩組的答對數與題數；答對數不可大於題數。')}
+  if(I.rc!=null&&I.rn!=null&&I.rc>I.rn)return err('想起的數量不可大於總數。');
+  const now=new Date().toISOString(),dur=Math.round(s.elapsed.reduce((a,b)=>a+b,0));
+  const allSkipped=s.st.every(x=>x==='skipped');
+  const session={start:s.startedAt,end:now,durSec:dur,steps:s.st.map((x,i)=>({i,st:x||'skipped',sec:Math.round(s.elapsed[i]||0)})),diff:I.diff||null,note:I.note||'',extra:{}};
+  ['sleepFast','rc','rn','stressPre','stressPost'].forEach(k=>{if(I[k]!=null&&I[k]!=='')session.extra[k]=I[k]});
+  const d=day(s.date,true);
+  d.tasks[s.task]=allSkipped?{status:'skipped',reason:'全部步驟跳過',at:now,session}:{status:'done',at:now,session};
+  if(def.log.includes('dreams')){const o=d.log?JSON.parse(JSON.stringify(d.log)):{conf:[],createdAt:now};o.e01=o.e01||{};o.e01.dreams=I.dreams||0;o.savedAt=now;d.log=o}
+  if(def.log.includes('recallTest'))state.measurements.push({id:'m'+Date.now(),date:s.date,key:'recall',r:{c:I.ac,n:I.an},s:{c:I.bc,n:I.bn},note:I.note||'',at:now,session:s.task});
+  const date=s.date;state.activeSession=null;
+  if(save()){view.q=null;jDraft=null;const c=dayCompletion(date);toast('已儲存・今天 '+c.done+'/'+c.req);location.hash='#today'}
+}
+
+/* ---------- TODAY v3：議程 ---------- */
+function checkinState(date){const l=logOf(date)||{};return{am:l.sleepQ!=null||!!l.bed,pm:l.clarity!=null||l.focus!=null||l.fatigue!=null,l}}
+function agendaRow(t,date,isNext){
+  const r=taskRec(date,t.id),done=isDone(t,r),sk=r&&r.status==='skipped',na=r&&r.status==='na',meta=expMeta(t.exp)||{},act=state.activeSession,running=act&&act.task===t.id&&act.date===date;
+  let status=done?'<span class="ok">完成'+(r.at?' '+fmtTime(r.at):'')+(r.session&&r.session.durSec>=5?'・'+fmtSec(r.session.durSec):'')+'</span>':sk?'<span class="warn">跳過：'+esc(r.reason)+'</span>':na?'不適用':running?'<span class="ok">進行中</span>':t.kind==='counter'?(r&&r.count?r.count+' 次':'待執行'):'待執行';
+  let right;
+  if(t.kind==='counter')right='<div class="counter"><button data-act="cnt" data-d="-1" data-t="'+t.id+'" aria-label="減一">−</button><div class="n">'+(r&&r.count||0)+'</div><button data-act="cnt" data-d="1" data-t="'+t.id+'" aria-label="加一">＋</button></div>';
+  else if(done||sk||na)right='<button class="btn sm ghost" data-act="undo" data-t="'+t.id+'">復原</button>';
+  else right='<button class="btn sm '+(isNext||running?'pri':'')+'" data-act="ses-start" data-t="'+t.id+'">'+(running?'繼續':'開始')+'</button>';
+  return '<div class="ag'+(done?' is-done':'')+(sk||na?' is-off':'')+(isNext?' is-next':'')+'"><span class="ag-slot">'+esc(t.slot)+'</span><div class="ag-main"><div class="ag-t">'+esc(copyFor(t).title)+'</div><div class="ag-m">'+esc(meta.domain||'')+'・'+(t.kind==='counter'?t.min+'–'+t.max+' 次':minsText(t.minutes))+'・'+status+(t.kind==='counter'?'':'')+'</div></div><div class="ag-r">'+right+((done||sk||na)?'':'<button class="more-btn" data-act="row-more" data-t="'+t.id+'" aria-label="更多選項">⋯</button>')+'</div></div>';
+}
+function vToday(){
+  const today=logicalToday(),date=view.date||today,ph=phaseOf(date),wr=e01WeekRange(date);qInit(date);
+  let h='<div class="phead" style="padding-bottom:16px"><div class="eyebrow">'+(date===today?greet():date<today?'補登過去的日子':'未來的日子')+'</div><div class="row"><h1 style="font-size:28px">'+fmtDate(date)+'</h1><div class="dnav"><button data-act="day" data-d="-1" aria-label="前一天">‹</button><button data-act="day" data-d="1" aria-label="後一天">›</button></div></div><div class="ctx">'+(ph.key==='pre'?'<span>還有 <span class="num">'+(-ph.i)+'</span> 天開始</span>':'<span>第 <span class="num">'+(ph.i+1)+'</span> 天</span>'+(wr?'<span>這週新增：'+esc(WEEK_NEW[wr.w]||'維持')+'</span>':''))+(date!==today?'<a href="#today" data-act="gotoday">回到今天</a>':'')+'</div></div>';
+  const act=state.activeSession;
+  if(act){const t=tasksFor(act.date).find(x=>x.id===act.task);h+='<div class="resume"><div><b>'+esc(t?copyFor(t).title:act.task)+'</b><div class="caption">還沒做完'+(act.phase==='log'?'・停在紀錄':'・停在步驟 '+(act.i+1))+'</div></div><button class="btn pri sm" data-act="ses-go">繼續</button><button class="btn ghost sm" data-act="ses-abandon">放棄</button></div>'}
+  if(ph.key==='pre')return h+vPrestart(date);
+  if(wr&&guardAlert(date))h+='<div class="notice">最近兩晚都沒睡好。<b>這週先不要做 WBTB。</b></div>';
+  const c=dayCompletion(date),ck=checkinState(date),budget=state.settings.budget||10,mins=Math.ceil(c.mins);
+  h+='<div class="figs four" style="margin-top:12px"><div><div class="fig-v">'+c.done+'<small>/'+c.req+'</small></div><div class="fig-l">今日完成</div></div><div><div class="fig-v">'+mins+'<small>分</small></div><div class="fig-l">預估時間</div></div><div><div class="fig-v">'+budget+'<small>分</small></div><div class="fig-l">每日預算</div></div><div><div class="fig-v'+(ck.am&&ck.pm?'':' na')+'">'+(ck.am&&ck.pm?'完整':ck.am||ck.pm?'缺 1 項':'未填')+'</div><div class="fig-l">今日紀錄</div></div></div>';
+  if(mins>budget)h+='<div class="notice small">今天預估 <b>'+mins+' 分</b>，超過你設定的 '+budget+' 分。系統不會自動刪減，需要的話可以在項目的「⋯」選擇今天跳過。</div>';
+  // experiments
+  const tasks=c.tasks,next=tasks.find(t=>{const r=taskRec(date,t.id);return !r&&t.kind!=='counter'&&t.kind!=='cond'})||tasks.find(t=>{const r=taskRec(date,t.id);return !r&&t.kind!=='counter'});
+  h+='<section class="sec">'+sectionHead('今日實驗',tasks.length?'按「開始」一步一步做':'')+(tasks.length?'<div class="agenda">'+tasks.map(t=>agendaRow(t,date,t===next)).join('')+'</div>':'<div class="empty">今天沒有排定的實驗，只需要填下面的紀錄。</div>');
+  if(wr&&!guardAlert(date)){const cap=e01Plan(wr.w).wbtbCap,left=cap-wbtbUsed(wr.a,wr.b);if(left>0)h+='<p class="caption" style="margin-top:8px">這週還可以做 '+left+' 次 WBTB（可不做）：選隔天能睡晚的晚上，睡 5 小時後起來 10–30 分鐘，再做 MILD 回去睡。</p>'}
+  if(weekday(date)===6){const bk=state.settings.lastExport&&ymd(new Date(state.settings.lastExport))>=date;h+='<div class="ag'+(bk?' is-done':'')+'"><span class="ag-slot">週日</span><div class="ag-main"><div class="ag-t">備份資料</div><div class="ag-m">30 秒・'+(bk?'<span class="ok">已備份</span>':'資料只存在這支手機')+'</div></div><div class="ag-r"><button class="btn sm '+(bk?'ghost':'')+'" data-act="export-json">'+(bk?'再存一次':'匯出')+'</button></div></div>'}
+  h+='</section>';
+  // check-in
+  const l=ck.l;
+  h+='<section class="sec">'+sectionHead('每日紀錄','各約 10 秒')+'<div class="agenda">'+
+   '<div class="ag'+(ck.am?' is-done':'')+'"><span class="ag-slot">早上</span><div class="ag-main"><div class="ag-t">睡眠</div><div class="ag-m">'+(ck.am?'<span class="ok">'+(l.sleepH!=null?l.sleepH+' 小時・':'')+'品質 '+(l.sleepQ||'—')+'/10'+(l.e01&&l.e01.dreams!=null?'・夢 '+l.e01.dreams+' 個':'')+'</span>':'睡多久、睡得好嗎')+'</div></div><div class="ag-r"><button class="btn sm '+(ck.am?'ghost':'')+'" data-act="ck-open" data-part="am">'+(ck.am?'修改':'填寫')+'</button></div></div>'+
+   '<div class="ag'+(ck.pm?' is-done':'')+'"><span class="ag-slot">睡前</span><div class="ag-main"><div class="ag-t">今天的狀態</div><div class="ag-m">'+(ck.pm?'<span class="ok">清楚 '+(l.clarity||'—')+'・專注 '+(l.focus||'—')+'・疲勞 '+(l.fatigue||'—')+'</span>':'精神、專注、疲勞')+'</div></div><div class="ag-r"><button class="btn sm '+(ck.pm?'ghost':'')+'" data-act="ck-open" data-part="pm">'+(ck.pm?'修改':'填寫')+'</button></div></div></div><p class="caption" style="margin-top:6px">主觀自評。想多寫一點，到「追蹤 → 日誌」。</p></section>';
+  // recent
+  const d7=range(addDays(date,-6),date);
+  h+='<section class="sec">'+sectionHead('最近 7 天','<a href="#insights">看分析</a>')+'<div class="week7">'+d7.map(s=>{const cc=dayCompletion(s),r=cc.rate;return '<div><i>'+(r!=null?'<s style="height:'+Math.round(r*100)+'%"></s>':'')+'</i>'+WD[weekday(s)]+'<br><span class="num">'+(r==null?(logOf(s)?'·':'—'):Math.round(r*100))+'</span></div>'}).join('')+'</div>';
+  const lastM=state.measurements.slice().sort((a,b)=>b.date.localeCompare(a.date))[0];
+  h+='<div class="list-row small"><span>最近一次測量</span><span>'+(lastM?(lastM.key==='recall'?'回憶小考 A '+lastM.r.c+'/'+lastM.r.n+'・B '+lastM.s.c+'/'+lastM.s.n:esc(lastM.name)+' '+lastM.value+(lastM.unit?' '+esc(lastM.unit):''))+'<span class="muted">（'+fmtDate(lastM.date,false)+'）</span>':'<span class="muted">尚無</span>')+'</span></div>';
+  const actives=Object.keys(state.experiments).filter(id=>['active','scheduled'].includes(expStatus(id,date)));
+  h+='<div class="list-row small"><span>進行中的實驗</span><span>'+(actives.length?actives.map(id=>'<a href="#exp/'+id+'">'+esc(expMeta(id).short)+'</a>・'+lcLabel(lifecycle(id,date))).join('<br>'):'—')+'</span></div></section>';
+  return h+(weekday(date)===6?'':backupReminder());
+}
+function openCheckin(part){
+  qInit(curDate());
+  openSheet('<h3>'+(part==='am'?'早上：睡眠':'睡前：今天的狀態')+'</h3>'+(part==='am'?amForm(curDate()):pmForm()));
+}
+function openRowMore(tid){
+  const date=curDate(),t=tasksFor(date).find(x=>x.id===tid);if(!t)return;
+  openSheet('<h3>'+esc(copyFor(t).title)+'</h3><p class="small ink2">'+esc(copyFor(t).line||t.how)+'</p><div class="btnrow" style="flex-direction:column">'+(t.kind!=='counter'?'<button class="btn" data-act="done" data-t="'+tid+'">已經做完了，直接標記完成</button>':'')+(t.kind==='cond'?'<button class="btn" data-act="na" data-t="'+tid+'">'+(copyFor(t).na||'今天不適用')+'</button>':'')+'<button class="btn" data-act="skip" data-t="'+tid+'">今天跳過（選原因）</button><a class="btn ghost" href="#exp/'+t.exp+'">看實驗方案與研究依據</a><button class="btn ghost" data-act="close">關閉</button></div>');
+}
+
+/* ---------- TRACKER ---------- */
+function vTracker(){
+  const tab=view.trTab||'cal';
+  let h='<div class="phead"><div class="eyebrow">Tracker</div><h1>追蹤</h1></div><div class="seg">'+[['cal','日曆'],['log','日誌'],['meas','測量']].map(([k,l])=>'<button data-act="trtab" data-v="'+k+'" class="'+(tab===k?'on':'')+'">'+l+'</button>').join('')+'</div>';
+  if(tab==='log')return h+vJournal().replace(/^<div class="phead">/,'<div class="phead" style="border-bottom-color:var(--color-border);padding-top:12px">');
+  if(tab==='meas')return h+vMeasures();
+  return h+vCalendar();
+}
+function vCalendar(){
+  const today=logicalToday(),mk=view.calMonth||monthKey(today),[y,m]=mk.split('-').map(Number),first=mk+'-01',last=ymd(new Date(y,m,0,12));
+  const lead=weekday(first),cells=[];for(let i=0;i<lead;i++)cells.push(null);range(first,last).forEach(s=>cells.push(s));
+  const starts={};Object.entries(state.experiments).forEach(([id,ex])=>(ex.periods||[]).forEach(p=>{(starts[p.start]=starts[p.start]||[]).push(id+' 開始');if(p.end)(starts[p.end]=starts[p.end]||[]).push(id+' 結束')}));
+  const sel=view.calSel||today;
+  let h='<div class="row" style="display:flex;align-items:center;justify-content:space-between;margin:14px 0 8px"><h2 style="font-size:18px"><span class="num">'+y+'</span> 年 <span class="num">'+m+'</span> 月</h2><div class="dnav"><button data-act="cal-mo" data-d="-1" aria-label="上個月">‹</button><button data-act="cal-mo" data-d="1" aria-label="下個月">›</button></div></div>';
+  h+='<div class="cal"><div class="cal-h">'+[...WD].map(w=>'<span>'+w+'</span>').join('')+'</div><div class="cal-g">'+cells.map(s=>{if(!s)return '<span></span>';const c=dayCompletion(s),past=s<=today,lg=!!logOf(s),missed=past&&s<today&&c.tasks.length&&!c.tasks.some(t=>taskRec(s,t.id))&&!lg;
+    return '<button class="cd'+(s===today?' today':'')+(s===sel?' sel':'')+(missed?' miss':'')+'" data-act="cal-sel" data-v="'+s+'" aria-label="'+fmtDate(s)+'"><b class="num">'+parseYmd(s).getDate()+'</b>'+(past&&c.rate!=null?'<i><s style="width:'+Math.round(c.rate*100)+'%"></s></i>':'<i class="e"></i>')+'<em>'+(lg?'●':'')+(starts[s]?'▸':'')+'</em></button>'}).join('')+'</div></div>';
+  h+='<p class="caption">條＝當天完成率・●＝有日誌・▸＝實驗開始或結束・紅框＝漏記（有排定但完全沒有紀錄）</p>';
+  // day detail
+  const c=dayCompletion(sel),l=logOf(sel),ph=phaseOf(sel);
+  h+='<section class="sec">'+sectionHead(fmtDate(sel),esc(ph.label));
+  if(starts[sel])h+='<p class="small">'+starts[sel].join('、')+'</p>';
+  h+=c.tasks.length?c.tasks.map(t=>{const r=taskRec(sel,t.id);return '<div class="list-row small"><span>'+esc(copyFor(t).title)+'</span><span class="'+(isDone(t,r)?'':'muted')+'">'+(isDone(t,r)?'完成'+(r.count!=null?'（'+r.count+'）':'')+(r.session&&r.session.durSec>=5?'・'+fmtSec(r.session.durSec):''):r&&r.status==='skipped'?'跳過：'+esc(r.reason):r&&r.status==='na'?'不適用':sel<today?'漏做':'未做')+'</span></div>'}).join(''):'<div class="empty">當天沒有排定的實驗</div>';
+  h+='<div class="list-row small"><span>日誌</span><span>'+(l?(l.sleepH!=null?'睡 '+l.sleepH+'h・':'')+'睡眠 '+(l.sleepQ||'—')+'・清楚 '+(l.clarity||'—')+'・疲勞 '+(l.fatigue||'—'):'<span class="muted">沒有紀錄</span>')+'</span></div>';
+  if(sel<=today)h+='<div class="btnrow"><button class="btn grow" data-act="cal-goday" data-v="'+sel+'">補登這天的實驗</button><button class="btn grow" data-act="cal-golog" data-v="'+sel+'">'+(l?'看／改日誌':'補寫日誌')+'</button></div>';
+  return h+'</section>';
+}
+function vMeasures(){
+  let h='<div class="btnrow"><button class="btn grow" data-act="measure" data-t="E02.test">記錄回憶小考</button><button class="btn grow" data-act="measure-custom">新增其他測量</button></div><p class="caption" style="margin-top:8px">客觀測量與主觀評分分開保存。每種測量各自有單位與方法；被標為「可疑」的數值仍保留在原始資料中。</p>';
+  const groups={};state.measurements.forEach(m=>{const k=m.key==='recall'?'回憶小考（A 組 vs B 組）':m.name;(groups[k]=groups[k]||[]).push(m)});
+  if(!state.measurements.length)return h+'<div class="empty">還沒有測量紀錄。</div>';
+  Object.entries(groups).forEach(([k,ms])=>{ms.sort((a,b)=>b.date.localeCompare(a.date));const u=ms[0].unit;
+    h+='<section class="sec">'+sectionHead(esc(k),ms.length+' 筆'+(u?'・'+esc(u):''))+(ms[0].method?'<p class="caption">方法：'+esc(ms[0].method)+'</p>':'')+ms.map(m=>measRow(m).replace('</span><span style="display:flex',(m.quality==='suspect'?' <span class="warn small">可疑</span>':'')+'</span><span style="display:flex')).join('')+'</section>'});
+  return h;
+}
+
+/* ---------- EXPERIMENTS v3（只放個人實驗） ---------- */
+function vExperiments(){
+  const today=logicalToday();
+  const mine=Object.keys(state.experiments).sort((a,b)=>(EXP[a]?0:1)-(EXP[b]?0:1)||a.localeCompare(b));
+  let h='<div class="phead"><div class="eyebrow">Experiments</div><h1>我的實驗</h1><p class="lede">你目前正在測試、準備測試或已結束的實驗。想加入新方法，到「文獻 → 介入方法」。</p></div>';
+  const groups=[['進行中',id=>expStatus(id,today)==='active'],['已排程',id=>expStatus(id,today)==='scheduled'],['暫停',id=>expStatus(id,today)==='paused'],['已封存',id=>expStatus(id,today)==='removed']];
+  groups.forEach(([g,f])=>{const ids=mine.filter(f);if(!ids.length)return;
+    h+='<section class="sec">'+sectionHead(g,ids.length+' 項')+ids.map(id=>{const meta=expMeta(id),ex=state.experiments[id],lc=lifecycle(id,today),adh=expAdherence(id,range(weekStart(today),today)),pv=ex.protocol?ex.protocol.length:1;
+      return '<a class="xrow'+(EXP[id]?' primary':'')+'" href="#exp/'+id+'"><span class="xid">'+(EXP[id]?id:id.replace('I-',''))+'</span><span class="xn">'+esc(meta.name.replace(/^實驗 0\d：/,''))+'</span><span class="xr"><span class="st '+(lc==='paused'?'paused':lc==='archived'?'removed':'active')+'">'+lcLabel(lc)+'</span></span><span class="xm"><span>'+esc(meta.domain)+'</span><span>方案 v'+pv+'</span><span>開始 '+fmtDate(ex.periods[0].start,false)+'</span>'+(lc==='intervention'||lc==='baseline'?'<span>本週執行 '+pct(adh)+'</span>':'')+'</span></a>'}).join('')+'</section>'});
+  h+='<section class="sec">'+sectionHead('新增實驗')+'<div class="btnrow"><a class="btn grow" href="#library">從介入方法挑選</a></div><p class="caption" style="margin-top:8px">只有證據等級 A–C 的方法可以啟用；一次建議只加一項。</p></section>';
+  return h;
+}
+function sessionPreview(id){
+  const today=logicalToday(),ts=tasksFor(today).filter(t=>t.exp===id);
+  const allTs=EXP[id]?null:candTasks(id);
+  const list=ts.length?ts:(allTs||[]);if(!list.length)return '<p class="caption">目前沒有可執行的步驟。</p>';
+  return list.map(t=>{const def=t.kind==='counter'?null:sessionDef(t);return '<div class="xprev"><div class="ag-t">'+esc(copyFor(t).title)+' <span class="caption">'+esc(t.slot)+'・'+(t.kind==='counter'?t.min+'–'+t.max+' 次':minsText(t.minutes))+'</span></div>'+(def?'<ol class="small ink2" style="margin:6px 0;padding-left:18px">'+def.steps.map(s=>'<li>'+esc(s.t)+(s.sec?'（'+fmtSec(s.sec)+'）':'')+'</li>').join('')+'</ol>':'<p class="small ink2" style="margin:6px 0">'+esc(t.how)+'</p>')+(ts.includes(t)&&def&&!taskRec(today,t.id)?'<button class="btn sm pri" data-act="ses-start" data-t="'+t.id+'">今天開始</button>':'')+'</div>'}).join('');
+}
+function vExpDetail(id){
+  const today=logicalToday(),meta=expMeta(id);if(!meta)return '<div class="empty">找不到此實驗</div>';
+  const iv=INTERVENTIONS.find(x=>x.id===(EXP[id]?EXP[id].intervention:id))||{},st=expStatus(id,today),ex=state.experiments[id],lc=lifecycle(id,today);
+  let h='<button class="back" data-act="back">‹ 返回</button><div class="phead" style="padding-top:8px"><div class="eyebrow">'+esc(id)+'・'+esc(meta.domain)+'</div><h1>'+esc(meta.name)+'</h1></div>';
+  h+='<div class="grid2 even"><section class="sec">'+sectionHead('個人實驗狀態',ex?'方案 v'+(ex.protocol||[]).length:'尚未建立')+lcStepper(lc)+'</section><section class="sec">'+sectionHead('研究證據等級','不代表對你有效')+'<p style="margin:10px 0 4px">'+ev(meta.grade)+'</p><p class="small ink2">'+esc(iv.gradeNote||'')+'</p><p class="caption">證據等級描述的是文獻，個人實驗結果要看「分析」。</p></section></div>';
+  h+='<section class="sec">'+sectionHead('執行步驟')+sessionPreview(id)+'</section>';
+  h+='<section class="sec">'+sectionHead('實驗方案')+specSheet(id,meta,iv)+'</section>';
+  if(ex){h+='<section class="sec">'+sectionHead('方案版本與變更紀錄')+(ex.protocol||[]).slice().reverse().map(p=>'<div class="list-row small"><span><b class="num">v'+p.v+'</b>　'+esc(p.summary)+'</span><span class="num muted">'+fmtDate(ymd(new Date(p.at)),false)+'</span></div>').join('');
+    const cl=(state.changelog||[]).filter(c=>c.exp===id&&c.type!=='version').slice(-8).reverse();if(cl.length)h+='<details class="more"><summary>全部變更（'+cl.length+'）</summary>'+cl.map(c=>'<div class="list-row small"><span>'+esc(c.detail)+'</span><span class="num muted">'+fmtDate(ymd(new Date(c.at)),false)+'</span></div>').join('')+'</details>';h+='</section>'}
+  h+='<section class="sec">'+sectionHead('實驗控制');
+  if(EXP[id]||iv.tmpl){
+    if(st==='candidate'){if(iv.grade==='D'||iv.grade==='E')h+='<div class="notice">證據等級 '+iv.grade+'，不列入正式計畫。</div>';else{const warn=activationWarnings(id,today);h+=(warn?'<div class="notice small">'+warn+'</div>':'')+'<div class="field"><label for="actDate">開始日期</label><input type="date" id="actDate" value="'+addDays(today,1)+'"></div><div class="btnrow"><button class="btn pri grow" data-act="activate" data-id="'+id+'">'+(iv.grade==='C'?'以探索性實驗啟用':'啟用此實驗')+'</button></div>'}}
+    else if(st==='active'||st==='scheduled'){h+=(EXP[id]?'<div class="field"><label for="startDate">開始日期</label><input type="date" id="startDate" value="'+ex.periods[0].start+'"><div class="hint">修改會建立新的方案版本；已記錄的資料保留在原日期。</div></div><div class="btnrow"><button class="btn" data-act="set-start" data-id="'+id+'">更新開始日期</button></div>':'')+'<div class="btnrow"><button class="btn grow" data-act="pause" data-id="'+id+'">暫停</button><button class="btn danger grow" data-act="remove" data-id="'+id+'">結束並封存</button></div>'}
+    else if(st==='paused')h+='<div class="btnrow"><button class="btn pri grow" data-act="resume" data-id="'+id+'">從今天恢復</button><button class="btn danger grow" data-act="remove" data-id="'+id+'">結束並封存</button></div>';
+    else if(st==='removed')h+='<div class="btnrow"><button class="btn grow" data-act="unremove" data-id="'+id+'">取消封存（改為暫停）</button></div>';
+  }else h+='<p class="caption">此方法目前沒有可啟用的微型版本。</p>';
+  if(ex)h+='<p class="caption" style="margin-top:10px">執行期間：'+ex.periods.map(p=>fmtDate(p.start,false)+'–'+(p.end?fmtDate(p.end,false):'進行中')).join('、')+'</p>';
+  h+='</section>';
+  if(id==='E02'){const ms=state.measurements.filter(m=>m.key==='recall').sort((a,b)=>b.date.localeCompare(a.date));h+='<section class="sec">'+sectionHead('測量結果',ms.length+' 次')+(ms.length?ms.map(measRow).join(''):'<div class="empty">尚無測驗紀錄</div>')+'</section>'}
+  if(ex)h+='<section class="sec">'+sectionHead('月度決策')+(ex.decisions.length?ex.decisions.map(d=>'<div class="list-row small"><span class="num">'+d.month+'</span><span><b>'+d.decision+'</b>　'+esc(d.note||'')+'</span></div>').join(''):'<div class="empty">尚無決策。於「分析 → 月回顧」記錄。</div>')+'</section>';
+  h+='<section class="sec">'+sectionHead('研究依據')+'<details class="more"><summary>展開完整研究說明與文獻</summary><div class="qa">'+expQA(id,iv)+'</div></details></section>';
+  return h;
+}
+
+/* ---------- LIBRARY ---------- */
+function ivResearchStatus(iv){const today=logicalToday(),own=iv.status||iv.id,st=expStatus(own,today);if(st==='active'||st==='scheduled')return['核准測試中','active'];if(st==='paused')return['測試暫停','paused'];if(st==='removed')return['已結束測試','removed'];if(iv.grade==='D'||iv.grade==='E')return['不採用','removed'];return['候選介入','candidate']}
+function vLibrary(){
+  const tab=view.libTab||'iv';
+  let h='<div class="phead"><div class="eyebrow">Library</div><h1>文獻</h1><p class="lede">研究知識中心。每天不需要看，想確認某個方法值不值得做時再來。</p></div><div class="seg">'+[['iv','介入方法'],['papers','論文'],['proto','我的方案']].map(([k,l])=>'<button data-act="libtab" data-v="'+k+'" class="'+(tab===k?'on':'')+'">'+l+'</button>').join('')+'</div>';
+  if(tab==='papers'){const p=vResearch();const i=p.indexOf('<section class="sec"><div class="sec-h"><h2>論文');const j=p.indexOf('</section>',i);return h+p.slice(i,j+10)}
+  if(tab==='proto'){h+='<section class="sec">'+sectionHead('個人實驗方案',Object.keys(state.experiments).length+' 項');Object.entries(state.experiments).forEach(([id,ex])=>{const meta=expMeta(id);h+='<div class="ref"><div class="rid"><span>'+id+'</span><span>'+lcLabel(lifecycle(id,logicalToday()))+'</span></div><div class="rt"><a href="#exp/'+id+'" style="color:inherit">'+esc(meta.name)+'</a></div>'+(ex.protocol||[]).map(p=>'<div class="ra"><span class="num">v'+p.v+'</span>・'+fmtDate(ymd(new Date(p.at)),false)+'・'+esc(p.summary)+'</div>').join('')+'</div>'});return h+'</section>'}
+  const focus=state.settings.focus||[],FMAP={'記憶與學習':['記憶與學習'],'睡眠與夢境':['睡眠與夢境','睡眠與節律'],'專注':['注意力與認知'],'運動表現':['運動表現','神經肌肉協調'],'壓力':['自律神經與壓力']};
+  const fdom=[].concat(...focus.map(f=>FMAP[f]||[]));const ivs=INTERVENTIONS.slice().sort((a,b)=>(fdom.includes(b.domain)?1:0)-(fdom.includes(a.domain)?1:0));
+  h+='<section class="sec">'+sectionHead('介入方法',INTERVENTIONS.length+' 項')+'<p class="caption" style="margin:8px 0">研究狀態：候選介入 → 核准測試中 → 結束測試；D／E 級不採用。'+(fdom.length?'你關注的領域排在前面。':'')+'</p>';
+  ivs.forEach(iv=>{const [s,c]=ivResearchStatus(iv),dz=DOSE[iv.id]||{};h+='<a class="xrow" href="#exp/'+(iv.status||iv.id)+'"><span class="xid">'+iv.id.replace('I-','')+'</span><span class="xn">'+esc(iv.name)+'</span><span class="xr"><span class="st '+c+'">'+s+'</span></span><span class="xm"><span>'+esc(iv.domain)+'</span>'+ev(iv.grade)+'<span>微型版本直接證據：'+esc((dz.direct||iv.micro||'—').split('：')[0].split('（')[0])+'</span></span></a>'});
+  h+='</section><section class="sec">'+sectionHead('證據分級')+'<dl class="spec" style="grid-template-columns:1fr">'+[['A','多項高品質人體研究或一致的系統性證據'],['B','有一定人體研究，效果或適用條件仍不確定'],['C','初步人體研究，只能作探索性實驗'],['D','缺乏可靠人體實驗'],['E','效果有限、無效或風險不合理']].map(([g,t])=>'<div style="grid-template-columns:40px 1fr"><dt><span class="grade">'+g+'</span></dt><dd class="small">'+t+'</dd></div>').join('')+'</dl></section>';
+  h+='<section class="sec">'+sectionHead('不列入的說法')+NOT_INCLUDED.map(r=>'<div class="list-row small"><span>'+esc(r[0])+'<br><span class="caption">'+esc(r[2])+'</span></span><span class="grade">'+r[1]+'</span></div>').join('')+'</section>';
+  return h;
+}
+
+/* ---------- 漸進式引導 v3 ---------- */
+const FOCUS_OPTS=['記憶與學習','睡眠與夢境','專注','運動表現','壓力'];
+function openOnboarding(i){
+  i=i||0;const s=state.settings,S=s.startDate,e2=state.experiments.E02;
+  const bar='<div style="display:flex;gap:4px;margin:4px 0 14px">'+[0,1,2].map(k=>'<i style="flex:1;height:2px;background:'+(k<=i?'var(--color-accent)':'var(--color-border)')+'"></i>').join('')+'</div>';
+  let body;
+  if(i===0)body='<h3>你最想觀察什麼？</h3><p class="small ink2">可複選。只用來排列文獻，不會改變實驗內容。</p><div class="chips">'+FOCUS_OPTS.map(f=>'<button data-act="ob-focus" data-v="'+f+'" class="'+(s.focus.includes(f)?'on':'')+'">'+f+'</button>').join('')+'</div><div class="btnrow"><button class="btn ghost" data-act="ob-done">略過</button><button class="btn pri grow" data-act="ob-go" data-i="1">下一步</button></div>';
+  if(i===1)body='<h3>每天願意花多少時間？</h3><p class="small ink2">今日任務超過這個時間時會提醒你，但不會自動縮短實驗。</p><div class="chips">'+[5,10,15,20].map(m=>'<button data-act="ob-budget" data-v="'+m+'" class="'+(s.budget===m?'on':'')+'">'+m+' 分鐘</button>').join('')+'</div><div class="btnrow"><button class="btn" data-act="ob-go" data-i="0">上一步</button><button class="btn pri grow" data-act="ob-go" data-i="2">下一步</button></div>';
+  if(i===2)body='<h3>你的起始流程</h3><dl class="spec" style="grid-template-columns:1fr;margin-top:8px"><div><dt class="num">'+fmtDate(S,false)+'</dt><dd>開始。前兩週記錄基準：寫夢、記睡眠、記狀態。</dd></div><div><dt class="num">'+fmtDate(addDays(S,14),false)+'</dt><dd>加入白天現實檢查'+(e2&&!e2.removed?'、讀書前回想':'')+'。</dd></div><div><dt>每天</dt><dd>打開「今日」→ 按「開始」→ 照步驟做 → 儲存。</dd></div></dl><div class="btnrow"><button class="btn" data-act="ob-go" data-i="1">上一步</button><button class="btn pri grow" data-act="ob-done">開始使用</button></div>';
+  openSheet('<div class="eyebrow">'+(i+1)+' / 3</div>'+bar+body);
+}
+
 /* ---------- RESEARCH ---------- */
 function vResearch(){
   let h='<div class="phead"><div class="eyebrow">Research Library</div><h1>研究文獻</h1><p class="lede">P-0001–P-0048 來自「第一輪八大主題研究報告」（經 Europe PMC／Crossref 查證，多數僅根據摘要）；P-0049–P-0056 為 App 開發時補查。未整理的欄位明確標示，不以推測補齊。</p></div>';
@@ -1126,7 +1580,7 @@ function openSettings(){
   '<div class="list-row small"><span>紀錄天數</span><span class="mono">'+n+'</span></div><div class="list-row small"><span>資料大小</span><span class="mono">'+(bytes/1024).toFixed(1)+' KB</span></div><div class="list-row small"><span>上次匯出</span><span class="mono">'+(s.lastExport?s.lastExport.slice(0,16).replace('T',' '):'從未')+'</span></div><div class="list-row small"><span>持久儲存</span><span class="mono" id="persist">檢查中…</span></div>'+
   '<div class="btnrow"><button class="btn pri grow" data-act="export-json">匯出 JSON 備份</button></div><div class="btnrow"><button class="btn grow" data-act="export-csv">匯出每日 CSV</button><button class="btn grow" data-act="export-mcsv">匯出測量 CSV</button></div>'+
   '<div class="field"><label for="imp">從 JSON 匯入（會取代目前資料）</label><input type="file" id="imp" accept="application/json,.json"></div>'+
-  '<h3 style="margin-top:18px">設定</h3><div class="field"><label for="sd">專案開始日（基準期第 1 天）</label><input type="date" id="sd" value="'+s.startDate+'"></div><div class="two"><div class="field"><label for="bd">基準期天數</label><input type="number" id="bd" min="7" max="28" value="'+s.baselineDays+'"></div><div class="field"><label for="dh">換日時間（時）</label><input type="number" id="dh" min="0" max="8" value="'+s.dayStartHour+'"></div></div><p class="xs muted">換日時間：凌晨此時之前打開 App，仍算前一天（適合晚睡）。所有日期皆使用裝置本地時區。</p><div class="btnrow"><button class="btn grow" data-act="save-settings">儲存設定</button></div>'+
+  '<h3 style="margin-top:18px">設定</h3><div class="field"><label for="sd">專案開始日（基準期第 1 天）</label><input type="date" id="sd" value="'+s.startDate+'"></div><div class="two"><div class="field"><label for="bd">基準期天數</label><input type="number" id="bd" min="7" max="28" value="'+s.baselineDays+'"></div><div class="field"><label for="dh">換日時間（時）</label><input type="number" id="dh" min="0" max="8" value="'+s.dayStartHour+'"></div></div><div class="field"><label for="bgt">每日時間預算（分鐘）</label><input type="number" id="bgt" min="1" max="120" value="'+(s.budget||10)+'"><div class="hint">今日任務超過時只會提醒，不會自動刪減。</div></div><p class="xs muted">換日時間：凌晨此時之前打開 App，仍算前一天（適合晚睡）。所有日期皆使用裝置本地時區。</p><div class="btnrow"><button class="btn grow" data-act="save-settings">儲存設定</button></div>'+
   '<h3 style="margin-top:18px">重置</h3><div class="field"><label for="rst">輸入 RESET 以清除全部資料（無法復原，建議先匯出）</label><input type="text" id="rst" autocomplete="off"></div><div class="btnrow"><button class="btn danger grow" data-act="reset">清除全部資料</button><button class="btn grow" data-act="close">關閉</button></div>');
   if(navigator.storage&&navigator.storage.persisted)navigator.storage.persisted().then(p=>{const el=$('#persist');if(el)el.textContent=p?'已啟用':'未啟用（瀏覽器可能在空間不足時清除）'}).catch(()=>{});else{const el=$('#persist');if(el)el.textContent='此瀏覽器不支援'}
 }
@@ -1150,7 +1604,7 @@ function openMeasure(taskDate,m){
   openSheet('<h3>'+(m?'編輯延遲回憶測驗':'延遲回憶測驗')+'</h3><p class="small ink2">不看資料作答後對答案。提取組＝本週用回想練習的概念；重讀組＝本週只重讀的概念。</p><input type="hidden" id="mid" value="'+(m?m.id:'')+'"><div class="field"><label for="mdate">測驗日期</label><input type="date" id="mdate" value="'+date+'"></div><div class="two"><div class="field"><label for="rc">提取組答對</label><input type="number" id="rc" min="0" inputmode="numeric" value="'+v('rc',0)+'"></div><div class="field"><label for="rn">提取組題數</label><input type="number" id="rn" min="1" inputmode="numeric" value="'+v('rn',5)+'"></div></div><div class="two"><div class="field"><label for="sc">重讀組答對</label><input type="number" id="sc" min="0" inputmode="numeric" value="'+v('sc',0)+'"></div><div class="field"><label for="sn">重讀組題數</label><input type="number" id="sn" min="1" inputmode="numeric" value="'+v('sn',5)+'"></div></div><div class="field"><label for="mnote2">備註（例：前晚 WBTB）</label><input type="text" id="mnote2" value="'+esc(m&&m.note||'')+'"></div><p class="caption" id="merr" role="alert"></p><div class="btnrow"><button class="btn grow" data-act="close">取消</button><button class="btn pri grow" data-act="save-recall">儲存</button></div>');
 }
 function openCustomMeasure(m){
-  openSheet('<h3>'+(m?'編輯測量':'記錄其他測量')+'</h3><p class="small ink2">例：單腳站立秒數、CMJ 高度。固定測量時間與方法，可減少誤差。</p><input type="hidden" id="mid" value="'+(m?m.id:'')+'"><div class="field"><label for="cdate">日期</label><input type="date" id="cdate" value="'+(m?m.date:logicalToday())+'"></div><div class="field"><label for="cname">測量名稱</label><input type="text" id="cname" list="cnames" value="'+esc(m?m.name:'')+'"><datalist id="cnames">'+[...new Set(state.measurements.filter(x=>x.name).map(x=>x.name))].map(n=>'<option value="'+esc(n)+'">').join('')+'</datalist></div><div class="two"><div class="field"><label for="cval">數值</label><input type="number" step="any" id="cval" inputmode="decimal" value="'+(m?m.value:'')+'"></div><div class="field"><label for="cunit">單位</label><input type="text" id="cunit" value="'+esc(m&&m.unit||'')+'"></div></div><div class="field"><label for="cnote">備註</label><input type="text" id="cnote" value="'+esc(m&&m.note||'')+'"></div><p class="caption" id="merr" role="alert"></p><div class="btnrow"><button class="btn grow" data-act="close">取消</button><button class="btn pri grow" data-act="save-custom">儲存</button></div>');
+  openSheet('<h3>'+(m?'編輯測量':'記錄其他測量')+'</h3><p class="small ink2">例：單腳站立秒數、CMJ 高度。固定測量時間與方法，可減少誤差。</p><input type="hidden" id="mid" value="'+(m?m.id:'')+'"><div class="field"><label for="cdate">日期</label><input type="date" id="cdate" value="'+(m?m.date:logicalToday())+'"></div><div class="field"><label for="cname">測量名稱</label><input type="text" id="cname" list="cnames" value="'+esc(m?m.name:'')+'"><datalist id="cnames">'+[...new Set(state.measurements.filter(x=>x.name).map(x=>x.name))].map(n=>'<option value="'+esc(n)+'">').join('')+'</datalist></div><div class="two"><div class="field"><label for="cval">數值</label><input type="number" step="any" id="cval" inputmode="decimal" value="'+(m?m.value:'')+'"></div><div class="field"><label for="cunit">單位</label><input type="text" id="cunit" value="'+esc(m&&m.unit||'')+'"></div></div><div class="field"><label for="cmethod">測量方法（選填）</label><input type="text" id="cmethod" placeholder="例：起床後、赤腳、取 3 次最佳" value="'+esc(m&&m.method||'')+'"></div><div class="field"><span class="flabel">資料品質</span><div class="chips" id="cq">'+[['ok','正常'],['suspect','可疑（狀況不佳、方法不同）']].map(([v,l])=>'<button type="button" data-act="cq" data-v="'+v+'" class="'+((m&&m.quality||'ok')===v?'on':'')+'">'+l+'</button>').join('')+'</div></div><div class="field"><label for="cnote">備註</label><input type="text" id="cnote" value="'+esc(m&&m.note||'')+'"></div><p class="caption" id="merr" role="alert"></p><div class="btnrow"><button class="btn grow" data-act="close">取消</button><button class="btn pri grow" data-act="save-custom">儲存</button></div>');
 }
 function openSkip(tid){
   openSheet('<h3>跳過這項實驗</h3><p class="small ink2">不需要強迫打卡。選擇原因，週回顧會用來判斷觸發點是否需要調整。</p><div class="chips">'+SKIP_REASONS.map(r=>'<button data-act="skip-reason" data-t="'+tid+'" data-v="'+r+'">'+r+'</button>').join('')+'</div><div class="btnrow"><button class="btn grow" data-act="close">取消</button></div>');
@@ -1160,7 +1614,7 @@ function openSkip(tid){
    8. EVENTS
    ========================================================= */
 function curDate(){return view.date||logicalToday()}
-function setTask(tid,rec){const d=day(curDate(),true);if(rec==null)delete d.tasks[tid];else d.tasks[tid]=rec;save();render()}
+function setTask(tid,rec){closeSheet();const d=day(curDate(),true);if(rec==null)delete d.tasks[tid];else d.tasks[tid]=rec;save();render()}
 document.addEventListener('click',async e=>{
   const el=e.target.closest('[data-act]');if(!el)return;const a=el.dataset.act;
   if(a==='sheet-bg'){if(e.target===el){if(modalResolve)modalResolve(false);closeSheet()}return}
@@ -1169,10 +1623,43 @@ document.addEventListener('click',async e=>{
   const tid=el.dataset.t;
   switch(a){
     case 'settings':openSettings();break;
+    case 'onboard':openOnboarding(0);break;
+    case 'ob-focus':{const f=state.settings.focus,v=el.dataset.v,i=f.indexOf(v);i>=0?f.splice(i,1):f.push(v);el.classList.toggle('on',i<0);save();break}
+    case 'ob-budget':state.settings.budget=+el.dataset.v;save();el.parentNode.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b===el));break;
+    case 'ses-start':closeSheet();startSession(tid,curDate());break;
+    case 'ses-go':location.hash='#session';break;
+    case 'ses-timer':{const s=state.activeSession;if(!s)break;const t=tasksFor(s.date).find(x=>x.id===s.task),st=sessionDef(t).steps[s.i];if(s.runAt){sesStop(s)}else{if(sesNowSec(s)>=st.sec)s.elapsed[s.i]=0;s.runAt=Date.now()}save();render();break}
+    case 'ses-next':case 'ses-skip':{const s=state.activeSession;if(!s)break;sesStop(s);s.st[s.i]=a==='ses-skip'?'skipped':'done';const N=s.st.length;if(s.i>=N-1)s.phase='log';else s.i++;save();render();window.scrollTo(0,0);break}
+    case 'ses-prev':{const s=state.activeSession;if(!s||s.i===0)break;sesStop(s);s.i--;save();render();break}
+    case 'ses-back':{const s=state.activeSession;if(!s)break;sesCollect(s);s.phase='steps';s.i=s.st.length-1;save();render();break}
+    case 'ses-end':{const s=state.activeSession;if(!s)break;if(!await confirmBox('提早結束？','還沒做的步驟會記為「跳過」，接著進入紀錄。','結束'))break;sesStop(s);s.st=s.st.map(x=>x||'skipped');s.phase='log';save();render();break}
+    case 'ses-leave':{const s=state.activeSession;if(s){sesStop(s);if(s.phase==='log')sesCollect(s);save()}toast('已暫停，可從「今日」繼續');location.hash='#today';break}
+    case 'ses-abandon':{if(!await confirmBox('放棄這次？','這次的步驟與計時不會被保存，任務維持「待執行」。','放棄',true))break;state.activeSession=null;save();if(location.hash==='#session')location.hash='#today';else render();break}
+    case 'ses-in':{const s=state.activeSession;if(!s)break;const k=el.dataset.k;let v=el.dataset.v;v=/^\d+$/.test(v)?+v:v;s.inputs[k]=s.inputs[k]===v?null:v;el.parentNode.querySelectorAll('button').forEach(b=>b.classList.toggle('on',(/^\d+$/.test(b.dataset.v)?+b.dataset.v:b.dataset.v)===s.inputs[k]));save();break}
+    case 'ses-step':{const s=state.activeSession;if(!s)break;s.inputs.dreams=Math.max(0,(s.inputs.dreams||0)+(+el.dataset.d));el.parentNode.querySelector('.n').textContent=s.inputs.dreams;save();break}
+    case 'ses-save':sesSave();break;
+    case 'cq':el.parentNode.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b===el));break;
+    case 'ck-open':openCheckin(el.dataset.part);break;
+    case 'row-more':openRowMore(tid);break;
+    case 'trtab':view.trTab=el.dataset.v;if(location.hash==='#journal')location.hash='#tracker';else render();break;
+    case 'libtab':view.libTab=el.dataset.v;render();break;
+    case 'cal-mo':{const[y,m]=(view.calMonth||monthKey(logicalToday())).split('-').map(Number),d=new Date(y,m-1+(+el.dataset.d),1,12);view.calMonth=ymd(d).slice(0,7);render();break}
+    case 'cal-sel':view.calSel=el.dataset.v;render();break;
+    case 'cal-goday':view.date=el.dataset.v===logicalToday()?null:el.dataset.v;view.q=null;location.hash='#today';break;
+    case 'cal-golog':view.date=el.dataset.v===logicalToday()?null:el.dataset.v;jDraft=null;view.trTab='log';render();window.scrollTo(0,0);break;
+    case 'qrate':{const pt=el.dataset.part,k=el.dataset.k,v=+el.dataset.v;view.q[pt][k]=view.q[pt][k]===v?null:v;el.parentNode.querySelectorAll('button').forEach(b=>{const on=+b.dataset.v===view.q[pt][k];b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)});break}
+    case 'qstep':{view.q.am.dreams=Math.max(0,(view.q.am.dreams||0)+(+el.dataset.d));el.parentNode.querySelector('.n').textContent=view.q.am.dreams;break}
+    case 'qsel':{const v=el.dataset.v==='true';view.q.am.wbtb=view.q.am.wbtb===v?null:v;el.parentNode.querySelectorAll('button').forEach(b=>b.classList.toggle('on',(b.dataset.v==='true')===view.q.am.wbtb&&view.q.am.wbtb!=null));break}
+    case 'qconf':{const v=el.dataset.v,c=view.q.pm.conf,i=c.indexOf(v);i>=0?c.splice(i,1):c.push(v);el.classList.toggle('on',i<0);break}
+    case 'qsave':quickSave(el.dataset.part);break;
+    case 'qedit':case 'qopen':view.q.edit[el.dataset.t||el.dataset.part]=true;render();break;
+    case 'setup-home':state.settings.setup=Object.assign({},state.settings.setup,{home:true});save();render();break;
+    case 'ob-go':openOnboarding(+el.dataset.i);break;
+    case 'ob-done':state.settings.onboarded=true;state.settings.onboardV=3;save();closeSheet();break;
     case 'close':closeSheet();break;
     case 'm-yes':if(modalResolve){const r=modalResolve;closeSheet();r(true)}break;
     case 'm-no':if(modalResolve){const r=modalResolve;closeSheet();r(false)}break;
-    case 'day':if(view.route==='journal'&&jDirty&&!await confirmBox('有未儲存的變更','切換日期會捨棄這一頁尚未儲存的日誌內容。','捨棄並切換',true))break;view.date=addDays(curDate(),+el.dataset.d);jDraft=null;jDirty=false;render();window.scrollTo(0,0);break;
+    case 'day':if(view.route==='journal'&&jDirty&&!await confirmBox('有未儲存的變更','切換日期會捨棄這一頁尚未儲存的日誌內容。','捨棄並切換',true))break;view.date=addDays(curDate(),+el.dataset.d);jDraft=null;jDirty=false;view.q=null;render();window.scrollTo(0,0);break;
     case 'row':view.open[tid]=!view.open[tid];render();break;
     case 'edit-meas':{const m=state.measurements.find(x=>x.id===el.dataset.id);if(m)m.key==='recall'?openMeasure(null,m):openCustomMeasure(m);break}
     case 'jdelete':{const date=curDate();if(!await confirmBox('刪除這一天的日誌？',fmtDate(date)+' 的睡眠、評分與筆記會被刪除；實驗完成狀態保留。','刪除',true))break;const d=day(date);if(d){d.log=null;save()}jDraft=null;jDirty=false;toast('已刪除日誌');render();break}
@@ -1194,18 +1681,18 @@ document.addEventListener('click',async e=>{
       if(tasksFor(date).some(t=>t.id==='E02.test'))day(date,true).tasks['E02.test']={status:'done',at:new Date().toISOString()};
       save();closeSheet();toast('已儲存測驗結果');render();break}
     case 'save-custom':{const name=$('#cname').value.trim(),v=$('#cval').value,date=$('#cdate').value;if(!name||v===''||!date){$('#merr').textContent='請填寫日期、測量名稱與數值。';$('#merr').style.color='var(--color-danger)';break}
-      const mid=$('#mid').value,rec={id:mid||'m'+Date.now(),date,key:'custom',name,value:+v,unit:$('#cunit').value.trim(),note:$('#cnote').value.trim(),at:new Date().toISOString()};
+      const mid=$('#mid').value,rec={id:mid||'m'+Date.now(),date,key:'custom',name,value:+v,unit:$('#cunit').value.trim(),method:$('#cmethod').value.trim(),quality:($('#cq .on')||{dataset:{v:'ok'}}).dataset.v,note:$('#cnote').value.trim(),at:new Date().toISOString()};
       if(mid){const i=state.measurements.findIndex(x=>x.id===mid);if(i>=0)state.measurements[i]=rec}else state.measurements.push(rec);save();closeSheet();toast('已儲存');render();break}
     case 'del-meas':if(await confirmBox('刪除這筆測量？','刪除後無法復原。','刪除',true)){state.measurements=state.measurements.filter(m=>m.id!==el.dataset.id);save();render()}break;
     case 'activate':{const id=el.dataset.id,date=$('#actDate').value;if(!date){toast('請選擇開始日期');break}
       const ok=await confirmBox('啟用實驗','將從 '+fmtDate(date)+' 起每天產生這項任務。建議先建立 7–14 天基準，並一次只加入一項。','啟用');if(!ok)break;
-      const ex=state.experiments[id];if(ex){ex.removed=false;ex.periods.push({start:date,end:null})}else state.experiments[id]={periods:[{start:date,end:null}],decisions:[]};save();toast('已啟用');render();break}
-    case 'set-start':{const id=el.dataset.id,v=$('#startDate').value;if(!v)break;const ex=state.experiments[id];if(ex.periods.length>1){toast('此實驗已有多段執行期間，無法直接改開始日');break}ex.periods[0].start=v;save();toast('開始日已更新');render();break}
+      const ex=state.experiments[id];if(ex){ex.removed=false;ex.periods.push({start:date,end:null});logChange(id,'activate','重新啟用，開始 '+date)}else{state.experiments[id]={periods:[{start:date,end:null}],decisions:[]};ensureMeta();state.experiments[id].protocol[0].summary='啟用：'+((DOSE[id]||{}).mine||'—')+'；開始 '+date;logChange(id,'activate','啟用實驗，開始 '+date)}save();toast('已啟用');render();break}
+    case 'set-start':{const id=el.dataset.id,v=$('#startDate').value;if(!v)break;const ex=state.experiments[id];if(ex.periods.length>1){toast('此實驗已有多段執行期間，無法直接改開始日');break}const old=ex.periods[0].start;ex.periods[0].start=v;if(old!==v)logChange(id,'version','開始日 '+old+' → '+v,true);save();toast('開始日已更新');render();break}
     case 'pause':{const id=el.dataset.id;if(!await confirmBox('暫停實驗','從明天起不再產生這項任務（今天保留）。可隨時恢復。','暫停'))break;const ex=state.experiments[id],p=ex.periods[ex.periods.length-1],t=logicalToday();
-      if(p.start>t){ex.periods.pop();if(!ex.periods.length)ex.periods.push({start:p.start,end:addDays(p.start,-1)})}else p.end=t;save();render();break}
-    case 'resume':{const id=el.dataset.id,ex=state.experiments[id],t=addDays(logicalToday(),0),p=ex.periods[ex.periods.length-1];if(p.end&&p.end>=t)p.end=null;else ex.periods.push({start:t,end:null});save();render();break}
-    case 'remove':{const id=el.dataset.id;if(!await confirmBox('淘汰實驗（REMOVE）','停止產生每日任務；過去的紀錄會保留在資料中。','淘汰',true))break;const ex=state.experiments[id],p=ex.periods[ex.periods.length-1],t=logicalToday();if(!p.end)p.end=p.start>t?addDays(p.start,-1):t;ex.removed=true;save();render();break}
-    case 'unremove':{const ex=state.experiments[el.dataset.id];ex.removed=false;save();toast('已改為暫停狀態，可從今天恢復');render();break}
+      if(p.start>t){ex.periods.pop();if(!ex.periods.length)ex.periods.push({start:p.start,end:addDays(p.start,-1)})}else p.end=t;logChange(id,'pause','暫停（'+t+' 起不再產生任務）');save();render();break}
+    case 'resume':{const id=el.dataset.id,ex=state.experiments[id],t=addDays(logicalToday(),0),p=ex.periods[ex.periods.length-1];if(p.end&&p.end>=t)p.end=null;else ex.periods.push({start:t,end:null});logChange(id,'resume','恢復（'+t+'）');save();render();break}
+    case 'remove':{const id=el.dataset.id;if(!await confirmBox('淘汰實驗（REMOVE）','停止產生每日任務；過去的紀錄會保留在資料中。','淘汰',true))break;const ex=state.experiments[id],p=ex.periods[ex.periods.length-1],t=logicalToday();if(!p.end)p.end=p.start>t?addDays(p.start,-1):t;ex.removed=true;logChange(id,'remove','結束並封存');save();render();break}
+    case 'unremove':{const ex=state.experiments[el.dataset.id];ex.removed=false;logChange(el.dataset.id,'unremove','取消封存');save();toast('已改為暫停狀態，可從今天恢復');render();break}
     case 'jrate':{markDirty();const k=el.dataset.k,v=+el.dataset.v;jDraft[k]=jDraft[k]===v?null:v;el.parentNode.querySelectorAll('button').forEach(b=>{b.classList.toggle('on',+b.dataset.v===jDraft[k]);b.setAttribute('aria-pressed',+b.dataset.v===jDraft[k])});const df=document.querySelector('[data-def="'+k+'"]');if(df)df.textContent=jDraft[k]?rateDef(k,jDraft[k]):'';break}
     case 'jchip':{markDirty();const k=el.dataset.k,v=el.dataset.v;jDraft[k]=jDraft[k]===v?null:v;el.parentNode.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.v===jDraft[k]));break}
     case 'jsel':{markDirty();const k=el.dataset.k;let v=el.dataset.v;if(v==='true')v=true;else if(v==='false')v=false;jDraft.e01[k]=jDraft.e01[k]===v?null:v;el.parentNode.querySelectorAll('button').forEach(b=>{let bv=b.dataset.v;if(bv==='true')bv=true;else if(bv==='false')bv=false;b.classList.toggle('on',bv===jDraft.e01[k])});break}
@@ -1218,14 +1705,14 @@ document.addEventListener('click',async e=>{
     case 'mo':{const[y,m]=(view.monthOf||monthKey(logicalToday())).split('-').map(Number),d=new Date(y,m-1+(+el.dataset.d),1,12);view.monthOf=ymd(d).slice(0,7);render();break}
     case 'wsave':state.reviews.weekly[el.dataset.k]=$('#wnote').value;save();toast('已儲存週筆記');break;
     case 'msave':state.reviews.monthly[el.dataset.k]=$('#mnote').value;save();toast('已儲存月結論');break;
-    case 'dec':{const id=el.dataset.id,mk=el.dataset.m,ex=state.experiments[id],v=el.dataset.v,note=($('#decnote-'+id)||{}).value||'';ex.decisions=ex.decisions.filter(d=>d.month!==mk);ex.decisions.push({month:mk,decision:v,note,at:new Date().toISOString()});save();toast(expMeta(id).short+'：'+v);render();break}
+    case 'dec':{const id=el.dataset.id,mk=el.dataset.m,ex=state.experiments[id],v=el.dataset.v,note=($('#decnote-'+id)||{}).value||'';ex.decisions=ex.decisions.filter(d=>d.month!==mk);ex.decisions.push({month:mk,decision:v,note,at:new Date().toISOString()});logChange(id,'decision',mk+' 月決策：'+v+(note?'（'+note+'）':''));save();toast(expMeta(id).short+'：'+v);render();break}
     case 'rtopic':view.rtopic=el.dataset.v;render();break;
     case 'export-json':{const t=new Date();download('human-micro-experiment-'+ymd(t)+'.json',JSON.stringify(state,null,1),'application/json');state.settings.lastExport=t.toISOString();save();toast('已匯出 JSON');closeSheet();render();break}
     case 'export-csv':download('hme-daily-'+ymd(new Date())+'.csv',buildDailyCSV(),'text/csv;charset=utf-8');toast('已匯出每日 CSV');break;
     case 'export-mcsv':download('hme-measurements-'+ymd(new Date())+'.csv',buildMeasCSV(),'text/csv;charset=utf-8');toast('已匯出測量 CSV');break;
     case 'save-settings':{const sd=$('#sd').value,bd=+$('#bd').value,dh=+$('#dh').value;if(!/^\d{4}-\d{2}-\d{2}$/.test(sd)||!(bd>=7&&bd<=28)||!(dh>=0&&dh<=8)){toast('設定值不正確');break}
       const old=state.settings.startDate;state.settings.startDate=sd;state.settings.baselineDays=bd;state.settings.dayStartHour=dh;
-      const e1=state.experiments.E01;if(e1&&e1.periods.length===1&&e1.periods[0].start===old)e1.periods[0].start=sd;
+      const e1=state.experiments.E01;if(e1&&e1.periods.length===1&&e1.periods[0].start===old&&old!==sd){e1.periods[0].start=sd;logChange('E01','version','開始日 '+old+' → '+sd,true)}const bg=+($('#bgt')||{}).value;if(bg>=1&&bg<=120)state.settings.budget=bg;
       save();closeSheet();toast('設定已儲存');render();break}
     case 'reset':{if($('#rst').value!=='RESET'){toast('請輸入 RESET（大寫）');break}closeSheet();if(!await confirmBox('最後確認','將清除這台裝置上全部的實驗紀錄。','永久清除',true))break;
       try{localStorage.setItem(KEY+'.prev',localStorage.getItem(KEY)||'')}catch(_){} state=defaultState();save();view.date=null;jDraft=null;toast('已清除全部資料');render();break}
@@ -1234,6 +1721,7 @@ document.addEventListener('click',async e=>{
 document.addEventListener('change',e=>{
   const t=e.target;
   if(t.id==='rtopicSel'){view.rtopic=t.value;$('#plist').innerHTML=paperList()}
+  if(t.dataset&&t.dataset.q&&view.q){view.q.am[t.dataset.q]=t.value;const h=sleepHours(view.q.am.bed,view.q.am.wake),el=$('#qsleepH');if(el)el.innerHTML=h!=null?'睡了 <span class="num">'+h+'</span> 小時':''}
   if(t.dataset&&t.dataset.j){jDraft[t.dataset.j]=t.value;markDirty();if(t.dataset.j==='bed'||t.dataset.j==='wake'){const h=sleepHours(jDraft.bed,jDraft.wake);$('#sleepH').innerHTML='睡眠時數：'+(h!=null?'<span class="num">'+h+'</span> 小時（由時間計算）':'—')}}
   if(t.dataset&&t.dataset.j1){jDraft.e01[t.dataset.j1]=t.value}
   if(t.id==='imp'&&t.files&&t.files[0]){const f=t.files[0],rd=new FileReader();rd.onload=async()=>{let o;try{o=JSON.parse(rd.result)}catch(_){toast('不是有效的 JSON 檔');return}
@@ -1243,7 +1731,7 @@ document.addEventListener('change',e=>{
 });
 document.addEventListener('input',e=>{const t=e.target;if(t.dataset&&t.dataset.j&&t.tagName==='TEXTAREA'){jDraft[t.dataset.j]=t.value;markDirty()}if(t.dataset&&t.dataset.j1){jDraft.e01[t.dataset.j1]=t.value;markDirty()}if(t.id==='rq'){view.rq=t.value;$('#plist').innerHTML=paperList()}});
 document.addEventListener('pointerdown',e=>{if(e.target.closest('.chart'))chartPointer(e)});
-function load2(){state.settings=Object.assign(defaultState().settings,state.settings||{});if(!state.measurements)state.measurements=[];if(!state.reviews)state.reviews={weekly:{},monthly:{}}}
+function load2(){setTimeout(()=>{ensureMeta();save()},0);state.settings=Object.assign(defaultState().settings,state.settings||{});if(!state.measurements)state.measurements=[];if(!state.reviews)state.reviews={weekly:{},monthly:{}}}
 window.addEventListener('hashchange',()=>{render();window.scrollTo(0,0)});
 const isTyping=el=>el&&(el.tagName==='TEXTAREA'||(el.tagName==='INPUT'&&!['checkbox','radio','file','button'].includes(el.type))||el.tagName==='SELECT');
 document.addEventListener('focusin',e=>{if(isTyping(e.target)&&window.matchMedia('(max-width:1023px)').matches)document.body.classList.add('kbd')});
@@ -1255,6 +1743,7 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden&&!view.dat
 load();
 if(navigator.storage&&navigator.storage.persist)navigator.storage.persist().catch(()=>{});
 render();
+if((state.settings.onboardV||0)<3){openOnboarding(0)}
 if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost'))navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script>
 </body>

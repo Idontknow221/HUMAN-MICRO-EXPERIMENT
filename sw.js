@@ -1,5 +1,5 @@
 /* HUMAN MICRO-EXPERIMENT service worker：只快取 App 檔案，不碰你的紀錄（紀錄在 localStorage）。 */
-const CACHE = 'hme-v2';
+const CACHE = 'hme-v3';
 const ASSETS = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));
