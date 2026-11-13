@@ -1,0 +1,16 @@
+{
+  "name": "HUMAN MICRO-EXPERIMENT",
+  "short_name": "Micro-Exp",
+  "description": "N-of-1 個人微型實驗追蹤系統（資料存於本機）",
+  "start_url": "./index.html#today",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F5F4EF",
+  "theme_color": "#F5F4EF",
+  "lang": "zh-Hant",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}

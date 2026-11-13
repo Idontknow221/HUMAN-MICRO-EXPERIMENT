@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+<meta name="theme-color" content="#F5F3EC" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111311" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Micro-Exp">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@600&display=swap">
+<title>HUMAN MICRO-EXPERIMENT</title>
+<style>
+/* ============================================================
+   DESIGN TOKENS — Editorial Science
+   ============================================================ */
+:root{
+  --color-background:#F5F3EC;
+  --color-surface:#FBFAF6;
+  --color-surface-2:#EDEAE1;
+  --color-text-primary:#1B1C19;
+  --color-text-secondary:#585B55;
+  --color-text-tertiary:#878A83;
+  --color-border:#E1DDD2;
+  --color-border-strong:#C9C4B6;
+  --color-accent:#2E5842;
+  --color-accent-soft:#E2EAE2;
+  --color-on-accent:#F7F6F1;
+  --color-success:#2E6A46;
+  --color-warning:#94600E;
+  --color-warning-soft:#F4E9D2;
+  --color-danger:#9E3826;
+  --color-danger-soft:#F4E0DA;
+  --font-sans:"Inter","IBM Plex Sans","Noto Sans TC",-apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  --font-display:"Noto Serif TC","Songti TC","Source Han Serif TC","PMingLiU",Georgia,serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --fs-display:30px;--fs-h2:19px;--fs-h3:16px;--fs-body:15px;--fs-meta:13px;--fs-cap:12px;
+  --r-sm:3px;--r:6px;--nav-h:58px;--side-w:224px;
+  --ease:cubic-bezier(.2,.7,.2,1);--dur:160ms;
+  /* legacy aliases used inside SVG strings */
+  --bg:var(--color-background);--surface:var(--color-surface);--ink:var(--color-text-primary);--ink2:var(--color-text-secondary);
+  --muted:var(--color-text-tertiary);--line:var(--color-border);--line2:var(--color-border-strong);--accent:var(--color-accent);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --color-background:#111311;--color-surface:#181A18;--color-surface-2:#1F221F;
+    --color-text-primary:#E8E7E1;--color-text-secondary:#A9ABA4;--color-text-tertiary:#7D807A;
+    --color-border:#2A2D29;--color-border-strong:#3B3F3A;
+    --color-accent:#8FBFA1;--color-accent-soft:#1B2A21;--color-on-accent:#0E120F;
+    --color-success:#8FBFA1;--color-warning:#D8A54C;--color-warning-soft:#2A2315;--color-danger:#DE826F;--color-danger-soft:#2D1A16;
+  }
+}
+@media (min-width:768px){:root{--fs-display:36px;--fs-h2:20px}}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+html,body{margin:0;background:var(--color-background);color:var(--color-text-primary);font-family:var(--font-sans);font-size:var(--fs-body);line-height:1.6;font-feature-settings:"cv11","ss01"}
+body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom) + 24px);overflow-x:hidden}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;-webkit-appearance:none;appearance:none}
+a{color:var(--color-accent);text-underline-offset:3px;text-decoration-thickness:1px}
+:focus-visible{outline:2px solid var(--color-accent);outline-offset:2px}
+.mono,.num{font-family:var(--font-mono);font-variant-numeric:tabular-nums;letter-spacing:0}
+.muted{color:var(--color-text-tertiary)}.ink2{color:var(--color-text-secondary)}
+.small{font-size:var(--fs-meta)}.xs{font-size:var(--fs-cap)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* ---- typography scale ---- */
+h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.005em}
+h1,.display{font-family:var(--font-display);font-size:var(--fs-display);line-height:1.18;font-weight:600}
+h2,.section-h{font-family:var(--font-sans);font-size:var(--fs-h2);line-height:1.35;font-weight:600}
+h3,.card-h{font-size:var(--fs-h3);line-height:1.4;font-weight:600}
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-text-tertiary);font-weight:500}
+.meta{font-size:var(--fs-meta);color:var(--color-text-secondary)}
+.caption{font-size:var(--fs-cap);color:var(--color-text-tertiary);line-height:1.5}
+.lede{font-size:var(--fs-body);color:var(--color-text-secondary);max-width:60ch}
+
+/* ============================================================
+   SHELL — header, nav (bottom on mobile, side rail on desktop)
+   ============================================================ */
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+header.top{position:sticky;top:0;z-index:20;background:var(--color-background);padding-top:env(safe-area-inset-top);border-bottom:1px solid var(--color-border)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:52px}
+.brand{display:flex;align-items:baseline;gap:10px;font-weight:600;font-size:13px;letter-spacing:.08em}
+.brand .mark{font-family:var(--font-mono);font-weight:500;font-size:12px;padding:1px 6px;border:1px solid var(--color-text-primary);border-radius:var(--r-sm);letter-spacing:0}
+.brand small{font-weight:400;font-size:12px;color:var(--color-text-tertiary);letter-spacing:.02em}
+.iconbtn{background:transparent;border:1px solid var(--color-border-strong);border-radius:var(--r);min-width:44px;height:36px;padding:0 12px;font-size:13px;color:var(--color-text-secondary);transition:background var(--dur) var(--ease)}
+.iconbtn:hover{background:var(--color-surface-2)}
+nav.bottom{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--color-surface);border-top:1px solid var(--color-border);padding-bottom:env(safe-area-inset-bottom);transition:transform var(--dur) var(--ease)}
+nav.bottom .wrap{display:grid;grid-template-columns:repeat(5,1fr);padding:0}
+nav.bottom a{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;height:var(--nav-h);text-decoration:none;color:var(--color-text-tertiary);font-size:10px;letter-spacing:.06em;gap:1px}
+nav.bottom a b{font-size:14px;font-weight:500;letter-spacing:.02em;color:var(--color-text-secondary)}
+nav.bottom a.on b{color:var(--color-text-primary);font-weight:600}
+nav.bottom a.on::before{content:"";position:absolute;top:-1px;left:28%;right:28%;height:2px;background:var(--color-accent)}
+body.kbd nav.bottom{transform:translateY(110%)}
+@media (min-width:1024px){
+  body{padding-bottom:40px;padding-left:var(--side-w)}
+  header.top{display:none}
+  nav.bottom{top:0;right:auto;width:var(--side-w);border-top:0;border-right:1px solid var(--color-border);background:var(--color-background);padding:28px 0 0}
+  nav.bottom .wrap{display:flex;flex-direction:column;padding:0 16px;gap:2px}
+  nav.bottom .wrap::before{content:"HUMAN MICRO-EXPERIMENT";font-size:11px;letter-spacing:.14em;font-weight:600;padding:0 12px 6px}
+  nav.bottom .wrap::after{content:"N-of-1 個人研究平台";font-size:12px;color:var(--color-text-tertiary);padding:0 12px 24px;order:-1;display:none}
+  nav.bottom a{flex-direction:row;justify-content:space-between;height:44px;padding:0 12px;border-radius:var(--r);font-size:11px}
+  nav.bottom a b{font-size:15px}
+  nav.bottom a:hover{background:var(--color-surface-2)}
+  nav.bottom a.on{background:var(--color-surface-2)}
+  nav.bottom a.on::before{top:10px;bottom:10px;left:0;right:auto;width:2px;height:auto}
+  .side-data{display:block!important}
+}
+.side-data{display:none;margin:24px 28px 0;font-size:13px}
+main#app{padding-top:4px;animation:pagein 180ms var(--ease)}
+@keyframes pagein{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* ============================================================
+   PAGE HEADER
+   ============================================================ */
+.phead{padding:26px 0 18px;border-bottom:1px solid var(--color-text-primary);margin-bottom:6px}
+.phead .row{display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+.phead .lede{margin-top:8px}
+.dnav{display:flex;gap:6px;flex:none}
+.dnav button{width:44px;height:44px;border:1px solid var(--color-border-strong);background:var(--color-surface);border-radius:var(--r);font-size:18px;line-height:1;color:var(--color-text-secondary);transition:background var(--dur) var(--ease)}
+.dnav button:hover{background:var(--color-surface-2)}
+.dnav button:active{transform:translateY(1px)}
+.ctx{display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:10px;font-size:var(--fs-meta);color:var(--color-text-secondary)}
+.ctx .num{color:var(--color-text-primary)}
+.ctx a{font-weight:500}
+
+/* ============================================================
+   SECTIONS & LAYOUT
+   ============================================================ */
+.sec{padding:22px 0 6px}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding-bottom:10px;border-bottom:1px solid var(--color-border);margin-bottom:4px}
+.sec-h h2{font-size:var(--fs-h2)}
+.sec-h .aside{font-size:var(--fs-cap);color:var(--color-text-tertiary);font-family:var(--font-mono)}
+.grid2{display:block}
+@media (min-width:1024px){
+  .wrap{padding:0 40px}
+  .grid2{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:0 48px;align-items:start}
+  .grid2.even{grid-template-columns:1fr 1fr}
+  .grid2 > .col-r{position:sticky;top:20px}
+}
+@media (min-width:768px) and (max-width:1023px){.wrap{padding:0 32px}}
+
+/* ============================================================
+   TODAY — focus block
+   ============================================================ */
+.focus{margin:18px 0 6px;padding:18px 18px 18px 20px;background:var(--color-surface);border:1px solid var(--color-border);border-left:3px solid var(--color-accent);border-radius:0 var(--r) var(--r) 0}
+.focus .k{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.focus h2{font-family:var(--font-display);font-size:24px;line-height:1.3;margin:6px 0 4px}
+.focus p{margin:8px 0 0;color:var(--color-text-secondary);font-size:var(--fs-body)}
+.focus.clear{border-left-color:var(--color-border-strong)}
+.focus.clear h2{font-size:20px}
+
+/* status figures */
+.figs{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--color-border)}
+.figs>div{padding:12px 0 12px;border-bottom:1px solid var(--color-border)}
+.figs>div:nth-child(odd){padding-right:12px;border-right:1px solid var(--color-border)}
+.figs>div:nth-child(even){padding-left:14px}
+.fig-v{font-family:var(--font-mono);font-size:24px;line-height:1.2;font-variant-numeric:tabular-nums}
+.fig-v small{font-size:13px;color:var(--color-text-tertiary);margin-left:2px}
+.fig-v.na{font-size:15px;color:var(--color-text-tertiary);font-family:var(--font-sans);line-height:1.9}
+.fig-l{font-size:var(--fs-cap);color:var(--color-text-tertiary)}
+@media (min-width:600px){.figs.four{grid-template-columns:repeat(4,1fr)}.figs.four>div{border-right:1px solid var(--color-border);padding:12px 12px}.figs.four>div:last-child{border-right:0}.figs.four>div:first-child{padding-left:0}}
+
+/* ============================================================
+   TASK ROWS (protocol list — not identical cards)
+   ============================================================ */
+.tasks{border-top:1px solid var(--color-border)}
+.task{border-bottom:1px solid var(--color-border)}
+.task-main{display:flex;align-items:center;gap:12px;min-height:64px;padding:10px 0}
+.task-main .tx{flex:1;min-width:0;background:none;border:0;text-align:left;padding:4px 0;cursor:pointer}
+.task-title{font-size:15px;font-weight:500;line-height:1.4;color:var(--color-text-primary)}
+.task-meta{font-size:var(--fs-cap);color:var(--color-text-tertiary);margin-top:2px;font-family:var(--font-sans)}
+.task-meta .num{color:var(--color-text-secondary)}
+.task.is-done .task-title{color:var(--color-text-tertiary);text-decoration:line-through;text-decoration-color:var(--color-border-strong)}
+.task.is-off .task-title{color:var(--color-text-tertiary)}
+.chk{flex:none;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border:0;background:none;padding:0}
+.chk i{width:22px;height:22px;border:1.5px solid var(--color-border-strong);border-radius:var(--r-sm);display:block;position:relative;transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease)}
+.chk:hover i{border-color:var(--color-accent)}
+.chk.on i{background:var(--color-accent);border-color:var(--color-accent)}
+.chk.on i::after{content:"";position:absolute;left:6.5px;top:2.5px;width:5px;height:10px;border:solid var(--color-on-accent);border-width:0 2px 2px 0;transform:rotate(45deg)}
+.chk.off i{border-style:dashed}
+.chk.on i{animation:tick 220ms var(--ease)}
+@keyframes tick{0%{transform:scale(.85)}100%{transform:scale(1)}}
+.task-detail{padding:0 0 16px 56px;font-size:14px;color:var(--color-text-secondary)}
+.task-detail p{margin:0 0 10px}
+.status-line{font-size:var(--fs-cap);margin-bottom:8px;color:var(--color-text-secondary)}
+.status-line .done{color:var(--color-success)}
+.status-line .warn{color:var(--color-warning)}
+.counter{display:flex;align-items:center;gap:0;flex:none;border:1px solid var(--color-border-strong);border-radius:var(--r);overflow:hidden;background:var(--color-surface)}
+.counter button{width:40px;height:40px;border:0;background:none;font-size:18px;color:var(--color-text-secondary)}
+.counter button:active{background:var(--color-surface-2)}
+.counter .n{font-family:var(--font-mono);font-size:15px;min-width:42px;text-align:center;border-left:1px solid var(--color-border);border-right:1px solid var(--color-border);line-height:40px}
+.counter.big .n{min-width:56px;font-size:20px}
+.counter.big button{width:52px;height:46px}
+
+/* definition list (spec sheet) */
+.kv{display:grid;grid-template-columns:96px 1fr;gap:8px 14px;font-size:14px;margin:0}
+.kv dt{color:var(--color-text-tertiary);font-size:var(--fs-cap);padding-top:2px}
+.kv dd{margin:0;color:var(--color-text-primary)}
+.spec{display:grid;grid-template-columns:1fr;border-top:1px solid var(--color-text-primary)}
+.sec-h+.spec,.sec-h+.figs,.sec-h+.tasks{border-top:0;margin-top:-4px}
+.chart{max-width:560px}
+.counter-spacer{width:0}
+.spec>div{display:grid;grid-template-columns:112px 1fr;gap:12px;padding:11px 0;border-bottom:1px solid var(--color-border);font-size:14px}
+.spec dt{font-size:var(--fs-cap);color:var(--color-text-tertiary);padding-top:2px}
+.spec dd{margin:0}
+@media (min-width:768px){.spec{grid-template-columns:1fr 1fr;column-gap:32px}.spec>div.full{grid-column:1/-1}}
+
+/* evidence grade — restrained, consistent */
+.ev{display:inline-flex;align-items:baseline;gap:5px;font-size:var(--fs-cap);color:var(--color-text-tertiary);white-space:nowrap}
+.ev b{font-family:var(--font-mono);font-weight:600;font-size:13px;color:var(--color-text-primary);border-bottom:1.5px solid currentColor;line-height:1.1}
+.ev.g-A b,.ev.g-B b{color:var(--color-accent)}
+.ev.g-D b,.ev.g-E b{color:var(--color-danger)}
+.grade{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:20px;font-family:var(--font-mono);font-size:12px;font-weight:600;border:1px solid var(--color-border-strong);border-radius:var(--r-sm);color:var(--color-text-secondary);padding:0 4px}
+
+/* status text marker (no pills) */
+.st{display:inline-flex;align-items:center;gap:6px;font-size:var(--fs-cap);color:var(--color-text-secondary);white-space:nowrap}
+.st::before{content:"";width:7px;height:7px;border-radius:1px;background:var(--color-border-strong)}
+.st.active::before{background:var(--color-accent)}
+.st.scheduled::before{background:transparent;border:1.5px solid var(--color-accent);width:5px;height:5px}
+.st.paused::before{background:var(--color-warning)}
+.st.removed::before{background:var(--color-text-tertiary)}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btnrow{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.btn{min-height:44px;padding:0 16px;border-radius:var(--r);border:1px solid var(--color-border-strong);background:var(--color-surface);font-size:15px;font-weight:500;color:var(--color-text-primary);transition:background var(--dur) var(--ease),transform 80ms;display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none}
+.btn:hover{background:var(--color-surface-2)}
+.btn:active{transform:translateY(1px)}
+.btn.pri{background:var(--color-text-primary);color:var(--color-background);border-color:var(--color-text-primary)}
+.btn.pri:hover{opacity:.9}
+.btn.acc{background:var(--color-accent);color:var(--color-on-accent);border-color:var(--color-accent)}
+.btn.ghost{background:transparent;border-color:transparent;color:var(--color-text-secondary)}
+.btn.ghost:hover{background:var(--color-surface-2)}
+.btn.danger{border-color:var(--color-danger);color:var(--color-danger);background:transparent}
+.btn.grow{flex:1}
+.btn.sm{min-height:36px;font-size:13px;padding:0 12px}
+.btn:disabled{opacity:.4}
+.linkbtn{background:none;border:0;padding:8px 0;min-height:36px;color:var(--color-accent);font-size:var(--fs-meta);font-weight:500}
+
+/* ============================================================
+   NOTICES
+   ============================================================ */
+.notice,.info{padding:11px 14px;font-size:14px;margin:12px 0;border-radius:var(--r);line-height:1.55}
+.notice{background:var(--color-warning-soft);color:var(--color-text-primary);border:1px solid color-mix(in srgb,var(--color-warning) 30%,transparent)}
+.notice b{color:var(--color-warning)}
+.info{background:var(--color-surface);border:1px solid var(--color-border);color:var(--color-text-secondary)}
+.notice.danger{background:var(--color-danger-soft);border-color:color-mix(in srgb,var(--color-danger) 30%,transparent)}
+.empty{padding:22px 0;color:var(--color-text-tertiary);font-size:14px}
+.insuff{font-size:var(--fs-cap);color:var(--color-text-tertiary);padding:14px 0;border:1px dashed var(--color-border-strong);border-radius:var(--r);text-align:center;margin:6px 0}
+
+/* ============================================================
+   FORMS / JOURNAL
+   ============================================================ */
+.field{margin:14px 0}
+.field label,.flabel{display:block;font-size:var(--fs-meta);color:var(--color-text-secondary);margin-bottom:6px;font-weight:500}
+.field .hint,.hint{font-size:var(--fs-cap);color:var(--color-text-tertiary);margin-top:5px}
+input[type=time],input[type=date],input[type=number],input[type=text],input[type=search],select,textarea{width:100%;min-height:44px;border:1px solid var(--color-border-strong);border-radius:var(--r);background:var(--color-surface);padding:9px 12px;font-size:16px;transition:border-color var(--dur) var(--ease)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--color-accent);box-shadow:0 0 0 3px var(--color-accent-soft)}
+textarea{min-height:84px;resize:vertical;line-height:1.6}
+input[type=time],input[type=date]{-webkit-appearance:none;appearance:none;display:block}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.entry{display:grid;grid-template-columns:34px 1fr;gap:0 10px;padding:18px 0 8px;border-bottom:1px solid var(--color-border)}
+.entry>.no{font-family:var(--font-mono);font-size:12px;color:var(--color-text-tertiary);padding-top:3px}
+.entry h3{font-size:16px;margin-bottom:2px}
+.entry .field:first-of-type{margin-top:10px}
+@media (min-width:768px){.entry{grid-template-columns:56px 1fr}}
+.notebook{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--r);padding:4px 14px}
+.notebook textarea{border:0;background:transparent;padding:10px 0;min-height:96px;box-shadow:none!important;background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 25px,var(--color-border) 25px,var(--color-border) 26px);background-attachment:local;line-height:26px}
+.scale{display:grid;grid-template-columns:repeat(10,1fr);border:1px solid var(--color-border-strong);border-radius:var(--r);overflow:hidden;background:var(--color-surface)}
+.scale button{height:42px;border:0;border-right:1px solid var(--color-border);background:transparent;font-family:var(--font-mono);font-size:14px;padding:0;color:var(--color-text-secondary);transition:background var(--dur) var(--ease)}
+.scale button:last-child{border-right:0}
+.scale button.on{background:var(--color-text-primary);color:var(--color-background)}
+.scaledef{font-size:var(--fs-cap);color:var(--color-text-tertiary);margin-top:5px;min-height:18px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{min-height:38px;padding:0 12px;border:1px solid var(--color-border-strong);border-radius:var(--r);background:var(--color-surface);font-size:14px;color:var(--color-text-secondary);transition:background var(--dur) var(--ease)}
+.chips button.on{background:var(--color-text-primary);color:var(--color-background);border-color:var(--color-text-primary)}
+.savebar{position:sticky;bottom:calc(var(--nav-h) + env(safe-area-inset-bottom) + 10px);z-index:10;display:flex;align-items:center;gap:12px;padding:10px 12px;margin-top:20px;background:var(--color-surface);border:1px solid var(--color-border-strong);border-radius:var(--r);box-shadow:0 6px 20px -12px rgba(0,0,0,.25)}
+.savebar .state{flex:1;font-size:var(--fs-cap);color:var(--color-text-tertiary)}
+.savebar .state.dirty{color:var(--color-warning)}
+body.kbd .savebar{bottom:8px}
+@media (min-width:1024px){.savebar{bottom:16px}}
+.seg{display:flex;border:1px solid var(--color-border-strong);border-radius:var(--r);overflow:hidden;margin:16px 0 4px;background:var(--color-surface)}
+.seg button{flex:1;min-height:40px;border:0;background:transparent;font-size:14px;color:var(--color-text-secondary)}
+.seg button+button{border-left:1px solid var(--color-border)}
+.seg button.on{background:var(--color-text-primary);color:var(--color-background);font-weight:500}
+
+/* ============================================================
+   DATA / CHARTS / TABLES
+   ============================================================ */
+.chart{margin:4px 0 0;position:relative}
+.chart svg{display:block;width:100%;height:auto;touch-action:pan-y;overflow:visible}
+.chart .tip{font-size:var(--fs-cap);color:var(--color-text-secondary);min-height:20px;font-family:var(--font-mono);margin-top:2px}
+.chartbox{padding:14px 0 8px;border-bottom:1px solid var(--color-border)}
+.chartbox .ct{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.chartbox .ct b{font-size:14px;font-weight:600}
+.chartbox .ct span{font-size:var(--fs-cap);color:var(--color-text-tertiary);font-family:var(--font-mono);text-align:right}
+.chartbox .cs{font-size:var(--fs-cap);color:var(--color-text-tertiary);margin-top:1px}
+.charts{display:block}
+@media (min-width:768px){.charts{display:grid;grid-template-columns:1fr 1fr;column-gap:32px}}
+.spark{display:grid;grid-template-columns:96px 1fr 64px;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--color-border);font-size:13px}
+.spark .sv{font-family:var(--font-mono);text-align:right;font-size:13px}
+.spark svg{display:block;width:100%;height:28px}
+.spark .na{font-size:var(--fs-cap);color:var(--color-text-tertiary)}
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -2px}
+table.t{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
+table.t th,table.t td{padding:9px 6px;border-bottom:1px solid var(--color-border);text-align:right;vertical-align:top}
+table.t th:first-child,table.t td:first-child{text-align:left;padding-left:0}
+table.t th:last-child,table.t td:last-child{padding-right:0}
+table.t th{white-space:nowrap}
+table.t thead th,table.t tr:first-child th{font-weight:500;color:var(--color-text-tertiary);font-size:var(--fs-cap);border-bottom:1px solid var(--color-text-primary)}
+table.t td.l{text-align:left}
+.week7{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:14px 0}
+.week7 div{text-align:center;font-size:11px;color:var(--color-text-tertiary)}
+.week7 i{display:block;height:44px;border:1px solid var(--color-border-strong);border-radius:var(--r-sm);margin-bottom:4px;background:var(--color-surface);position:relative;overflow:hidden}
+.week7 i s{position:absolute;left:0;right:0;bottom:0;background:var(--color-accent);text-decoration:none}
+.list-row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 0;border-bottom:1px solid var(--color-border);font-size:14px}
+.list-row .num{white-space:nowrap}
+.activity{list-style:none;margin:0;padding:0}
+.activity li{display:grid;grid-template-columns:72px 1fr;gap:10px;padding:9px 0;border-bottom:1px solid var(--color-border);font-size:13px}
+.activity time{font-family:var(--font-mono);font-size:12px;color:var(--color-text-tertiary)}
+.lbl-fact{font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;color:var(--color-text-tertiary);border:1px solid var(--color-border-strong);padding:0 4px;border-radius:var(--r-sm);margin-right:5px;vertical-align:1px}
+
+/* ============================================================
+   EXPERIMENT INDEX
+   ============================================================ */
+.xrow{display:grid;grid-template-columns:64px 1fr auto;gap:4px 12px;align-items:start;padding:14px 0;border-bottom:1px solid var(--color-border);text-decoration:none;color:inherit;transition:background var(--dur) var(--ease)}
+.xrow:hover{background:var(--color-surface-2)}
+.xrow .xid{font-family:var(--font-mono);font-size:12px;color:var(--color-text-tertiary);padding-top:3px}
+.xrow .xn{font-size:15px;font-weight:500;line-height:1.4}
+.xrow .xm{grid-column:2/4;display:flex;flex-wrap:wrap;gap:4px 14px;font-size:var(--fs-cap);color:var(--color-text-tertiary)}
+.xrow .xr{text-align:right;padding-top:2px}
+.xrow.primary .xn{font-family:var(--font-display);font-size:19px;font-weight:600}
+.xrow.primary{padding:18px 0}
+
+/* ============================================================
+   RESEARCH
+   ============================================================ */
+.ref{padding:14px 0;border-bottom:1px solid var(--color-border)}
+.ref .rid{display:flex;justify-content:space-between;gap:8px;font-family:var(--font-mono);font-size:11px;color:var(--color-text-tertiary);letter-spacing:.02em}
+.ref .rt{font-family:var(--font-display);font-size:16px;line-height:1.45;margin:4px 0 4px;font-weight:600}
+.ref .ra{font-size:13px;color:var(--color-text-secondary)}
+.ref .rl{font-size:12px;font-family:var(--font-mono);margin-top:4px;word-break:break-all}
+.ref details summary{font-size:var(--fs-cap);color:var(--color-accent);cursor:pointer;margin-top:8px;list-style:none;font-weight:500;min-height:28px;display:flex;align-items:center}
+.ref details summary::-webkit-details-marker{display:none}
+.ref details summary::after{content:"＋";margin-left:6px;font-family:var(--font-mono)}
+.ref details[open] summary::after{content:"－"}
+.ref details .kv{margin-top:6px;font-size:13px}
+.filters{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0 4px}
+@media (min-width:768px){.filters{grid-template-columns:2fr 1fr}}
+details.more summary{list-style:none;font-size:var(--fs-meta);color:var(--color-accent);cursor:pointer;font-weight:500;min-height:36px;display:flex;align-items:center}
+details.more summary::-webkit-details-marker{display:none}
+
+/* Q&A long-form */
+.qa{max-width:68ch}
+.qa h3{font-size:15px;margin:22px 0 6px;font-family:var(--font-sans)}
+.qa p,.qa li{font-size:14px;color:var(--color-text-secondary);margin:4px 0;line-height:1.7}
+.qa ul{padding-left:18px;margin:4px 0}
+
+/* ============================================================
+   OVERLAY / TOAST
+   ============================================================ */
+.overlay{position:fixed;inset:0;background:rgba(17,19,17,.42);z-index:50;display:flex;align-items:flex-end;justify-content:center;animation:fade 140ms var(--ease)}
+.sheet{background:var(--color-background);width:100%;max-width:560px;max-height:90vh;max-height:90dvh;overflow:auto;border-radius:12px 12px 0 0;padding:20px 20px calc(20px + env(safe-area-inset-bottom));animation:up 200ms var(--ease)}
+.sheet h3{font-family:var(--font-display);font-size:20px;margin-bottom:8px}
+@media (min-width:768px){.overlay{align-items:center}.sheet{border-radius:10px}}
+@keyframes fade{from{opacity:0}}
+@keyframes up{from{transform:translateY(16px);opacity:.6}}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--nav-h) + env(safe-area-inset-bottom) + 16px);background:var(--color-text-primary);color:var(--color-background);padding:10px 16px;border-radius:var(--r);font-size:14px;z-index:60;max-width:90vw;animation:fade 140ms var(--ease)}
+@media (min-width:1024px){.toast{bottom:24px;margin-left:calc(var(--side-w)/2)}}
+.back{background:none;border:0;color:var(--color-accent);padding:14px 0 0;font-size:14px;min-height:44px;font-weight:500}
+.foot{font-size:var(--fs-cap);color:var(--color-text-tertiary);margin:28px 0 8px;padding-top:12px;border-top:1px solid var(--color-border)}
+</style>
+
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <div class="brand"><span class="mark">N=1</span>HUMAN MICRO-EXPERIMENT</div>
+  <button class="iconbtn" data-act="settings" aria-label="資料與設定">資料</button>
+</div></header>
+<main class="wrap" id="app"></main>
+<nav class="bottom" aria-label="主要導覽"><div class="wrap">
+  <a href="#today" data-nav="today"><b>今日</b>Today</a>
+  <a href="#experiments" data-nav="experiments"><b>實驗</b>Experiments</a>
+  <a href="#progress" data-nav="progress"><b>進度</b>Progress</a>
+  <a href="#journal" data-nav="journal"><b>日誌</b>Journal</a>
+  <a href="#research" data-nav="research"><b>文獻</b>Research</a>
+  <div class="side-data"><button class="linkbtn" data-act="settings">資料與設定 →</button><div class="caption">資料僅存於此瀏覽器</div></div>
+</div></nav>
+<div id="modal"></div>
+<script>
+'use strict';
+/* =========================================================
+   1. RESEARCH DATA
+   P-0001–P-0048：來自「第一輪八大主題研究報告」（2026-11-13，
+   經 Europe PMC / Crossref 查證）。P-0049 起為本 App 開發時補查。
+   ========================================================= */
+const TOPICS={MEM:'記憶：提取與間隔',ANS:'呼吸與自律神經',LIF:'久坐中斷',ATT:'單次運動與執行功能',SLP:'光照與節律',NMC:'平衡訓練',REST:'學習後清醒休息',CAF:'咖啡因與睡眠',LUC:'夢境與清醒夢',EXS:'運動點心'};
+const PAPERS=[
+['P-0001','MEM','Roediger HL',2006,'Test-enhanced learning: taking memory tests improves long-term retention.','對照人體實驗（2 個實驗）','10.1111/j.1467-9280.2006.01693.x','16507066'],
+['P-0002','MEM','Karpicke JD',2008,'The critical importance of retrieval for learning.','對照人體實驗','10.1126/science.1152408','18276894'],
+['P-0003','MEM','Rowland CA',2014,'The effect of testing versus restudy on retention: a meta-analytic review of the testing effect.','Meta-analysis','10.1037/a0037559','25150680'],
+['P-0004','MEM','Adesope OO',2017,'Rethinking the Use of Tests: A Meta-Analysis of Practice Testing','Meta-analysis','10.3102/0034654316689306',''],
+['P-0005','MEM','Pan SC',2018,'Transfer of test-enhanced learning: Meta-analytic review and synthesis.','Meta-analysis','10.1037/bul0000151','29733621'],
+['P-0006','MEM','Yang C',2021,'Testing (quizzing) boosts classroom learning: A systematic and meta-analytic review.','SR + Meta-analysis','10.1037/bul0000309','33683913'],
+['P-0007','MEM','Cepeda NJ',2006,'Distributed practice in verbal recall tasks: A review and quantitative synthesis.','Meta-analysis','10.1037/0033-2909.132.3.354','16719566'],
+['P-0008','MEM','Latimier A',2021,'A Meta-Analytic Review of the Benefit of Spacing out Retrieval Practice Episodes on Retention','Meta-analysis（RVE）','10.1007/s10648-020-09572-8',''],
+['P-0009','MEM','Dunlosky J',2013,"Improving Students' Learning With Effective Learning Techniques: Promising Directions From Cognitive and Educational Psychology.",'Review（monograph）','10.1177/1529100612453266','26173288'],
+['P-0010','ANS','Balban MY',2023,'Brief structured respiration practices enhance mood and reduce physiological arousal.','RCT（遠端、exploratory）','10.1016/j.xcrm.2022.100895','36630953'],
+['P-0011','ANS','Riedl EM',2026,'Simply breathing anxiety away? A pilot, just-in-time ecological momentary intervention study of one-minute cyclic sighing versus box breathing as tools for acute anxiety reduction and attention promotion in real life.','Pilot EMA（預註冊）','10.1080/10615806.2026.2659809','42002307'],
+['P-0012','ANS','Fincham GW',2023,'Effect of breathwork on stress and mental health: A meta-analysis of randomised-controlled trials.','Meta-analysis of RCTs','10.1038/s41598-022-27247-y','36624160'],
+['P-0013','ANS','Laborde S',2022,'Effects of voluntary slow breathing on heart rate and heart rate variability: A systematic review and a meta-analysis.','SR + Meta-analysis','10.1016/j.neubiorev.2022.104711','35623448'],
+['P-0014','ANS','Zaccaro A',2018,'How Breath-Control Can Change Your Life: A Systematic Review on Psycho-Physiological Correlates of Slow Breathing.','Systematic Review','10.3389/fnhum.2018.00353','30245619'],
+['P-0015','ANS','Goessl VC',2017,'The effect of heart rate variability biofeedback training on stress and anxiety: a meta-analysis.','Meta-analysis','10.1017/s0033291717001003','28478782'],
+['P-0016','LIF','Dunstan DW',2012,'Breaking up prolonged sitting reduces postprandial glucose and insulin responses.','隨機交叉試驗','10.2337/dc11-1931','22374636'],
+['P-0017','LIF','Duran AT',2023,'Breaking Up Prolonged Sitting to Improve Cardiometabolic Risk: Dose-Response Analysis of a Randomized Crossover Trial.','隨機交叉試驗（劑量反應）','10.1249/mss.0000000000003109','36728338'],
+['P-0018','LIF','Loh R',2020,'Effects of Interrupting Prolonged Sitting with Physical Activity Breaks on Blood Glucose, Insulin and Triacylglycerol Measures: A Systematic Review and Meta-analysis.','SR + Meta-analysis','10.1007/s40279-019-01183-w','31552570'],
+['P-0019','LIF','Buffey AJ',2022,'The Acute Effects of Interrupting Prolonged Sitting Time in Adults with Standing and Light-Intensity Walking on Biomarkers of Cardiometabolic Health in Adults: A Systematic Review and Meta-analysis.','SR + Meta-analysis','10.1007/s40279-022-01649-4','35147898'],
+['P-0020','LIF','Chueh TY',2022,'Acute effect of breaking up prolonged sitting on cognition: a systematic review.','Systematic Review','10.1136/bmjopen-2021-050458','35292487'],
+['P-0021','LIF','Pindus DM',2025,'Interrupting sitting with moderate-intensity physical activity breaks improves cognitive processing speed in adults with overweight and obesity: Findings from the SITLess pilot randomized crossover trial.','Pilot 隨機交叉試驗','10.1016/j.ijpsycho.2025.112519','39880212'],
+['P-0022','ATT','Chang YK',2012,'The effects of acute exercise on cognitive performance: a meta-analysis.','Meta-analysis','10.1016/j.brainres.2012.02.068','22480735'],
+['P-0023','ATT','Ludyga S',2016,'Acute effects of moderate aerobic exercise on specific aspects of executive function in different age and fitness groups: A meta-analysis.','Meta-analysis','10.1111/psyp.12736','27556572'],
+['P-0024','ATT','Oberste M',2019,'Effects and Moderators of Acute Aerobic Exercise on Subsequent Interference Control: A Systematic Review and Meta-Analysis.','SR + Meta-analysis','10.3389/fpsyg.2019.02616','31824387'],
+['P-0025','ATT','Ishihara T',2021,'The effects of acute aerobic exercise on executive function: A systematic review and meta-analysis of individual participant data.','IPD meta-analysis','10.1016/j.neubiorev.2021.06.026','34147558'],
+['P-0026','SLP','van Maanen A',2016,'The effects of light therapy on sleep problems: A systematic review and meta-analysis.','SR + Meta-analysis','10.1016/j.smrv.2015.08.009','26606319'],
+['P-0027','SLP','Wang Y',2024,'The effect of light therapy on insomnia: A systematic review and meta-analysis.','SR + Meta-analysis','10.1007/s11325-024-03204-z','39733392'],
+['P-0028','SLP','Brown TM',2022,'Recommendations for daytime, evening, and nighttime indoor light exposure to best support physiology, sleep, and wakefulness in healthy adults.','專家共識','10.1371/journal.pbio.3001571','35298459'],
+['P-0029','SLP','Wright KP',2013,'Entrainment of the human circadian clock to the natural light-dark cycle.','觀察性田野研究','10.1016/j.cub.2013.06.039','23910656'],
+['P-0030','SLP','Yu C',2026,'Effects of Morning Bright Light Therapy on Sleep, Alertness, Mood, and Cognition in Healthy University Students: A Randomized Crossover Trial','隨機受試者內交叉（預印本）','10.64898/2026.07.04.26357282',''],
+['P-0031','NMC','Kümmel J',2016,'Specificity of Balance Training in Healthy Individuals: A Systematic Review and Meta-Analysis.','SR + Meta-analysis','10.1007/s40279-016-0515-z','26993132'],
+['P-0032','NMC','Giboin LS',2015,'Task-specificity of balance training.','對照試驗（3 組）','10.1016/j.humov.2015.08.012','26298214'],
+['P-0033','NMC','Lesinski M',2015,'Effects of Balance Training on Balance Performance in Healthy Older Adults: A Systematic Review and Meta-analysis.','SR + Meta-analysis','10.1007/s40279-015-0375-y','26325622'],
+['P-0034','NMC','Zech A',2010,'Balance training for neuromuscular control and performance enhancement: a systematic review.','Systematic Review','10.4085/1062-6050-45.4.392','20617915'],
+['P-0035','NMC','Hübscher M',2010,'Neuromuscular training for sports injury prevention: a systematic review.','SR（含合併分析）','10.1249/mss.0b013e3181b88d37','19952811'],
+['P-0036','REST','Dewar M',2012,'Brief wakeful resting boosts new memories over the long term.','對照人體實驗（受試者內）','10.1177/0956797612441220','22829465'],
+['P-0037','REST','Humiston GB',2018,'A brief period of eyes-closed rest enhances motor skill consolidation.','對照人體實驗','10.1016/j.nlm.2018.06.002','29883710'],
+['P-0038','REST','Varma S',2017,'Non-Interfering Effects of Active Post-Encoding Tasks on Episodic Memory Consolidation in Humans.','對照人體實驗（6 個）','10.3389/fnbeh.2017.00054','28424596'],
+['P-0039','REST','Wamsley EJ',2019,'Memory Consolidation during Waking Rest.','Review（TiCS）','10.1016/j.tics.2018.12.007','30683602'],
+['P-0040','REST','Pink W',2026,'When and How Does Post-Encoding Wakeful Rest Benefit Memory? A Systematic Review and Meta-Analysis','預註冊 SR + 三層 MA（預印本）','10.31234/osf.io/8q3br_v2',''],
+['P-0041','REST','Bönstrup M',2019,'A Rapid Form of Offline Consolidation in Skill Learning.','對照人體實驗 + MEG','10.1016/j.cub.2019.02.049','30930043'],
+['P-0042','REST','Buch ER',2021,'Consolidation of human skill linked to waking hippocampo-neocortical replay.','對照人體實驗 + MEG','10.1016/j.celrep.2021.109193','34107255'],
+['P-0043','REST','Gupta MW',2026,'Spaced practice and reactive inhibition have limited or no effects on motor sequence learning.','對照人體實驗（2 個）','10.1038/s41598-026-52702-5','42177224'],
+['P-0044','CAF','Drake C',2013,'Caffeine effects on sleep taken 0, 3, or 6 hours before going to bed.','RCT（安慰劑、居家）','10.5664/jcsm.3170','24235903'],
+['P-0045','CAF','Clark I',2017,'Coffee, caffeine, and sleep: A systematic review of epidemiological studies and randomized controlled trials.','Systematic Review','10.1016/j.smrv.2016.01.006','26899133'],
+['P-0046','CAF','Gardiner C',2023,'The effect of caffeine on subsequent sleep: A systematic review and meta-analysis.','SR + Meta-analysis','10.1016/j.smrv.2023.101764','36870101'],
+['P-0047','CAF','Gardiner CL',2025,'Dose and timing effects of caffeine on subsequent sleep: a randomized clinical crossover trial.','雙盲安慰劑隨機交叉','10.1093/sleep/zsae230','39377163'],
+['P-0048','CAF','EFSA NDA Panel',2015,'Scientific Opinion on the safety of caffeine','法規科學意見','10.2903/j.efsa.2015.4102',''],
+['P-0049','LUC','Stumbrys T',2012,'Induction of lucid dreams: A systematic review of evidence.','Systematic Review（35 篇研究）','10.1016/j.concog.2012.07.003',''],
+['P-0050','LUC','Tan S',2023,'A systematic review of new empirical data on lucid dream induction techniques.','Systematic Review（19 篇）','10.1111/jsr.13786','36408823'],
+['P-0051','LUC','Aspy DJ',2017,'Reality testing and the mnemonic induction of lucid dreams: Findings from the National Australian Lucid Dream Induction Study.','分組介入研究（n=169，1 週基準 + 1 週練習）','10.1037/drm0000059',''],
+['P-0052','LUC','Aspy DJ（Adventure-Heart）',2020,'Findings From the International Lucid Dream Induction Study.','線上介入研究（n=355，1 週基準 + 1 週練習）','10.3389/fpsyg.2020.01746',''],
+['P-0053','LUC','Schredl M',2025,'Measuring dream recall frequency with questionnaire scales and diaries: reliability and validity.','前瞻日記研究（n=81，4 週）','10.1037/drm0000323',''],
+['P-0054','EXS','Jenkins EM',2019,'Do stair climbing exercise "snacks" improve cardiorespiratory fitness?','RCT（n=24 久坐年輕成人，6 週）','10.1139/apnm-2018-0675','30649897'],
+['P-0055','ANS','Laborde S',2022,'Psychophysiological effects of slow-paced breathing at six cycles per minute with or without heart rate variability biofeedback.','受試者間實驗（n=112）','10.1111/psyp.13952','34633670'],
+['P-0056','ANS','You M',2021,'Single Slow-Paced Breathing Session at Six Cycles per Minute: Investigation of Dose-Response Relationship on Cardiac Vagal Activity.','受試者內劑量反應（5/10/15/20 分鐘）','','PMC8656666']
+].map(r=>({id:r[0],topic:r[1],a:r[2],y:r[3],t:r[4],d:r[5],doi:r[6],pm:r[7]}));
+function paperUrl(p){if(p.doi)return 'https://doi.org/'+p.doi;if(p.pm.startsWith('PMC'))return 'https://pmc.ncbi.nlm.nih.gov/articles/'+p.pm+'/';if(p.pm)return 'https://pubmed.ncbi.nlm.nih.gov/'+p.pm+'/';return '#'}
+
+/* 候選介入資料庫：等級為對「本專案的使用方式」所給的正式等級 */
+const INTERVENTIONS=[
+ {id:'I-LUC-001',name:'清醒夢誘導組合（夢境日記＋現實檢查＋MILD＋限量 WBTB）',domain:'睡眠與夢境',grade:'B',gradeNote:'MILD（尤其搭配 WBTB）B；夢境日記提升夢境回憶 B；現實檢查單獨使用 C（短期研究無效）',micro:'部分：MILD、日記本身就是短時活動；但「只在自然醒時做 MILD」是本專案的修改版，未經直接測試',support:['P-0050','P-0051','P-0052','P-0053'],against:['P-0049','P-0052'],note:'P-0049（2012）：沒有任何技術被證實能穩定誘導。P-0052：現實檢查在 1 週內無效。研究多為對清醒夢有興趣的自選樣本、1 週練習、自我報告。',status:'E01'},
+ {id:'I-MEM-001',name:'提取練習（主動回憶／自我測驗）',domain:'記憶與學習',grade:'A',gradeNote:'保留被測內容 A；遷移到未測內容 B–C',micro:'否；但原始研究的單次測驗本來就短，劑量差距可能不大（未確認）',support:['P-0001','P-0002','P-0003','P-0004','P-0006'],against:['P-0005'],note:'P-0005：遷移整體 d≈0.40，發表偏誤校正後，在不利條件下常不遷移。',status:'E02'},
+ {id:'I-MEM-002',name:'分散式提取（間隔重複）',domain:'記憶與學習',grade:'A',gradeNote:'間隔提取 vs 集中提取 g=0.74（P-0008）',micro:'否；但間隔效果本身與單次時長無關',support:['P-0007','P-0008'],against:['P-0008'],note:'擴展式間隔沒有優於等距間隔。',status:'E02'},
+ {id:'I-MEM-003',name:'學習後 2–3 分鐘清醒休息',domain:'記憶與學習',grade:'B',gradeNote:'陳述性記憶 B（預印本 meta g=0.35）；動作技能秒級休息 C（有爭議）',micro:'否',support:['P-0036','P-0040','P-0039'],against:['P-0037','P-0038','P-0043'],note:'低語意負荷作業不干擾鞏固；動作技能效果 4 小時後消失。',tmpl:{title:'學習後 2 分鐘不接收新資訊',minutes:2,how:'讀完／寫完一段後，2 分鐘不看手機、不讀新東西，可閉眼或發呆。',trigger:'一段學習結束、切換任務前',kind:'cond'}},
+ {id:'I-ANS-002',name:'慢速呼吸（約每分鐘 6 次）',domain:'自律神經與壓力',grade:'B',gradeNote:'vmHRV 急性上升 A–B；壓力改善 B（g=−0.35，偏誤警告）',micro:'否：劑量研究最短測到 5 分鐘（P-0056），1–2 分鐘版本未經測試',support:['P-0012','P-0013','P-0015','P-0055','P-0056'],against:['P-0012'],note:'無生物回饋的慢速呼吸與有回饋版本效果相近（P-0055）。只以主觀壓力為結果，不宣稱自律神經長期改變。',tmpl:{title:'慢速呼吸 2 分鐘（吸 4 秒、吐 6 秒）',minutes:2,how:'坐姿，鼻吸 4 秒、緩吐 6 秒，共約 12 個循環；執行前後各記 1 次壓力 1–10。',trigger:'工作開始前或壓力高時',kind:'check'}},
+ {id:'I-ANS-001',name:'週期性嘆息（cyclic sighing）',domain:'自律神經與壓力',grade:'C',gradeNote:'只有 1 項 exploratory RCT 與 1 項 pilot',micro:'部分：P-0011 直接測試 1 分鐘版本（pilot，n=47）',support:['P-0010','P-0011'],against:['P-0010','P-0011'],note:'P-0010 HRV 無改善；P-0011 練習後反應時間變長。僅可作探索性實驗。',tmpl:{title:'週期性嘆息 1 分鐘（探索性）',minutes:1,how:'鼻吸、再短吸補滿，嘴巴長吐；重複約 1 分鐘。頭暈即停。',trigger:'壓力高時',kind:'check'}},
+ {id:'I-LIF-001',name:'以輕度步行中斷久坐',domain:'日常生理習慣',grade:'B',gradeNote:'急性餐後血糖 SMD −0.54；步行優於站立',micro:'部分：P-0017 顯示每 30 分鐘走 5 分鐘才顯著降血糖，1 分鐘不夠（n=11）',support:['P-0016','P-0018','P-0019'],against:['P-0017','P-0021'],note:'對健康、活動量高的年輕成人，代謝效益可能更小。',tmpl:{title:'久坐 45–60 分鐘後起身走 2–5 分鐘',minutes:3,how:'設提醒；起身走動或上下樓梯 2–5 分鐘。',trigger:'久坐 45–60 分鐘',kind:'counter',min:3,max:6}},
+ {id:'I-SLP-001',name:'早晨戶外光照＋晚間減光',domain:'睡眠與節律',grade:'B',gradeNote:'臨床睡眠問題 B；健康成人 C；光照劑量目標為專家共識',micro:'否；戶外日光遠強於室內，但時長效果未知',support:['P-0026','P-0027','P-0028','P-0029','P-0030'],against:['P-0026','P-0030'],note:'實驗 01 進行期間睡眠領域不加入其他介入，建議第 9 週後再考慮。',tmpl:{title:'早晨戶外光 5 分鐘',minutes:5,how:'起床後 1 小時內到戶外 5 分鐘（不直視太陽）；睡前 3 小時調暗燈光。',trigger:'早晨出門',kind:'check'},sleepDomain:true},
+ {id:'I-LIF-003',name:'咖啡因時機與劑量',domain:'睡眠與節律',grade:'B',gradeNote:'方向一致；確切截止時間個體差異大',micro:'是：P-0047 直接測試 100 mg 與 400 mg 的時間點',support:['P-0044','P-0045','P-0046','P-0047','P-0048'],against:[],note:'一杯咖啡建議睡前 8.8 小時前喝完（P-0046）；EFSA 單次 200 mg、每日 400 mg。實驗 01 期間先作為「紀錄的混淆因素」，不作介入。',tmpl:{title:'咖啡因截止（睡前 9 小時前）',minutes:0,how:'最後一份咖啡因在預定睡前 9 小時之前。',trigger:'午餐後',kind:'check'},sleepDomain:true},
+ {id:'I-LIF-002',name:'中斷久坐以維持認知',domain:'注意力與認知',grade:'C',gradeNote:'系統性回顧 3/7 支持、4/7 不支持',micro:'原始劑量即接近微型，但效果未確立',support:['P-0020'],against:['P-0020','P-0021'],note:'不用每日專注評分判定效果。'},
+ {id:'I-ATT-001',name:'認知作業前單次有氧運動',domain:'注意力與認知',grade:'D',gradeNote:'原始劑量（多為 10–30 分鐘）B 小效果；微型版本 D',micro:'否；本輪未找到 <5 分鐘的直接證據',support:['P-0022','P-0023','P-0024'],against:['P-0025'],note:'年輕成人與前測表現好的人效果最小。不列入正式計畫。'},
+ {id:'I-EXS-001',name:'爬樓梯運動點心（3×20 秒）',domain:'運動表現',grade:'C',gradeNote:'久坐年輕成人 VO2peak 小幅上升（B）；對已規律訓練者的適用性 C',micro:'是：P-0054 直接測試 3 次／天、每次約 20 秒、每週 3 天、6 週',support:['P-0054'],against:[],note:'樣本小（n=24）、受試者為久坐者；你已每週訓練 4–5 天，預期增益有限。',tmpl:{title:'爬樓梯衝刺 60 階',minutes:1,how:'快速爬 3 層樓（約 60 階）；每天最多 3 次、間隔 1–4 小時；訓練日不做。',trigger:'課間／休息時',kind:'counter',min:1,max:3}},
+ {id:'I-NMC-001',name:'平衡訓練（單腳站立）',domain:'神經肌肉協調',grade:'C',gradeNote:'已訓練任務 A；泛化平衡 E；踝扭傷預防 B（運動員）；運動表現 C',micro:'否；最多只會改善「刷牙時單腳站立」這個任務',support:['P-0033','P-0035'],against:['P-0031','P-0032','P-0034'],note:'若目標是排球表現，直接訓練目標動作（落地、起跳）較合理。',tmpl:{title:'刷牙時開眼單腳站 30 秒×2',minutes:1,how:'開眼、手邊有支撐，左右各 30 秒；不閉眼。',trigger:'刷牙',kind:'check'}}
+];
+const NOT_INCLUDED=[
+ ['非慣用手刷牙「刺激神經可塑性」','D','缺乏遠遷移證據；只會讓非慣用手刷牙變熟。'],
+ ['重量訓練組間做眼球跨中線追視','D','缺乏可靠人體證據，且占用組間恢復。'],
+ ['刷牙時閉眼單腳站立','—','浴室地滑，閉眼增加跌倒風險；改為開眼且有支撐。'],
+ ['以 DMN 活躍度作為成效指標','—','需要 fMRI，無法自行測量。'],
+ ['補充品（含茶胺酸、galantamine）','待審','物質類介入需獨立審查安全性，不預設使用。']
+];
+
+/* =========================================================
+   2. EXPERIMENT DEFINITIONS
+   ========================================================= */
+const RATING={
+ sleepQ:{label:'主觀睡眠品質',dir:'高＝好',defs:['幾乎沒睡好；多次醒來且難再入睡','明顯不好；醒來仍很累','普通；有些中斷但可接受','好；醒來大致恢復','非常好；一覺到天亮且充分恢復']},
+ alert:{label:'起床後精神',dir:'高＝好',defs:['非常昏沉，難以起床','昏沉，需要很久才清醒','普通','清醒','非常清醒，起床即可工作']},
+ clarity:{label:'精神清晰度（今日整體）',dir:'高＝好',defs:['思緒混亂、腦霧明顯','常卡住、反應慢','普通','清楚、思考順暢','非常清楚、思考快速']},
+ focus:{label:'專注程度（今日整體）',dir:'高＝好',defs:['幾乎無法持續專注','頻繁分心','普通','能長時間專注','很容易進入深度專注']},
+ memory:{label:'主觀記憶狀態',dir:'高＝好',defs:['常忘事、記不住新東西','比平常差','普通','比平常好','記憶感覺非常好']},
+ fatigue:{label:'身體疲勞',dir:'高＝更累',defs:['完全不累','輕微疲勞','中等，可正常活動','明顯疲勞，影響表現','極度疲勞，需要休息']},
+ soreness:{label:'肌肉痠痛',dir:'高＝更痠',defs:['無痠痛','輕微，不影響動作','中等，部分動作受影響','明顯，影響訓練','嚴重，影響日常活動']}
+};
+function rateDef(k,v){if(!v)return '';const i=Math.min(4,Math.floor((v-1)/2));return v+' 分：'+RATING[k].defs[i]}
+const ACTIVITY=['休息日','重訓','排球','重訓＋排球','其他運動'];
+const CONFOUNDERS=['熬夜／晚睡','考試或截止日','生病','飲酒','高壓事件','旅行／作息變動','咖啡因晚於 14:00','午睡 >30 分','其他'];
+const SKIP_REASONS=['忘記','沒時間','身體不適','情境不適合','刻意休息','其他'];
+
+function e01Plan(w){
+  // returns the components active in E01 week w (1-based)
+  const p={diary:true,intent:w>=2,rt:w>=3,rtMin:5,rtMax:10,mild:w>=4,wbtbCap:0,label:''};
+  const labels={1:'夢境日記',2:'日記＋睡前意圖；週日找夢境徵兆',3:'＋白天現實檢查 5–10 次',4:'＋半夜自然醒時做 MILD',5:'WBTB 試做（本週上限 1）',6:'調整 WBTB 清醒時間 10–30 分（上限 2）',7:'減量週：停 WBTB，現實檢查 3–5 次',8:'整合週（WBTB 上限 2）；週日 8 週回顧'};
+  p.label=labels[w]||'維持期（依第 8 週結算調整）';
+  if(w===5)p.wbtbCap=1;
+  if(w===6||w===8)p.wbtbCap=2;
+  if(w===7){p.rtMin=3;p.rtMax=5}
+  if(w>=9){p.rtMin=3;p.rtMax=5;p.wbtbCap=1}
+  return p;
+}
+const EXP={
+ E01:{id:'E01',name:'實驗 01：清醒夢訓練',short:'清醒夢訓練',domain:'睡眠與夢境',grade:'B',intervention:'I-LUC-001',
+  target:'夢境回憶、清醒夢頻率',primary:'每週可回憶的夢數',secondary:'清醒夢次數（含短暫清醒）、夢中「這好怪」的念頭',guard:'睡眠時數、主觀睡眠品質、隔日精神',
+  tasks(date,i){
+    const w=Math.floor(i/7)+1,p=e01Plan(w),dow=weekday(date),out=[];
+    out.push({id:'E01.diary',title:'醒來夢境日記',slot:'起床',minutes:2,kind:'check',how:'醒來先不動、閉眼回想 30 秒，再寫下關鍵畫面、人物、情緒（片段也算）。記得的夢數填在「紀錄」頁。',trigger:'醒來、拿手機之前',mech:'持續記錄會提高夢境回憶（logbook enhancement，P-0053）；夢境回憶是 MILD 成功的預測因子（P-0051、P-0052）。',grade:'B',caution:'只花 1–3 分鐘；沒有夢也記「無」。'});
+    if(p.intent)out.push({id:'E01.intent',title:'睡前一句意圖',slot:'睡前',minutes:0.2,kind:'check',how:'躺下後說一次：「下次做夢時，我會記得自己在做夢。」只說一次，不反覆練習。',trigger:'關燈躺下',mech:'MILD 的核心是前瞻記憶意圖（P-0051）。睡前單句是簡化版，未經直接驗證。',grade:'C',caution:'躺床 20 分鐘睡不著就放下練習。'});
+    if(p.rt)out.push({id:'E01.rt',title:'白天現實檢查',slot:'白天',minutes:1,kind:'counter',min:p.rtMin,max:p.rtMax,how:'遇到夢境徵兆或固定觸發（進門、看時間）時：問「我在做夢嗎？」再讀一次文字或看時鐘確認。每次數秒。',trigger:'夢境徵兆、進門、看時間',mech:'單獨使用的短期研究無效（P-0052、Taitz 2011 經 P-0052 引述）；在組合中的貢獻不明。',grade:'C',caution:'不在過馬路、騎車、開車時做。'});
+    if(p.mild)out.push({id:'E01.mild',title:'半夜自然醒時做 MILD',slot:'夜間',minutes:2,kind:'cond',how:'只在自然醒來時：回想剛才的夢 → 默念「下次做夢時，我會記得自己在做夢」→ 想像回到夢中並察覺是夢 → 盡快入睡。',trigger:'半夜自然醒來（不設鬧鐘）',mech:'MILD 為目前證據最佳的認知技術（P-0050、P-0052）；完成後 5 分鐘內入睡的成功率最高（P-0051）。',grade:'B',caution:'沒自然醒就選「今晚不適用」，不計入完成率。'});
+    if((w===2||w===8)&&dow===6)out.push({id:w===2?'E01.signs':'E01.review8',title:w===2?'找出 3 個夢境徵兆':'8 週回顧與結算',slot:'週日',minutes:w===2?3:10,kind:'check',how:w===2?'翻閱本週日記，寫下 3 個反覆出現的人物、地點或怪事，作為現實檢查的觸發。':'到「進度 → 月回顧」查看夢數、清醒夢次數與守門指標，對實驗 01 做 KEEP／MODIFY／PAUSE 決策。',trigger:'週日晚上',mech:w===2?'夢境徵兆用來提高現實檢查與 MILD 的相關性（INFERENCE）。':'依資料決策，而不是依完成率。',grade:'—',caution:''});
+    return out;
+  }},
+ E02:{id:'E02',name:'實驗 02：提取練習＋延遲回憶',short:'提取練習',domain:'記憶與學習',grade:'A',intervention:'I-MEM-001',
+  target:'真正要學的材料的長期保留',primary:'延遲回憶正確率：提取組 vs 重讀組（同一週內對照）',secondary:'執行率、單次耗時',guard:'不增加讀書總時間的負擔感',
+  tasks(date){
+    const out=[{id:'E02.recall',title:'開工前 1–2 分鐘閉書回想',slot:'讀書／寫程式前',minutes:2,kind:'cond',how:'闔上筆記與程式碼，90 秒寫下上次內容的 3–5 個重點（關鍵字即可），再用 30 秒對答案、圈出漏掉的。把當週「提取組」概念用這種方式練，「重讀組」只重讀。',trigger:'打開筆記或 IDE 前',mech:'測驗效應：提取比重讀更能保留（P-0003、P-0006）；分散提取優於集中（P-0008）。',grade:'A',caution:'今天沒有讀書／寫程式就選「今天不適用」。'}];
+    if(weekday(date)===6)out.push({id:'E02.test',title:'每週延遲回憶測驗',slot:'週日',minutes:5,kind:'measure',how:'不看筆記，寫出本週「提取組」與「重讀組」各概念的內容，再對答案，分別記錄答對數。',trigger:'週日晚上',mech:'用同一週內的對照組估計「對你」的效果大小。',grade:'—',caution:'題目在練習時就先定好，避免事後挑題。'});
+    return out;
+  }}
+};
+function candTasks(id){
+  const iv=INTERVENTIONS.find(x=>x.id===id);if(!iv||!iv.tmpl)return [];
+  const t=iv.tmpl;
+  return [{id:'C.'+id,title:t.title,slot:t.trigger,minutes:t.minutes,kind:t.kind,min:t.min,max:t.max,how:t.how,trigger:t.trigger,mech:iv.gradeNote,grade:iv.grade,caution:iv.note}];
+}
+function expMeta(id){if(EXP[id])return EXP[id];const iv=INTERVENTIONS.find(x=>x.id===id);return iv?{id,name:iv.name,short:iv.tmpl?iv.tmpl.title:iv.name,domain:iv.domain,grade:iv.grade,intervention:id,cand:true}:null}
+
+/* =========================================================
+   3. STATE & STORAGE
+   ========================================================= */
+const KEY='hme.v1';
+function defaultState(){return{version:1,createdAt:new Date().toISOString(),
+  settings:{startDate:'2026-11-16',baselineDays:14,dayStartHour:4,lastExport:null},
+  experiments:{E01:{periods:[{start:'2026-11-16',end:null}],decisions:[]},E02:{periods:[{start:'2026-11-30',end:null}],decisions:[]}},
+  days:{},measurements:[],reviews:{weekly:{},monthly:{}}}}
+let state,storageOK=true;
+function load(){
+  try{const raw=localStorage.getItem(KEY);state=raw?JSON.parse(raw):defaultState();}
+  catch(e){storageOK=false;state=defaultState();}
+  if(!state||state.version!==1){state=defaultState()}
+  state.settings=Object.assign(defaultState().settings,state.settings||{});
+  for(const k of ['days','experiments'])if(!state[k])state[k]={};
+  if(!state.measurements)state.measurements=[];
+  if(!state.reviews)state.reviews={weekly:{},monthly:{}};
+}
+function save(){
+  try{localStorage.setItem(KEY,JSON.stringify(state));storageOK=true;return true}
+  catch(e){storageOK=false;toast('儲存失敗：瀏覽器儲存空間不可用或已滿。請立即匯出備份。');return false}
+}
+
+/* =========================================================
+   4. DATE UTILITIES（一律使用本地時間，不用 toISOString 產生日期）
+   ========================================================= */
+const pad=n=>String(n).padStart(2,'0');
+const ymd=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+function parseYmd(s){const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d,12)}
+function addDays(s,n){const d=parseYmd(s);d.setDate(d.getDate()+n);return ymd(d)}
+function diffDays(a,b){return Math.round((parseYmd(b)-parseYmd(a))/864e5)}
+function weekday(s){return (parseYmd(s).getDay()+6)%7}/* 0=一 … 6=日 */
+function weekStart(s){return addDays(s,-weekday(s))}
+function logicalToday(){const n=new Date();if(n.getHours()<state.settings.dayStartHour)n.setDate(n.getDate()-1);return ymd(n)}
+const WD='一二三四五六日';
+function fmtDate(s,withWd=true){const d=parseYmd(s);return (d.getMonth()+1)+'/'+d.getDate()+(withWd?'（'+WD[weekday(s)]+'）':'')}
+function fmtTime(iso){if(!iso)return '';const d=new Date(iso);return pad(d.getHours())+':'+pad(d.getMinutes())}
+function range(a,b){const o=[];for(let s=a;s<=b;s=addDays(s,1))o.push(s);return o}
+function monthKey(s){return s.slice(0,7)}
+
+/* =========================================================
+   5. DOMAIN LOGIC
+   ========================================================= */
+function activeOn(ex,date){return ex&&ex.periods&&ex.periods.some(p=>date>=p.start&&(!p.end||date<=p.end))}
+function expStatus(id,date){const ex=state.experiments[id];if(!ex)return 'candidate';if(ex.removed)return 'removed';
+  if(activeOn(ex,date))return 'active';const last=ex.periods[ex.periods.length-1];if(last&&!last.end&&date<last.start)return 'scheduled';return 'paused'}
+function tasksFor(date){
+  const out=[];
+  for(const id of Object.keys(state.experiments)){
+    const ex=state.experiments[id];if(ex.removed||!activeOn(ex,date))continue;
+    const i=diffDays(ex.periods[0].start,date);
+    const list=EXP[id]?EXP[id].tasks(date,i):candTasks(id);
+    list.forEach(t=>{t.exp=id;out.push(t)});
+  }
+  return out;
+}
+function day(date,create){if(!state.days[date]){if(!create)return null;state.days[date]={tasks:{},log:null}}return state.days[date]}
+function taskRec(date,id){const d=day(date);return d&&d.tasks[id]||null}
+function isDone(t,r){if(!r)return false;if(t.kind==='counter')return (r.count||0)>=t.min;return r.status==='done'}
+function dayCompletion(date){
+  const ts=tasksFor(date);let req=0,done=0,mins=0,minsDone=0;
+  ts.forEach(t=>{const r=taskRec(date,t.id);if(t.kind==='cond'&&!(r&&r.status==='done'))return;if(r&&r.status==='na')return;
+    req++;mins+=t.minutes;if(isDone(t,r)){done++;minsDone+=t.minutes}});
+  return{req,done,rate:req?done/req:null,mins,minsDone,tasks:ts};
+}
+function phaseOf(date){
+  const S=state.settings.startDate,B=state.settings.baselineDays,i=diffDays(S,date);
+  if(i<0)return{key:'pre',label:'開始前',i};
+  if(i<B)return{key:'base',label:'基準期 第 '+(Math.floor(i/7)+1)+' 週',i};
+  const e01=state.experiments.E01,w=e01&&activeOn(e01,date)?Math.floor(diffDays(e01.periods[0].start,date)/7)+1:null;
+  return{key:'int',label:'介入期'+(w?'・實驗 01 第 '+w+' 週':''),i,w};
+}
+function logOf(date){const d=day(date);return d&&d.log||null}
+function streak(today){let n=0,s=today;if(!logOf(s))s=addDays(s,-1);while(logOf(s)){n++;s=addDays(s,-1)}return n}
+function aggCompletion(dates){let req=0,done=0;dates.forEach(s=>{const c=dayCompletion(s);req+=c.req;done+=c.done});return{req,done,rate:req?done/req:null}}
+function taskStats(dates){
+  const m={};
+  dates.forEach(s=>{tasksFor(s).forEach(t=>{const r=taskRec(s,t.id);
+    const o=m[t.id]||(m[t.id]={title:t.title,exp:t.exp,kind:t.kind,sched:0,done:0,skip:0,na:0,reasons:{}});
+    o.sched++;if(isDone(t,r))o.done++;else if(r&&r.status==='na')o.na++;else if(r&&r.status==='skipped'){o.skip++;o.reasons[r.reason]=(o.reasons[r.reason]||0)+1}});});
+  Object.values(m).forEach(o=>{const den=o.kind==='cond'?o.done+o.skip:o.sched-o.na;o.rate=den?o.done/den:null});
+  return m;
+}
+function expAdherence(id,dates){const st=taskStats(dates);let den=0,num=0;Object.values(st).filter(o=>o.exp===id&&o.kind!=='cond'&&o.kind!=='measure').forEach(o=>{den+=o.sched-o.na;num+=o.done});return den?num/den:null}
+const METRICS=[['sleepH','睡眠時數','h',0,12],['sleepQ','睡眠品質','',1,10],['alert','起床精神','',1,10],['clarity','精神清晰度','',1,10],['focus','專注程度','',1,10],['memory','主觀記憶','',1,10],['fatigue','身體疲勞（高＝累）','',1,10],['soreness','肌肉痠痛（高＝痠）','',1,10]];
+function vals(dates,k){return dates.map(s=>{const l=logOf(s);return l&&l[k]!=null&&l[k]!==''?+l[k]:null})}
+function mean(a){const v=a.filter(x=>x!=null&&!isNaN(x));return v.length?{m:v.reduce((p,c)=>p+c,0)/v.length,n:v.length}:{m:null,n:0}}
+function periodsSplit(today){
+  const S=state.settings.startDate,B=state.settings.baselineDays,bEnd=addDays(S,B-1),iStart=addDays(S,B);
+  const P={base:today>=S?range(S,today<bEnd?today:bEnd):[]};
+  if(today>=iStart){const all=range(iStart,today),k=Math.ceil(all.length/3);P.early=all.slice(0,k);P.mid=all.slice(k,2*k);P.late=all.slice(2*k)}
+  else{P.early=[];P.mid=[];P.late=[]}
+  return P;
+}
+function sleepHours(bed,wake){if(!bed||!wake)return null;const[b1,b2]=bed.split(':').map(Number),[w1,w2]=wake.split(':').map(Number);let m=(w1*60+w2)-(b1*60+b2);if(m<=0)m+=1440;return Math.round(m/6)/10}
+function e01WeekRange(date){const ex=state.experiments.E01;if(!ex||!activeOn(ex,date))return null;const s0=ex.periods[0].start,i=diffDays(s0,date),w=Math.floor(i/7)+1;const a=addDays(s0,(w-1)*7);return{w,a,b:addDays(a,6)}}
+function wbtbUsed(a,b){return range(a,b).filter(s=>{const l=logOf(s);return l&&l.e01&&l.e01.wbtb}).length}
+function guardAlert(date){const q=[0,1].map(k=>{const l=logOf(addDays(date,-k));return l&&l.sleepQ?+l.sleepQ:null});return q[0]!=null&&q[1]!=null&&q[0]<=4&&q[1]<=4}
+
+/* =========================================================
+   5b. RESEARCH DETAIL DATA（只填入報告或查證來源中有的內容）
+   欄位：pop 研究對象, dose 介入劑量, res 主要結果, lim 限制
+   ========================================================= */
+const PAPER_NOTES={
+ 'P-0005':{res:'遷移整體 d = 0.40；校正發表偏誤後，在缺乏有利條件時常不遷移',lim:'遷移取決於題型、回應一致性與精緻化提取'},
+ 'P-0006':{pop:'課堂情境',res:'測驗提升課堂學習 g = 0.499'},
+ 'P-0008':{res:'分散提取 vs 集中提取 g = 0.74；擴展式間隔未優於等距間隔',lim:'擴展式的優勢只在測驗次數多時出現'},
+ 'P-0010':{pop:'n = 108（遠端）',dose:'每天約 5 分鐘結構化呼吸',res:'情緒改善；HRV 無改善',lim:'單一團隊、exploratory'},
+ 'P-0011':{pop:'n = 47',dose:'1 分鐘 cyclic sighing vs box breathing（just-in-time）',res:'練習後反應時間變長',lim:'Pilot，不足以視為已驗證的微型介入'},
+ 'P-0012':{res:'呼吸練習對壓力 g = −0.35（小至中）',lim:'小樣本研究使效果量膨脹'},
+ 'P-0013':{pop:'223 項研究',res:'慢速呼吸急性提升 vmHRV'},
+ 'P-0017':{pop:'n = 11',dose:'每 30 分鐘步行 1 分鐘或 5 分鐘',res:'5 分鐘才顯著降低血糖，1 分鐘不夠；血壓在較低劑量也下降',lim:'樣本極小'},
+ 'P-0018':{res:'餐後血糖與胰島素 SMD −0.54（急性）'},
+ 'P-0019':{res:'輕度步行優於站立'},
+ 'P-0020':{res:'認知效果不一致：3/7 支持、4/7 不支持',lim:'方案異質、測量工具不同'},
+ 'P-0021':{pop:'過重與肥胖成人',res:'處理速度改善；血糖 null',lim:'Pilot'},
+ 'P-0022':{res:'效果真實但小（g ≈ 0.1–0.35，與 P-0023、P-0024 合併判讀）',lim:'有勘誤（未查證）'},
+ 'P-0023':{res:'年輕成人與體能好的人效果最小'},
+ 'P-0025':{res:'前測表現好的人效果最小'},
+ 'P-0026':{pop:'臨床睡眠問題',res:'小至中效果',lim:'RCT 效果較小，有發表偏誤'},
+ 'P-0028':{res:'日間 ≥ 250 lx melanopic EDI；睡前 3 小時 ≤ 10 lx；睡眠環境 ≤ 1 lx',lim:'專家共識，非介入試驗'},
+ 'P-0030':{pop:'健康大學生',res:'日間嗜睡與睡眠規律改善；認知無改善',lim:'預印本'},
+ 'P-0031':{res:'已訓練任務 SMD 0.79；未訓練任務約為 0',lim:'—'},
+ 'P-0032':{res:'連非常相似的平衡任務也無遷移'},
+ 'P-0033':{pop:'健康老年人',lim:'有勘誤（未查證）；族群與本專案不同'},
+ 'P-0035':{pop:'運動員',res:'踝扭傷 RR 0.64'},
+ 'P-0036':{res:'短暫清醒休息提升新記憶的長期保留'},
+ 'P-0037':{res:'動作技能的休息效果 4 小時後消失'},
+ 'P-0038':{pop:'6 個實驗',res:'低語意負荷的 n-Back 作業不干擾情節記憶鞏固'},
+ 'P-0040':{res:'學習後清醒休息 g = 0.35',lim:'預印本'},
+ 'P-0043':{res:'間隔練習與反應抑制對動作序列學習效果有限或無；挑戰秒級「微鞏固」'},
+ 'P-0046':{res:'一杯咖啡建議在睡前 8.8 小時前喝完'},
+ 'P-0047':{dose:'100 mg 與 400 mg，不同時間點',res:'100 mg 在睡前 4 小時無顯著影響；400 mg 在睡前 12 小時內仍改變睡眠'},
+ 'P-0048':{res:'安全上限：單次 200 mg、每日 400 mg（健康成人）'},
+ 'P-0049':{pop:'35 篇研究（11 篇睡眠實驗室、24 篇田野）',res:'沒有任何技術被證實能穩定、高成功率誘導清醒夢',lim:'納入研究方法學品質偏低'},
+ 'P-0050':{pop:'19 篇同儕審查研究，14 種技術',res:'MILD 最有效；SSILD 與 galantamine 有潛力但需重複驗證',lim:'17 篇方法學品質中等'},
+ 'P-0051':{pop:'n = 169（澳洲）',dose:'第 1 週基準，第 2 週練習 RT／RT+WBTB／RT+WBTB+MILD',res:'三者組合有效；MILD 後 5 分鐘內入睡時 45.8% 的嘗試出現清醒夢',lim:'練習期僅 1 週；自我報告'},
+ 'P-0052':{pop:'n = 355（線上，平均 35.3 歲，對清醒夢有興趣）',dose:'1 週基準＋1 週練習',res:'MILD 與 SSILD 效果相近；現實檢查 1 週內無效；成功誘導未降低睡眠品質',lim:'自選樣本；自我報告；短期'},
+ 'P-0053':{pop:'n = 81，平均 24.4 歲',dose:'夢境日記 4 週',res:'記日記期間夢境回憶上升（logbook enhancement）'},
+ 'P-0054':{pop:'n = 24 久坐年輕成人',dose:'每天 3 次爬 60 階，間隔 1–4 小時；每週 3 天；6 週',res:'VO2peak 上升（絕對增幅小）',lim:'樣本小；PEDro 4/10'},
+ 'P-0055':{pop:'n = 112',dose:'每分鐘 6 次慢速呼吸，有／無 HRV 生物回饋',res:'有無生物回饋差異不大（依 P-0056 引述）'},
+ 'P-0056':{dose:'每分鐘 6 次，5／10／15／20 分鐘與控制組',res:'較長時長使練習後呼吸頻率更低',lim:'最短只測 5 分鐘'}
+};
+const DOSE={
+ 'I-LUC-001':{orig:'MILD 在睡約 5 小時後醒來執行（回想夢境＋意圖句＋想像），之後入睡；研究練習期多為 1 週（P-0051、P-0052）',mine:'夢境日記每天 1–3 分；睡前意圖 1 句；現實檢查 5–10 次／天（第 3 週起）；MILD 只在自然醒時；WBTB 每週 ≤ 2 次',direct:'部分：日記與 MILD 本身即短時；「只在自然醒時做 MILD」未經直接測試',measure:'主：每週可回憶夢數；次：清醒夢次數；守門：睡眠時數、睡眠品質、起床精神',time:'日記 1–3 分；現實檢查每次數秒；MILD 約 2 分',freq:'每日，依 8 週表遞增'},
+ 'I-MEM-001':{orig:'多為單次數分鐘至數十分鐘的測驗或練習題（依研究而異，摘要未逐篇整理）',mine:'開工前 1–2 分鐘閉書回想＋30 秒對答案',direct:'否：屬修改版微型介入',measure:'每週延遲回憶：提取組 vs 重讀組正確率（同週內對照）',time:'每次 1–2 分；週測約 5 分',freq:'每次讀書／寫程式前；每週日測驗'},
+ 'I-MEM-002':{orig:'間隔數小時至數天的多次提取（P-0007、P-0008）',mine:'每次開工前回想上一次內容，加上每週測驗',direct:'間隔效果與單次時長無關，但本設計未直接測試',measure:'同實驗 02'},
+ 'I-MEM-003':{orig:'多為約 10 分鐘的清醒休息（未逐篇核對）',mine:'學習後 2 分鐘不接收新資訊',direct:'否',measure:'需延遲回憶測驗；主觀評分不足以判定'},
+ 'I-ANS-002':{orig:'每分鐘約 6 次；單次 5–20 分鐘（P-0056）',mine:'2 分鐘，吸 4 秒、吐 6 秒',direct:'否：最短只測到 5 分鐘',measure:'執行前後主觀壓力 1–10'},
+ 'I-ANS-001':{orig:'P-0010：每天約 5 分鐘；P-0011：1 分鐘',mine:'1 分鐘',direct:'部分（P-0011 pilot，n = 47）',measure:'主觀壓力 1–10；留意反應時間'},
+ 'I-LIF-001':{orig:'P-0017：每 30 分鐘步行 1 或 5 分鐘；5 分鐘才顯著降血糖',mine:'每 45–60 分鐘起身 2–5 分鐘',direct:'部分（P-0017，n = 11）',measure:'沒有血糖測量時只能記錄執行次數，不以專注評分判定'},
+ 'I-SLP-001':{orig:'光照治療研究多使用光照箱、持續數週（劑量未於摘要逐篇整理）',mine:'早晨戶外 5 分鐘＋睡前 3 小時減光',direct:'否',measure:'入睡時間、起床精神的週趨勢'},
+ 'I-LIF-003':{orig:'P-0047：100 mg 與 400 mg 在不同睡前時間點攝取',mine:'最後咖啡因在睡前 9 小時前',direct:'是（時間點直接測試）',measure:'睡眠品質、入睡時間'},
+ 'I-LIF-002':{orig:'各研究的休息方案不同',mine:'未設計',direct:'—',measure:'需客觀認知測驗'},
+ 'I-ATT-001':{orig:'多為 10–30 分鐘中等強度有氧（報告判讀）',mine:'不採用',direct:'否',measure:'—'},
+ 'I-EXS-001':{orig:'每天 3 次爬 60 階（約 20 秒），間隔 1–4 小時；每週 3 天；6 週（P-0054）',mine:'與原研究相同',direct:'是',measure:'VO2peak 需實驗室；個人可用固定路線爬樓時間'},
+ 'I-NMC-001':{orig:'平衡訓練研究多為數週的完整課程（未逐篇核對）',mine:'刷牙時左右各 30 秒',direct:'否',measure:'單腳站立秒數＋一項未練習的平衡任務（遷移）'}
+};
+const RESEARCH_LOG=[
+ {at:'2026-11-13T10:25:00Z',txt:'文獻庫：第一輪八大主題報告建檔 P-0001–P-0048'},
+ {at:'2026-11-13T10:40:00Z',txt:'文獻庫：補查清醒夢、運動點心、呼吸劑量 P-0049–P-0056'}
+];
+function paperLevel(p){const d=p.d;if(/預印本/.test(d))return '預印本（未經同儕審查）';if(/Meta|SR|Systematic|系統性/.test(d))return '系統性證據';if(/RCT|隨機|雙盲/.test(d))return '隨機對照試驗';if(/對照|介入研究|日記研究|劑量反應|受試者/.test(d))return '對照／前瞻人體研究';if(/共識|法規|意見/.test(d))return '專家共識／法規意見';if(/觀察/.test(d))return '觀察性研究';return '回顧';}
+function paperIvs(id){return INTERVENTIONS.filter(iv=>iv.support.includes(id)||iv.against.includes(id)).map(iv=>({iv,role:iv.support.includes(id)?(iv.against.includes(id)?'支持／限制':'支持'):'反對／限制'}))}
+
+/* =========================================================
+   6. UI HELPERS
+   ========================================================= */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pct=r=>r==null?'—':Math.round(r*100)+'%';
+const f1=x=>x==null?'—':(Math.round(x*10)/10).toFixed(1);
+let toastT;function toast(msg){let t=$('.toast');if(!t){t=document.createElement('div');t.className='toast';t.setAttribute('role','status');document.body.appendChild(t)}t.textContent=msg;t.style.display='block';clearTimeout(toastT);toastT=setTimeout(()=>t.style.display='none',2600)}
+let modalResolve=null;
+function openSheet(html){$('#modal').innerHTML='<div class="overlay" data-act="sheet-bg"><div class="sheet" role="dialog" aria-modal="true">'+html+'</div></div>'}
+function closeSheet(){$('#modal').innerHTML='';modalResolve=null}
+function confirmBox(title,body,okLabel,danger){return new Promise(res=>{modalResolve=res;openSheet('<h3>'+esc(title)+'</h3><p class="ink2 small">'+body+'</p><div class="btnrow"><button class="btn grow" data-act="m-no">取消</button><button class="btn grow '+(danger?'danger':'pri')+'" data-act="m-yes">'+esc(okLabel||'確定')+'</button></div>')})}
+function ev(g){return '<span class="ev g-'+esc(String(g)[0])+'" title="證據等級 '+esc(g)+'">證據 <b>'+esc(g)+'</b></span>'}
+function gradeChip(g){return '<span class="grade" title="證據等級">'+esc(g)+'</span>'}
+const ST_LABEL={active:'進行中',scheduled:'已排程',paused:'暫停',removed:'已淘汰',candidate:'候選'};
+function statusTag(st){return '<span class="st '+st+'">'+ST_LABEL[st]+'</span>'}
+function minsText(m){return m<1?'數秒':'約 '+(Math.round(m*10)/10)+' 分'}
+function sectionHead(title,aside){return '<div class="sec-h"><h2>'+title+'</h2>'+(aside?'<span class="aside">'+aside+'</span>':'')+'</div>'}
+
+/* ---------- charts：只畫真實紀錄；缺漏日留白，不補 0 ---------- */
+const charts={};let chartSeq=0;
+function niceNum(v){return Math.abs(v-Math.round(v))<1e-9?String(Math.round(v)):v.toFixed(1)}
+function axisFrame(W,H,L,R,T,ih,min,max,ticks,y){let g='';ticks.forEach(v=>{const yy=y(v);g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+yy+'" y2="'+yy+'" stroke="var(--line)" stroke-width="1"'+(v===min?'':' stroke-dasharray="1 3"')+'/><text x="'+(L-6)+'" y="'+(yy+3.5)+'" font-size="9.5" text-anchor="end" fill="var(--muted)" font-family="var(--font-mono)">'+niceNum(v)+'</text>'});return g}
+function xLabels(dates,x,H,isBar){const n=dates.length,idx=n<=2?[...Array(n).keys()]:[0,Math.floor((n-1)/2),n-1];return idx.map((i,k)=>'<text x="'+x(i)+'" y="'+(H-4)+'" font-size="9.5" text-anchor="'+(k===0&&!isBar?'start':k===idx.length-1&&!isBar?'end':'middle')+'" fill="var(--muted)" font-family="var(--font-mono)">'+esc(isBar?dates[i]:fmtDate(dates[i],false))+'</text>').join('')}
+function lineChart(dates,ys,min,max,unit){
+  const id='c'+(chartSeq++),W=320,H=124,L=28,R=8,T=10,Bm=22,n=dates.length,iw=W-L-R,ih=H-T-Bm;
+  const x=i=>L+(n<=1?iw/2:i*iw/(n-1)),y=v=>T+ih-(v-min)/(max-min)*ih;
+  const ticks=[min,min+(max-min)/2,max];
+  let path='',seg=false,dots='';
+  ys.forEach((v,i)=>{if(v==null){seg=false;return}path+=(seg?'L':'M')+x(i).toFixed(1)+' '+y(v).toFixed(1);seg=true;dots+='<circle cx="'+x(i).toFixed(1)+'" cy="'+y(v).toFixed(1)+'" r="'+(n>45?2:3)+'" fill="var(--accent)" stroke="var(--surface)" stroke-width="1.5"/>'});
+  charts[id]={dates,ys,x,unit,W,H,T,ih};
+  const has=ys.some(v=>v!=null);
+  return '<div class="chart" data-chart="'+id+'"><svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="趨勢圖，'+n+' 天">'+axisFrame(W,H,L,R,T,ih,min,max,ticks,y)+(has?'<path d="'+path+'" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>'+dots:'<text x="'+(L+iw/2)+'" y="'+(T+ih/2)+'" font-size="11" text-anchor="middle" fill="var(--muted)">尚無資料</text>')+xLabels(dates,x,H)+'<line class="cross" x1="0" x2="0" y1="'+T+'" y2="'+(T+ih)+'" stroke="var(--ink2)" stroke-width="1" stroke-dasharray="2 2" visibility="hidden"/></svg><div class="tip">點按圖表查看單日數值</div></div>';
+}
+function barChart(labels,ys,max,unit,fmt){
+  const id='c'+(chartSeq++),W=320,H=124,L=28,R=8,T=10,Bm=22,n=labels.length,iw=W-L-R,ih=H-T-Bm,bw=Math.max(2,Math.min(22,iw/n-3));
+  const x=i=>L+(i+.5)*iw/n,y=v=>T+ih-v/max*ih;let b=axisFrame(W,H,L,R,T,ih,0,max,[0,max/2,max],y).replace(/>(\d+(\.\d)?)<\/text>/g,(m,v)=>'>'+(fmt?fmt(+v):v)+'</text>');
+  ys.forEach((v,i)=>{if(v==null)return;if(v===0){b+='<line x1="'+(x(i)-bw/2)+'" x2="'+(x(i)+bw/2)+'" y1="'+(T+ih-.5)+'" y2="'+(T+ih-.5)+'" stroke="var(--accent)" stroke-width="2"/>';return}const h=Math.max(1,v/max*ih),r=Math.min(3,h,bw/2);b+='<path d="M'+(x(i)-bw/2)+' '+(T+ih)+'V'+(T+ih-h+r)+'q0 -'+r+' '+r+' -'+r+'H'+(x(i)+bw/2-r)+'q'+r+' 0 '+r+' '+r+'V'+(T+ih)+'Z" fill="var(--accent)"/>'});
+  b+=xLabels(labels,x,H,true);
+  charts[id]={dates:labels,ys,x,unit,fmt,bar:true,W,H,T,ih};
+  return '<div class="chart" data-chart="'+id+'"><svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="長條圖">'+b+'<line class="cross" x1="0" x2="0" y1="'+T+'" y2="'+(T+ih)+'" stroke="var(--ink2)" stroke-dasharray="2 2" visibility="hidden"/></svg><div class="tip">點按圖表查看數值（空白＝無資料，不是 0）</div></div>';
+}
+function spark(ys,min,max){
+  const n=ys.length,W=100,H=28,x=i=>n<=1?50:i*W/(n-1),y=v=>H-2-(v-min)/(max-min)*(H-4);let p='',seg=false,d='';
+  ys.forEach((v,i)=>{if(v==null){seg=false;return}p+=(seg?'L':'M')+x(i).toFixed(1)+' '+y(v).toFixed(1);seg=true;d+='<circle cx="'+x(i).toFixed(1)+'" cy="'+y(v).toFixed(1)+'" r="1.6" fill="var(--accent)" vector-effect="non-scaling-stroke"/>'});
+  return '<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" aria-hidden="true"><line x1="0" x2="'+W+'" y1="'+(H-1)+'" y2="'+(H-1)+'" stroke="var(--line)" vector-effect="non-scaling-stroke"/><path d="'+p+'" fill="none" stroke="var(--accent)" stroke-width="1.6" vector-effect="non-scaling-stroke" stroke-linejoin="round"/></svg>';
+}
+function chartPointer(e){
+  const box=e.target.closest('.chart');if(!box)return;const c=charts[box.dataset.chart];if(!c)return;
+  const svg=box.querySelector('svg'),r=svg.getBoundingClientRect(),px=(e.clientX-r.left)/r.width*c.W;
+  let best=0,bd=1e9;c.dates.forEach((_,i)=>{const d=Math.abs(c.x(i)-px);if(d<bd){bd=d;best=i}});
+  const ln=svg.querySelector('.cross');ln.setAttribute('x1',c.x(best));ln.setAttribute('x2',c.x(best));ln.setAttribute('visibility','visible');
+  const v=c.ys[best],lab=c.bar?c.dates[best]:fmtDate(c.dates[best]);
+  box.querySelector('.tip').textContent=lab+' · '+(v==null?'無紀錄':(c.fmt?c.fmt(v):(+v.toFixed(2))+(c.unit||'')));
+}
+
+/* =========================================================
+   7. VIEWS
+   ========================================================= */
+let view={date:null,route:'today',progTab:'trend',progRange:30,weekOf:null,monthOf:null,rq:'',rtopic:'',open:{}};
+function render(){
+  chartSeq=0;for(const k in charts)delete charts[k];
+  const r=(location.hash||'#today').slice(1),[name,arg]=r.split('/');view.route=name;
+  document.querySelectorAll('nav.bottom a').forEach(a=>{const on=a.dataset.nav===(name==='exp'?'experiments':name);a.classList.toggle('on',on);if(on)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+  const fn={today:vToday,experiments:vExperiments,exp:()=>vExpDetail(arg),progress:vProgress,journal:vJournal,research:vResearch}[name]||vToday;
+  const app=$('#app');app.innerHTML=fn();app.style.animation='none';void app.offsetWidth;app.style.animation='';
+}
+function longDate(s){const d=parseYmd(s);return d.getFullYear()+' 年 '+(d.getMonth()+1)+' 月 '+d.getDate()+' 日・星期'+WD[weekday(s)]}
+
+/* ---------- TODAY ---------- */
+function taskState(t,date){const r=taskRec(date,t.id);return{r,done:isDone(t,r),skipped:r&&r.status==='skipped',na:r&&r.status==='na'}}
+function taskActions(t,date,big){
+  const {r,done}=taskState(t,date);
+  if(t.kind==='counter'){const n=r&&r.count||0;return '<div class="btnrow" style="align-items:center"><div class="counter'+(big?' big':'')+'"><button data-act="cnt" data-d="-1" data-t="'+t.id+'" aria-label="減一">−</button><div class="n" aria-live="polite">'+n+'</div><button data-act="cnt" data-d="1" data-t="'+t.id+'" aria-label="加一">＋</button></div><span class="caption">目標 '+t.min+'–'+t.max+' 次'+(r&&r.at?'・最近 '+fmtTime(r.at):'')+'</span>'+(r&&r.status==='skipped'?'<button class="btn ghost sm" data-act="undo" data-t="'+t.id+'">取消跳過</button>':n<t.min?'<button class="btn ghost sm" data-act="skip" data-t="'+t.id+'">今天跳過…</button>':'')+'</div>'}
+  if(r)return '<div class="btnrow"><button class="btn sm" data-act="undo" data-t="'+t.id+'">復原</button></div>';
+  if(t.kind==='measure')return '<div class="btnrow"><button class="btn pri grow" data-act="measure" data-t="'+t.id+'">記錄測驗結果</button><button class="btn ghost" data-act="skip" data-t="'+t.id+'">跳過…</button></div>';
+  return '<div class="btnrow"><button class="btn '+(big?'pri':'')+' grow" data-act="done" data-t="'+t.id+'">完成</button>'+(t.kind==='cond'?'<button class="btn" data-act="na" data-t="'+t.id+'">'+(t.exp==='E01'?'今晚不適用':'今天不適用')+'</button>':'')+'<button class="btn ghost" data-act="skip" data-t="'+t.id+'">跳過…</button></div>';
+}
+function statusText(t,date){const {r,done,skipped,na}=taskState(t,date);if(skipped)return '<span class="warn">已跳過：'+esc(r.reason)+'</span>';if(na)return '今日不適用';if(done)return '<span class="done">已完成'+(r.at?'・'+fmtTime(r.at):'')+'</span>';if(t.kind==='counter'&&r)return '進行中・'+(r.count||0)+' 次';return '';}
+function taskDetail(t){const meta=expMeta(t.exp);return '<p>'+esc(t.how)+'</p><dl class="kv"><dt>目標</dt><dd>'+esc(EXP[t.exp]?EXP[t.exp].target:meta.domain)+'</dd><dt>觸發點</dt><dd>'+esc(t.trigger)+'</dd><dt>次數</dt><dd>'+(t.kind==='counter'?t.min+'–'+t.max+' 次／天':t.kind==='cond'?'條件發生時 1 次':'1 次')+'</dd><dt>依據</dt><dd>'+esc(t.mech)+'</dd><dt>證據等級</dt><dd>'+esc(t.grade)+'</dd>'+(t.caution?'<dt>注意</dt><dd>'+esc(t.caution)+'</dd>':'')+'</dl><div class="btnrow"><a class="btn sm" href="#exp/'+t.exp+'">實驗規格與文獻</a></div>'}
+function taskRow(t,date){
+  const {r,done,skipped,na}=taskState(t,date),meta=expMeta(t.exp),open=!!view.open[t.id];
+  const quick=t.kind==='measure'&&!r?'<button class="btn sm" data-act="measure" data-t="'+t.id+'">記錄</button>':t.kind==='check'&&!r?'<button class="chk" data-act="done" data-t="'+t.id+'" aria-label="完成 '+esc(t.title)+'"><i></i></button>':t.kind==='counter'?'<div class="counter"><button data-act="cnt" data-d="-1" data-t="'+t.id+'" aria-label="減一">−</button><div class="n">'+(r&&r.count||0)+'</div><button data-act="cnt" data-d="1" data-t="'+t.id+'" aria-label="加一">＋</button></div>':'<button class="chk '+(done?'on':skipped||na?'off':'')+'" data-act="row" data-t="'+t.id+'" aria-label="'+(done?'已完成':'展開')+'"><i></i></button>';
+  const st=statusText(t,date);
+  return '<div class="task'+(done?' is-done':'')+(skipped||na?' is-off':'')+'"><div class="task-main">'+(t.kind==='counter'?'<span class="chk '+(done?'on':'')+'" aria-hidden="true"><i></i></span>':quick)+'<button class="tx" data-act="row" data-t="'+t.id+'" aria-expanded="'+open+'"><div class="task-title">'+esc(t.title)+'</div><div class="task-meta">'+esc(meta?meta.short:'')+'・'+esc(t.slot)+'・<span class="num">'+minsText(t.minutes)+'</span>・證據 '+esc(t.grade)+(st?'・'+st:'')+'</div></button>'+(t.kind==='counter'?quick:'')+'</div>'+(open?'<div class="task-detail">'+taskDetail(t)+taskActions(t,date,false)+'</div>':'')+'</div>';
+}
+function recentActivity(today,limit){
+  const evs=[];
+  range(addDays(today,-13),today).forEach(s=>{const d=day(s);if(!d)return;const ts=tasksFor(s);
+    Object.entries(d.tasks).forEach(([id,r])=>{if(!r.at)return;const t=ts.find(x=>x.id===id);const what=r.status==='done'?'完成':r.status==='skipped'?'跳過（'+r.reason+'）':r.status==='na'?'不適用':'計數 '+(r.count||0);evs.push({at:r.at,txt:(t?t.title:id)+'：'+what})});
+    if(d.log&&d.log.savedAt)evs.push({at:d.log.savedAt,txt:'日誌 '+fmtDate(s,false)+(d.log.finding?'・重要發現：'+d.log.finding.slice(0,40):'')});
+  });
+  state.measurements.forEach(m=>{if(m.at)evs.push({at:m.at,txt:m.key==='recall'?'延遲回憶測驗：提取 '+m.r.c+'/'+m.r.n+'，重讀 '+m.s.c+'/'+m.s.n:'測量：'+m.name+' '+m.value+(m.unit?' '+m.unit:'')})});
+  RESEARCH_LOG.forEach(r=>evs.push({at:r.at,txt:r.txt}));
+  return evs.sort((a,b)=>b.at.localeCompare(a.at)).slice(0,limit);
+}
+function whenText(iso,today){const d=new Date(iso),s=ymd(d);return s===ymd(new Date())?fmtTime(iso):fmtDate(s,false)}
+function vToday(){
+  const today=logicalToday(),date=view.date||today,ph=phaseOf(date),c=dayCompletion(date),log=logOf(date);
+  const ws=weekStart(date),wk=aggCompletion(range(ws,date));
+  let h='<div class="phead"><div class="eyebrow">'+longDate(date)+(date===today?'':date<today?'・過去日期':'・未來日期')+'</div><div class="row"><h1>'+(ph.i>=0?'第 <span class="num">'+(ph.i+1)+'</span> 天':'開始前 <span class="num">'+(-ph.i)+'</span> 天')+'</h1><div class="dnav"><button data-act="day" data-d="-1" aria-label="前一天">‹</button><button data-act="day" data-d="1" aria-label="後一天">›</button></div></div>';
+  const wr=e01WeekRange(date);
+  h+='<div class="ctx"><span>'+esc(ph.label)+'</span>'+(wr?'<span>本週內容：'+esc(e01Plan(wr.w).label)+'</span>'+(e01Plan(wr.w).wbtbCap||wbtbUsed(wr.a,wr.b)?'<span>本週 WBTB <span class="num">'+wbtbUsed(wr.a,wr.b)+'／上限 '+e01Plan(wr.w).wbtbCap+'</span></span>':''):'')+(date!==today?'<a href="#today" data-act="gotoday">回到今天</a>':'')+'</div></div>';
+  // alerts first (functional color only)
+  let alerts='';
+  if(ph.key==='pre')alerts+='<div class="info">專案預定 <b>'+fmtDate(state.settings.startDate)+'</b> 開始。開始前可先：加到主畫面、在「日誌」試填一次、在「資料」試做 JSON 匯出。</div>';
+  if(wr){const p=e01Plan(wr.w),used=wbtbUsed(wr.a,wr.b);
+    if(used>p.wbtbCap)alerts+='<div class="notice"><b>WBTB 超過本週上限</b>（'+used+'／'+p.wbtbCap+'）。依睡眠保護規則，本週不再做。</div>';
+    if(guardAlert(date))alerts+='<div class="notice"><b>守門指標警示</b>　連續 2 天睡眠品質 ≤ 4。取消本週剩下的 WBTB；若持續，考慮暫停。</div>';}
+  // focus
+  const pend=c.tasks.filter(t=>{const r=taskRec(date,t.id);return !r||(t.kind==='counter'&&!isDone(t,r)&&r.status!=='skipped')});
+  const focus=pend.find(t=>t.kind!=='cond')||pend[0];
+  let left='';
+  if(focus){const meta=expMeta(focus.exp);
+    left+='<section class="focus" aria-label="今日焦點"><div class="k"><span class="eyebrow">今日焦點</span>'+ev(focus.grade)+'</div><h2>'+esc(focus.title)+'</h2><div class="meta">'+esc(meta.name)+'・'+esc(focus.slot)+'・<span class="num">'+minsText(focus.minutes)+'</span></div><p>'+esc(focus.how)+'</p>'+taskActions(focus,date,true)+'<details class="more"><summary>依據與注意事項</summary>'+taskDetail(focus)+'</details></section>';
+  }else if(c.tasks.length){left+='<section class="focus clear"><span class="eyebrow">今日實驗</span><h2>今日排定項目已全部處理</h2><p>完成 <span class="num">'+c.done+'／'+c.req+'</span>。'+(log?'':'還差每日日誌。')+'</p>'+(log?'':'<div class="btnrow"><a class="btn pri" href="#journal">填寫日誌</a></div>')+'</section>'}
+  else left+='<section class="focus clear"><span class="eyebrow">今日實驗</span><h2>今天沒有排定的實驗</h2><p>'+(ph.key==='pre'?'專案尚未開始。':'可以只填寫每日日誌。')+'</p></section>';
+  const rest=c.tasks.filter(t=>t!==focus);
+  left+='<section class="sec">'+sectionHead('今日實驗','<span class="num">'+(c.req?c.done+'/'+c.req:'—')+'</span> 完成・約 '+Math.ceil(c.mins)+' 分')+(rest.length?'<div class="tasks">'+rest.map(t=>taskRow(t,date)).join('')+'</div>':'<div class="empty">'+(focus?'沒有其他項目。':'—')+'</div>')+'</section>';
+  // right column
+  let right='<section class="sec">'+sectionHead('今日狀態',log?'日誌已存 '+fmtTime(log.savedAt):'日誌未填');
+  const fig=(v,unit,l)=>'<div><div class="fig-v'+(v==null?' na':'')+'">'+(v==null?'未記錄':v+(unit?'<small>'+unit+'</small>':''))+'</div><div class="fig-l">'+l+'</div></div>';
+  right+='<div class="figs four">'+fig(log&&log.sleepH!=null?log.sleepH:null,'h','睡眠時數')+fig(log&&log.sleepQ||null,'/10','睡眠品質')+fig(log&&log.clarity||null,'/10','精神清晰度')+fig(log&&log.fatigue||null,'/10','身體疲勞')+'</div>';
+  if(!log&&ph.key!=='pre')right+='<div class="btnrow"><a class="btn grow" href="#journal">填寫今日日誌（約 1–2 分）</a></div>';
+  right+='</section>';
+  const d7=range(addDays(date,-6),date);
+  right+='<section class="sec">'+sectionHead('近期變化','近 7 天・'+fmtDate(d7[0],false)+'–'+fmtDate(date,false));
+  [['sleepQ','睡眠品質',1,10],['clarity','精神清晰度',1,10],['focus','專注程度',1,10],['fatigue','身體疲勞',1,10]].forEach(([k,l,mn,mx])=>{const ys=vals(d7,k),m=mean(ys);
+    right+='<div class="spark"><span>'+l+'</span>'+(m.n>=3?spark(ys,mn,mx):'<span class="na">尚無足夠資料（n='+m.n+'，需 ≥ 3）</span>')+'<span class="sv">'+(m.n>=3?f1(m.m):'—')+'</span></div>'});
+  right+='<div class="spark"><span>本週完成率</span><span class="caption">'+fmtDate(ws,false)+' 起</span><span class="sv">'+pct(wk.rate)+'</span></div><p class="caption">右側數值為 7 天平均。單週波動不代表介入效果。</p></section>';
+  const acts=recentActivity(today,6);
+  right+='<section class="sec">'+sectionHead('近期活動')+(acts.length?'<ul class="activity">'+acts.map(a=>'<li><time>'+whenText(a.at)+'</time><span>'+esc(a.txt)+'</span></li>').join('')+'</ul>':'<div class="empty">尚無活動</div>')+'</section>';
+  return h+alerts+'<div class="grid2"><div class="col-l">'+left+'</div><div class="col-r">'+right+backupReminder()+'</div></div>';
+}
+function backupReminder(){
+  const le=state.settings.lastExport,n=Object.keys(state.days).length;if(!n)return '';
+  const age=le?diffDays(le.slice(0,10),ymd(new Date())):null;
+  if(age===null||age>=7)return '<div class="notice small"><b>建議備份</b>　資料只存在這台裝置的瀏覽器，'+(age===null?'尚未備份過':'上次備份在 '+age+' 天前')+'。<a href="#" data-act="settings">匯出 JSON</a></div>';
+  return '';
+}
+
+/* ---------- EXPERIMENTS ---------- */
+function vExperiments(){
+  const today=logicalToday();
+  let h='<div class="phead"><div class="eyebrow">Experiments</div><h1>實驗管理</h1><p class="lede">一次引入一項主要介入。候選方法等前一項資料足夠後再加入；啟用前請先確認證據等級與微型版本是否有直接證據。</p></div>';
+  h+='<section class="sec">'+sectionHead('正式實驗','2 項');
+  ['E01','E02'].forEach(id=>{const e=EXP[id],st=expStatus(id,today),ex=state.experiments[id],dz=DOSE[e.intervention]||{};
+    h+='<a class="xrow primary" href="#exp/'+id+'"><span class="xid">'+id+'</span><span class="xn">'+esc(e.name.replace(/^實驗 0\d：/,''))+'</span><span class="xr">'+statusTag(st)+'</span><span class="xm"><span>'+e.domain+'</span>'+ev(e.grade)+'<span>'+esc(dz.time||'')+'</span>'+(ex?'<span class="num">開始 '+fmtDate(ex.periods[0].start,false)+'</span>':'')+'</span><span class="xm ink2" style="font-size:13px">主指標：'+esc(e.primary)+'</span></a>'});
+  h+='</section><section class="sec">'+sectionHead('候選介入資料庫',INTERVENTIONS.filter(iv=>!iv.status).length+' 項')+'<p class="caption" style="margin:8px 0 4px">A／B 可優先考慮；C 只能作探索性實驗；D／E 不列入正式計畫。</p>';
+  INTERVENTIONS.filter(iv=>!iv.status).forEach(iv=>{const st=expStatus(iv.id,today),dz=DOSE[iv.id]||{};
+    h+='<a class="xrow" href="#exp/'+iv.id+'"><span class="xid">'+iv.id.replace('I-','')+'</span><span class="xn">'+esc(iv.name)+'</span><span class="xr">'+statusTag(st)+'</span><span class="xm"><span>'+esc(iv.domain)+'</span>'+ev(iv.grade)+'<span>微型直接證據：'+esc((dz.direct||'—').split('：')[0].split('（')[0])+'</span>'+(iv.tmpl?'':'<span>無可啟用版本</span>')+'</span></a>'});
+  h+='</section><section class="sec">'+sectionHead('測量結果','客觀測量')+'<div class="btnrow"><button class="btn grow" data-act="measure" data-t="E02.test">延遲回憶測驗</button><button class="btn grow" data-act="measure-custom">其他測量</button></div>';
+  const ms=state.measurements.slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,12);
+  h+=ms.length?ms.map(measRow).join(''):'<div class="empty">尚無測量紀錄</div>';
+  return h+'</section>';
+}
+function measRow(m){
+  let v=m.key==='recall'?'延遲回憶・提取 <span class="num">'+m.r.c+'/'+m.r.n+'</span>（'+pct(m.r.c/m.r.n)+'）・重讀 <span class="num">'+m.s.c+'/'+m.s.n+'</span>（'+pct(m.s.c/m.s.n)+'）':esc(m.name)+'・<span class="num">'+esc(m.value)+'</span> '+esc(m.unit||'');
+  return '<div class="list-row"><span><span class="num muted">'+fmtDate(m.date,false)+'</span>　'+v+(m.note?'<br><span class="caption">'+esc(m.note)+'</span>':'')+'</span><span style="display:flex;gap:4px;flex:none"><button class="btn sm ghost" data-act="edit-meas" data-id="'+m.id+'">編輯</button><button class="btn sm ghost" data-act="del-meas" data-id="'+m.id+'">刪除</button></span></div>';
+}
+function refs(ids){return ids.map(id=>{const p=PAPERS.find(x=>x.id===id);return p?'<li><a href="'+paperUrl(p)+'" target="_blank" rel="noopener">'+p.id+'</a>　'+esc(p.a)+'（'+p.y+'）'+esc(p.t)+' <span class="muted">— '+esc(p.d)+'</span></li>':''}).join('')}
+function specSheet(id,meta,iv){
+  const dz=DOSE[iv.id]||{},t=iv.tmpl,st=expStatus(id,logicalToday()),e=EXP[id];
+  const row=(k,v,full)=>'<div'+(full?' class="full"':'')+'><dt>'+k+'</dt><dd>'+v+'</dd></div>';
+  return '<dl class="spec">'+
+   row('實驗目的',esc(e?e.target:(t?t.title+'；':'')+iv.domain),true)+
+   row('研究領域',esc(meta.domain))+row('目前狀態',statusTag(st))+
+   row('每次時間',esc(dz.time||(t?(t.minutes?t.minutes+' 分鐘':'不占時間'):'—')))+row('頻率',esc(dz.freq||(t?(t.kind==='counter'?t.min+'–'+t.max+' 次／天':t.kind==='cond'?'條件發生時':'每日'):'—')))+
+   row('原始研究劑量',esc(dz.orig||'—'),true)+row('個人介入劑量',esc(dz.mine||'—'),true)+
+   row('微型版本直接證據',esc(dz.direct||iv.micro||'—'),true)+row('測量方式',esc(dz.measure||(e?e.primary:'—')),true)+
+   row('證據等級',ev(meta.grade)+'　<span class="ink2">'+esc(iv.gradeNote||'')+'</span>',true)+
+   (e?row('守門指標',esc(e.guard),true):'')+'</dl>';
+}
+function vExpDetail(id){
+  const today=logicalToday(),meta=expMeta(id);if(!meta)return '<div class="empty">找不到此實驗</div>';
+  const iv=INTERVENTIONS.find(x=>x.id===(EXP[id]?EXP[id].intervention:id))||{};
+  const st=expStatus(id,today),ex=state.experiments[id];
+  let h='<button class="back" data-act="back">‹ 實驗管理</button><div class="phead" style="padding-top:8px"><div class="eyebrow">'+esc(id)+'・'+esc(meta.domain)+'</div><h1>'+esc(meta.name)+'</h1><div class="ctx">'+statusTag(st)+ev(meta.grade)+(ex?'<span class="num">開始 '+fmtDate(ex.periods[0].start,false)+'</span>':'')+'</div></div>';
+  h+='<section class="sec">'+sectionHead('實驗規格')+specSheet(id,meta,iv)+'</section>';
+  h+='<div class="grid2"><div class="col-l"><section class="sec">'+sectionHead('研究說明')+'<div class="qa">'+expQA(id,iv)+'</div></section></div><div class="col-r">';
+  h+='<section class="sec">'+sectionHead('實驗控制');
+  if(EXP[id]||iv.tmpl){
+    if(st==='candidate'){
+      if(iv.grade==='D'||iv.grade==='E')h+='<div class="notice">證據等級 '+iv.grade+'，不列入正式計畫。</div>';
+      else{const warn=activationWarnings(id,today);h+=(warn?'<div class="notice small">'+warn+'</div>':'')+'<div class="field"><label for="actDate">開始日期</label><input type="date" id="actDate" value="'+addDays(today,1)+'"></div><div class="btnrow"><button class="btn pri grow" data-act="activate" data-id="'+id+'">'+(iv.grade==='C'?'以探索性實驗啟用':'啟用此實驗')+'</button></div>'}
+    }else if(st==='active'||st==='scheduled'){
+      h+=(EXP[id]?'<div class="field"><label for="startDate">開始日期（第一段）</label><input type="date" id="startDate" value="'+ex.periods[0].start+'"><div class="hint">修改後各週課表依新開始日重新計算；已記錄的完成狀態保留在原日期。</div></div><div class="btnrow"><button class="btn" data-act="set-start" data-id="'+id+'">更新開始日期</button></div>':'')+'<div class="btnrow"><button class="btn grow" data-act="pause" data-id="'+id+'">暫停</button><button class="btn danger grow" data-act="remove" data-id="'+id+'">淘汰</button></div>';
+    }else if(st==='paused'){h+='<div class="btnrow"><button class="btn pri grow" data-act="resume" data-id="'+id+'">從今天恢復</button><button class="btn danger grow" data-act="remove" data-id="'+id+'">淘汰</button></div>'}
+    else if(st==='removed'){h+='<div class="btnrow"><button class="btn grow" data-act="unremove" data-id="'+id+'">取消淘汰（改為暫停）</button></div>'}
+  }else h+='<p class="caption">此方法目前沒有可啟用的微型版本。</p>';
+  if(ex)h+='<p class="caption" style="margin-top:12px">執行期間：'+ex.periods.map(p=>fmtDate(p.start,false)+'–'+(p.end?fmtDate(p.end,false):'進行中')).join('、')+'</p>';
+  h+='</section>';
+  if(id==='E02'){const ms=state.measurements.filter(m=>m.key==='recall').sort((a,b)=>b.date.localeCompare(a.date));h+='<section class="sec">'+sectionHead('測量結果',ms.length+' 次')+(ms.length?ms.map(measRow).join(''):'<div class="empty">尚無測驗紀錄</div>')+'</section>'}
+  h+='<section class="sec">'+sectionHead('決策紀錄')+(ex&&ex.decisions.length?ex.decisions.map(d=>'<div class="list-row small"><span class="num">'+d.month+'</span><span><b>'+d.decision+'</b>　'+esc(d.note||'')+'</span></div>').join(''):'<div class="empty">尚無月度決策。於「進度 → 月回顧」記錄。</div>')+'</section></div></div>';
+  return h;
+}
+function activationWarnings(id,today){
+  const iv=INTERVENTIONS.find(x=>x.id===id),act=Object.keys(state.experiments).filter(k=>k!=='E01'&&['active','scheduled'].includes(expStatus(k,today)));
+  const w=[];
+  if(iv.sleepDomain&&['active','scheduled'].includes(expStatus('E01',today)))w.push('實驗 01 進行期間，睡眠領域不加入其他介入（會混淆夢境與睡眠指標）。建議第 9 週後再啟用。');
+  if(act.length)w.push('目前已有 '+act.length+' 項非睡眠介入在進行或排程中；同時加入多項會讓歸因變困難。');
+  if(iv.grade==='C')w.push('等級 C：只能作為探索性實驗，結果不應被解讀為已驗證。');
+  return w.join('<br>');
+}
+function expQA(id,iv){
+  if(id==='E01')return `
+<h3>1. 為什麼要做這項實驗？</h3><p>你已決定把清醒夢訓練作為專案第一項正式實驗。它的目標明確、可自我記錄，而且研究文獻中有可比較的成功率。</p>
+<h3>2. 想改善什麼？</h3><p>夢境回憶與清醒夢頻率。<b>不預期遠遷移</b>，不宣稱改善認知能力。</p>
+<h3>3. 具體怎麼執行？（8 週表）</h3><table class="t"><tr><th>週</th><th style="text-align:left">內容</th><th>WBTB</th></tr>${[1,2,3,4,5,6,7,8].map(w=>'<tr><td>'+w+'</td><td style="text-align:left">'+e01Plan(w).label+'</td><td>'+e01Plan(w).wbtbCap+'</td></tr>').join('')}</table>
+<p class="small">WBTB：睡約 5 小時後醒來，保持清醒 10–30 分鐘（不滑手機、不開亮燈），再做 MILD 回去睡。只選隔天能補眠的晚上。</p>
+<h3>4. 需要花多少時間？</h3><p>日記 1–3 分鐘；睡前意圖數秒；現實檢查每次數秒、每天 5–10 次；MILD 約 2 分鐘（只在自然醒時）。</p>
+<h3>5. 科學研究支持什麼？</h3><ul><li><span class="lbl-fact">FACT</span>2023 系統性回顧（19 篇）認為 MILD 是最有效的誘導技術；17 篇方法學品質中等（P-0050）。</li><li><span class="lbl-fact">FACT</span>NALDIS（n=169）：現實檢查＋WBTB＋MILD 組合有效；MILD 完成後 5 分鐘內入睡時，45.8% 的嘗試出現清醒夢（P-0051）。</li><li><span class="lbl-fact">FACT</span>ILDIS（n=355）：MILD 與 SSILD 效果相近；現實檢查在 1 週內無效；成功誘導沒有降低睡眠品質（P-0052）。</li><li><span class="lbl-fact">FACT</span>寫夢境日記期間，夢境回憶會上升（logbook enhancement，P-0053）。</li></ul>
+<h3>6. 研究對象與介入劑量</h3><p>多為對清醒夢有興趣的成人自選樣本；練習期多只有 1 週；MILD 在研究中是搭配「睡約 5 小時後醒來」執行。<b>本專案「只在自然醒時做 MILD」是修改版，未經直接驗證（INFERENCE：成功率可能較低）。</b></p>
+<h3>7. 目前證據的限制</h3><ul><li>2012 年回顧（35 篇）：沒有任何技術被證實能穩定、高成功率地誘導（P-0049）。</li><li>結果是自我報告，容易受期待效應影響。</li><li>8 週長期效果缺乏研究；WBTB 切斷睡眠，研究未充分評估累積睡眠債。</li></ul>
+<h3>8. 預期多久可觀察到變化？</h3><p>夢境回憶：數天至 2 週（日記效應）。清醒夢：研究中 1 週即可見，但個人差異大；以 8 週為一個結算單位。</p>
+<h3>9. 如何判斷有效？</h3><p>主指標：每週可回憶的夢數（與基準期第 1–2 週比較）。次指標：清醒夢次數。守門指標：睡眠時數、睡眠品質、起床精神不得低於基準期。完成率高不代表有效。</p>
+<h3>10. 什麼情況應該停止？</h3><ul><li>連續 2 天睡眠品質 ≤ 4 → 取消當週剩下的 WBTB。</li><li>守門指標持續低於基準期、出現睡眠麻痺或明顯疲勞 → PAUSE WBTB，必要時 PAUSE 整個實驗。</li><li>躺床 20 分鐘睡不著 → 當晚放下練習。</li></ul>
+<h3>文獻來源</h3><ul>${refs(['P-0049','P-0050','P-0051','P-0052','P-0053'])}</ul>`;
+  if(id==='E02')return `
+<h3>1. 為什麼要做這項實驗？</h3><p>提取練習是本輪研究中證據最強的方法（A），而且原本就嵌在讀書／寫程式流程中，不額外占用時段。</p>
+<h3>2. 想改善什麼？</h3><p>你真正要學的材料（課程、論文、程式框架）的長期保留。</p>
+<h3>3. 具體怎麼執行？</h3><ul><li>每週選約 10 個要學的概念，<b>事先</b>隨機分成兩半：「提取組」與「重讀組」。</li><li>每次開工前 1–2 分鐘：闔上資料，寫下上次內容重點，再對答案（提取組用回想，重讀組只重讀）。</li><li>每週日 5 分鐘：不看資料，測兩組各答對幾個，記錄在 App。</li></ul>
+<h3>4. 需要花多少時間？</h3><p>每次 1–2 分鐘；每週測驗約 5 分鐘。</p>
+<h3>5. 科學研究支持什麼？</h3><ul><li><span class="lbl-fact">FACT</span>課堂情境測驗效應 g = 0.499（P-0006）。</li><li><span class="lbl-fact">FACT</span>分散提取 vs 集中提取 g = 0.74（P-0008）；擴展式間隔沒有優於等距間隔。</li></ul>
+<h3>6. 研究對象與介入劑量</h3><p>多為學生與實驗室作業；單次測驗本來就短，但「1–2 分鐘版本」本身未經直接驗證（報告標記：Modified／Micro-Intervention）。</p>
+<h3>7. 目前證據的限制</h3><p>遷移有限：整體 d = 0.40，發表偏誤校正後在不利條件下常不遷移（P-0005）。效果主要限於被提取的內容。</p>
+<h3>8. 預期多久可觀察到變化？</h3><p>延遲回憶差異：第 1 週即可量到；穩定估計需 4 週以上。</p>
+<h3>9. 如何判斷有效？</h3><p>提取組正確率 − 重讀組正確率，連續 4 週以上的平均差異與方向。這是受試者內對照，比每日專注評分可靠。</p>
+<h3>10. 什麼情況應該停止？</h3><p>連續兩週執行率 &lt; 50% → 視為設計失敗（縮小、換觸發點或淘汰）；若造成讀書負擔感明顯上升 → MODIFY。</p>
+<h3>開始時機的判斷</h3><p><span class="lbl-fact">INFERENCE</span>預設第 3 週（11/30）開始：它的結果是客觀測驗、有同週內對照，不依賴每日精神評分，與實驗 01 的指標重疊很小。WBTB 夜後的測驗可在備註中標記。若你希望歸因最乾淨，可把開始日改到第 9 週（1/11）。</p>
+<h3>文獻來源</h3><ul>${refs(['P-0001','P-0002','P-0003','P-0005','P-0006','P-0007','P-0008','P-0009'])}</ul>`;
+  const t=iv.tmpl;
+  return `<h3>1. 為什麼要做／2. 想改善什麼？</h3><p>${esc(iv.domain)}：${esc(iv.name)}</p>
+<h3>3. 具體怎麼執行？</h3><p>${t?esc(t.how):'目前沒有適合的微型版本。'}</p>${t?'<p class="small muted">觸發點：'+esc(t.trigger)+'</p>':''}
+<h3>4. 需要花多少時間？</h3><p>${t?(t.minutes||'<1')+' 分鐘':'—'}</p>
+<h3>5. 科學研究支持什麼？</h3><p>${esc(iv.gradeNote)}</p>
+<h3>6. 研究劑量 vs 微型版本</h3><p>${esc(iv.micro)}</p>
+<h3>7. 證據限制與反面研究</h3><p>${esc(iv.note)}</p>
+<h3>8–9. 觀察時間與判斷方式</h3><p>先建立 7–14 天基準；可逆的介入（光照、呼吸）可用「有做／沒做」交替日比較；會學會的技能看趨勢與遷移測試。完成率高不代表有效。</p>
+<h3>10. 何時停止</h3><p>出現睡眠受損、疲勞增加或訓練品質下降 → 立即 PAUSE。</p>
+<h3>支持的研究</h3><ul>${refs(iv.support||[])}</ul>${iv.against&&iv.against.length?'<h3>反對／null／限制</h3><ul>'+refs(iv.against)+'</ul>':''}`;
+}
+
+
+/* ---------- JOURNAL ---------- */
+let jDraft=null,jDirty=false;
+function markDirty(){jDirty=true;const s=$('#saveState');if(s){s.textContent='有未儲存的變更';s.classList.add('dirty')}}
+function vJournal(){
+  const today=logicalToday(),date=view.date||today,ph=phaseOf(date);
+  if(!jDraft||jDraft._date!==date){const l=logOf(date);jDraft=Object.assign({_date:date,conf:[],e01:{}},l?JSON.parse(JSON.stringify(l)):{});if(!jDraft.e01)jDraft.e01={};if(!jDraft.conf)jDraft.conf=[];jDirty=false}
+  const d=jDraft,saved=logOf(date),e01on=state.experiments.E01&&activeOn(state.experiments.E01,date);
+  const sh=sleepHours(d.bed,d.wake);let n=0;const no=()=>'<span class="no">'+String(++n).padStart(2,'0')+'</span>';
+  let h='<div class="phead"><div class="eyebrow">研究日誌'+(ph.i>=0?'・No. <span class="num">'+String(ph.i+1).padStart(3,'0')+'</span>':'')+'</div><div class="row"><h1>'+fmtDate(date)+'</h1><div class="dnav"><button data-act="day" data-d="-1" aria-label="前一天">‹</button><button data-act="day" data-d="1" aria-label="後一天">›</button></div></div><div class="ctx"><span>'+esc(ph.label)+'</span>'+(saved?'<span>建立 '+fmtTime(saved.createdAt)+'・更新 '+fmtTime(saved.savedAt)+'</span>':'<span>尚未建立</span>')+(date!==today?'<a href="#" data-act="gotoday">回到今天</a>':'')+'</div></div>';
+  h+='<p class="caption" style="margin:12px 0 0">評分皆為主觀自評，不是經臨床驗證的客觀測量。所有欄位可留空；同一天再次儲存只會更新，不會重複建立。</p>';
+  h+='<div class="entry">'+no()+'<div><h3>今日觀察</h3><div class="caption">自由記錄今天注意到的事。</div><div class="notebook" style="margin-top:10px"><textarea id="obs" data-j="obs" aria-label="今日觀察" placeholder="例：下午兩點後明顯想睡；排球起跳感覺比上週輕。">'+esc(d.obs||'')+'</textarea></div></div></div>';
+  h+='<div class="entry">'+no()+'<div><h3>睡眠（昨晚）</h3><div class="two" style="margin-top:12px"><div class="field" style="margin:0"><label for="bed">入睡</label><input type="time" id="bed" data-j="bed" value="'+esc(d.bed||'')+'"></div><div class="field" style="margin:0"><label for="wake">起床</label><input type="time" id="wake" data-j="wake" value="'+esc(d.wake||'')+'"></div></div><div class="hint" id="sleepH">睡眠時數：'+(sh!=null?'<span class="num">'+sh+'</span> 小時（由時間計算）':'—')+'</div>'+scaleField('sleepQ')+scaleField('alert')+'</div></div>';
+  h+='<div class="entry">'+no()+'<div><h3>精神與認知（今日整體）</h3>'+scaleField('clarity')+scaleField('focus')+scaleField('memory')+'</div></div>';
+  h+='<div class="entry">'+no()+'<div><h3>身體狀態</h3>'+scaleField('fatigue')+scaleField('soreness')+'<div class="field"><span class="flabel">今日身體活動</span><div class="chips">'+ACTIVITY.map(a=>'<button data-act="jchip" data-k="activity" data-v="'+a+'" class="'+(d.activity===a?'on':'')+'" aria-pressed="'+(d.activity===a)+'">'+a+'</button>').join('')+'</div></div></div></div>';
+  if(e01on){const cnt=taskRec(date,'E01.rt');
+    h+='<div class="entry">'+no()+'<div><h3>實驗紀錄・夢境（實驗 01）</h3><div class="field"><span class="flabel">醒來記得的夢數</span><div class="counter big" style="display:inline-flex"><button data-act="jstep" data-k="dreams" data-d="-1" aria-label="減一">−</button><div class="n">'+(d.e01.dreams||0)+'</div><button data-act="jstep" data-k="dreams" data-d="1" aria-label="加一">＋</button></div></div>';
+    h+='<div class="field"><span class="flabel">清醒夢</span><div class="chips">'+[['none','無'],['brief','短暫察覺'],['clear','明確清醒夢']].map(([v,l])=>'<button data-act="jsel" data-k="lucid" data-v="'+v+'" class="'+(d.e01.lucid===v?'on':'')+'">'+l+'</button>').join('')+'</div></div>';
+    h+='<div class="field"><span class="flabel">夢中出現「這好怪」的念頭</span><div class="chips">'+[['y','有'],['n','沒有']].map(([v,l])=>'<button data-act="jsel" data-k="odd" data-v="'+v+'" class="'+(d.e01.odd===v?'on':'')+'">'+l+'</button>').join('')+'</div></div>';
+    h+='<div class="field"><span class="flabel">昨晚是否做 WBTB</span><div class="chips">'+[[true,'有（標記為混淆日）'],[false,'沒有']].map(([v,l])=>'<button data-act="jsel" data-k="wbtb" data-v="'+v+'" class="'+(d.e01.wbtb===v?'on':'')+'">'+l+'</button>').join('')+'</div><div class="hint">WBTB 當晚與隔天，在分析其他介入時視為混淆日。今日現實檢查 <span class="num">'+(cnt&&cnt.count||0)+'</span> 次（在「今日」計數）。</div></div>';
+    h+='<div class="field"><label for="dreamNote">夢境摘要</label><textarea id="dreamNote" data-j1="note" placeholder="關鍵畫面、人物、情緒、夢境徵兆">'+esc(d.e01.note||'')+'</textarea></div></div></div>';
+  }
+  h+='<div class="entry">'+no()+'<div><h3>實驗中的感受</h3><div class="field"><textarea id="expNote" data-j="expNote" aria-label="實驗中的感受" placeholder="執行時的難易度、是否造成負擔、觸發點是否合適">'+esc(d.expNote||'')+'</textarea></div></div></div>';
+  h+='<div class="entry">'+no()+'<div><h3>干擾因素與特殊狀況</h3><div class="field"><div class="chips">'+CONFOUNDERS.map(c=>'<button data-act="jconf" data-v="'+c+'" class="'+(d.conf.includes(c)?'on':'')+'" aria-pressed="'+d.conf.includes(c)+'">'+c+'</button>').join('')+'</div></div><div class="field"><label for="caf">最後一次咖啡因</label><input type="time" id="caf" data-j="caf" value="'+esc(d.caf||'')+'"></div><div class="field"><label for="note">特殊狀況</label><textarea id="note" data-j="note" placeholder="生病、異常感受、當天的干擾">'+esc(d.note||'')+'</textarea></div></div></div>';
+  h+='<div class="entry">'+no()+'<div><h3>重要發現</h3><div class="caption">值得在週／月回顧時重看的觀察。會顯示在「近期活動」。</div><div class="field"><textarea id="finding" data-j="finding" placeholder="例：WBTB 隔天下午專注明顯下降。">'+esc(d.finding||'')+'</textarea></div></div></div>';
+  const c=dayCompletion(date);
+  if(c.tasks.length){h+='<section class="sec">'+sectionHead('今日執行狀態','於「今日」操作')+c.tasks.map(t=>{const r=taskRec(date,t.id);return '<div class="list-row small"><span>'+esc(t.title)+'</span><span class="'+(isDone(t,r)?'':'muted')+'">'+(isDone(t,r)?'完成'+(r.count!=null?'（'+r.count+'）':''):r&&r.status==='skipped'?'跳過：'+esc(r.reason):r&&r.status==='na'?'不適用':t.kind==='counter'&&r?'進行中 '+r.count:'未完成')+'</span></div>'}).join('')+'</section>'}
+  if(saved)h+='<div class="btnrow"><button class="btn ghost sm" data-act="jdelete">刪除這一天的日誌</button></div>';
+  h+='<div class="savebar"><span class="state" id="saveState">'+(saved?'已儲存':'尚未儲存')+'</span><button class="btn acc" data-act="jsave">'+(saved?'更新日誌':'儲存日誌')+'</button></div>';
+  return h;
+}
+function scaleField(k){
+  const v=jDraft[k];
+  return '<div class="field"><span class="flabel">'+RATING[k].label.replace('（今日整體）','')+' <span class="caption">1–10・'+RATING[k].dir+'</span></span><div class="scale" role="group" aria-label="'+RATING[k].label+'">'+Array.from({length:10},(_,i)=>'<button data-act="jrate" data-k="'+k+'" data-v="'+(i+1)+'" class="'+(v==i+1?'on':'')+'" aria-pressed="'+(v==i+1)+'">'+(i+1)+'</button>').join('')+'</div><div class="scaledef" data-def="'+k+'">'+(v?esc(rateDef(k,v)):'1–2 '+RATING[k].defs[0]+'；9–10 '+RATING[k].defs[4])+'</div></div>';
+}
+function saveJournal(){
+  const date=jDraft._date,o=JSON.parse(JSON.stringify(jDraft));delete o._date;
+  o.sleepH=sleepHours(o.bed,o.wake);o.savedAt=new Date().toISOString();
+  const d=day(date,true);if(d.log&&d.log.createdAt)o.createdAt=d.log.createdAt;else o.createdAt=o.savedAt;
+  d.log=o;if(save()){jDirty=false;toast('日誌已儲存・'+fmtDate(date,false));render()}
+}
+
+/* ---------- PROGRESS ---------- */
+function vProgress(){
+  let h='<div class="phead"><div class="eyebrow">Progress & Analytics</div><h1>進度與數據</h1><p class="lede">主觀評分、客觀測量與執行率分開呈現。所有圖表直接讀取你的紀錄；缺漏日留白，不視為 0。</p></div><div class="seg" role="tablist">'+[['trend','趨勢'],['week','週回顧'],['month','月回顧']].map(([k,l])=>'<button role="tab" aria-selected="'+(view.progTab===k)+'" data-act="ptab" data-v="'+k+'" class="'+(view.progTab===k?'on':'')+'">'+l+'</button>').join('')+'</div>';
+  return h+({trend:vTrend,week:vWeek,month:vMonth}[view.progTab])();
+}
+function vTrend(){
+  const today=logicalToday(),S=state.settings.startDate;
+  const first=Object.keys(state.days).sort()[0];
+  const startAll=[S,first].filter(Boolean).sort()[0];
+  const n=view.progRange,a=n==='all'?(startAll<today?startAll:addDays(today,-6)):addDays(today,-(n-1)),dates=range(a,today);
+  let h='<div class="seg">'+[[7,'7 天'],[30,'30 天'],[90,'90 天'],['all','自開始']].map(([k,l])=>'<button data-act="prange" data-v="'+k+'" class="'+(view.progRange==k?'on':'')+'">'+l+'</button>').join('')+'</div>';
+  const logged=dates.filter(s=>logOf(s)).length,last=Object.keys(state.days).filter(s=>logOf(s)).sort().pop();
+  // 1. data quality
+  h+='<section class="sec">'+sectionHead('資料品質',fmtDate(a,false)+'–'+fmtDate(today,false));
+  h+='<div class="figs four"><div><div class="fig-v">'+logged+'<small>/'+dates.length+'</small></div><div class="fig-l">有日誌的天數</div></div><div><div class="fig-v">'+(dates.length-logged)+'</div><div class="fig-l">缺漏天數</div></div><div><div class="fig-v">'+pct(dates.length?logged/dates.length:null)+'</div><div class="fig-l">紀錄覆蓋率</div></div><div><div class="fig-v'+(last?'':' na')+'">'+(last?fmtDate(last,false):'無')+'</div><div class="fig-l">最近一筆日誌</div></div></div>';
+  if(!Object.keys(state.days).length)h+='<div class="info">尚無紀錄。開始填寫日誌與完成實驗後，這裡會出現資料。</div>';
+  else if(logged<7)h+='<p class="caption" style="margin-top:8px">此區間少於 7 天有紀錄，趨勢僅供參考，等待更多觀察。</p>';
+  h+='</section>';
+  // 2. adherence
+  const cr=dates.map(s=>{const c=dayCompletion(s);return c.rate==null?null:Math.round(c.rate*100)});
+  h+='<section class="sec">'+sectionHead('行為完成率','執行行為，不是效果')+'<div class="chartbox"><div class="ct"><b>每日完成率</b><span>區間 '+pct(aggCompletion(dates).rate)+'</span></div>'+barChart(dates.map(s=>fmtDate(s,false)),cr,100,'%',v=>Math.round(v)+'%')+'</div>';
+  const st=Object.values(taskStats(dates));
+  if(st.length)h+='<div class="tbl-wrap"><table class="t"><tr><th>項目</th><th>排定</th><th>完成</th><th>執行率</th></tr>'+st.map(o=>'<tr><td>'+esc(o.title)+'</td><td class="num">'+(o.kind==='cond'?'條件':o.sched-o.na)+'</td><td class="num">'+o.done+'</td><td class="num">'+(o.kind==='cond'?'—':pct(o.rate))+'</td></tr>').join('')+'</table></div>';
+  h+='</section>';
+  // 3. subjective
+  h+='<section class="sec">'+sectionHead('主觀感受','自評 1–10')+'<div class="charts">';
+  METRICS.forEach(([k,l,u,mn,mx])=>{const ys=vals(dates,k),m=mean(ys);h+='<div class="chartbox"><div class="ct"><b>'+l+'</b><span>平均 '+f1(m.m)+u+'・n='+m.n+'</span></div>'+(k==='sleepH'?'<div class="cs">由入睡／起床時間計算</div>':'')+lineChart(dates,ys,mn,mx,u)+'</div>'});
+  h+='</div></section>';
+  // 4. objective + 5. experiment results
+  const rec=state.measurements.filter(m=>m.key==='recall').sort((x,y)=>x.date.localeCompare(y.date));
+  const customs={};state.measurements.filter(m=>m.key==='custom').forEach(m=>(customs[m.name]=customs[m.name]||[]).push(m));
+  h+='<section class="sec">'+sectionHead('客觀測量與實驗結果');
+  const ex=state.experiments.E01;
+  if(ex){const s0=ex.periods[0].start;const weeks=[];for(let w=0;addDays(s0,w*7)<=today&&w<26;w++){const wa=addDays(s0,w*7),ds=range(wa,addDays(wa,6)).filter(s=>s<=today);let dr=0,lc=0,nd=0;ds.forEach(s=>{const l=logOf(s);if(l&&l.e01){nd++;dr+=+(l.e01.dreams||0);if(l.e01.lucid&&l.e01.lucid!=='none')lc++}});weeks.push({w:w+1,dr,lc,nd})}
+    h+='<div class="chartbox"><div class="ct"><b>實驗 01・每週可回憶夢數</b><span>主指標</span></div>'+(weeks.length?barChart(weeks.map(x=>'W'+x.w),weeks.map(x=>x.nd?x.dr:null),Math.max(5,...weeks.map(x=>x.dr)),' 個')+'<div class="tbl-wrap"><table class="t"><tr><th>週</th><th>紀錄天數</th><th>夢數</th><th>清醒夢</th></tr>'+weeks.map(x=>'<tr><td>W'+x.w+'</td><td class="num">'+x.nd+'/7</td><td class="num">'+(x.nd?x.dr:'—')+'</td><td class="num">'+(x.nd?x.lc:'—')+'</td></tr>').join('')+'</table></div><p class="caption">紀錄天數少於 7 的週，夢數會被低估。</p>':'<div class="insuff">實驗 01 尚未開始</div>')+'</div>'}
+  h+='<div class="chartbox"><div class="ct"><b>實驗 02・延遲回憶</b><span>提取組 − 重讀組</span></div>';
+  if(rec.length){h+='<div class="tbl-wrap"><table class="t"><tr><th>日期</th><th>提取組</th><th>重讀組</th><th>差異</th></tr>'+rec.map(m=>{const r=m.r.c/m.r.n,s=m.s.c/m.s.n;return '<tr><td>'+fmtDate(m.date,false)+'</td><td class="num">'+pct(r)+'</td><td class="num">'+pct(s)+'</td><td class="num">'+(r-s>=0?'+':'')+Math.round((r-s)*100)+'</td></tr>'}).join('')+'</table></div>';
+    const dif=rec.map(m=>m.r.c/m.r.n-m.s.c/m.s.n),md=dif.reduce((p,c)=>p+c,0)/dif.length;h+='<p class="small"><span class="lbl-fact">DERIVED</span>平均差異 '+(md>=0?'+':'')+Math.round(md*100)+' 個百分點（'+rec.length+' 週）。'+(rec.length<4?'少於 4 週，尚無足夠資料判斷。':'')+'</p>'}
+  else h+='<div class="insuff">尚無測驗紀錄</div>';
+  h+='</div>';
+  Object.entries(customs).forEach(([name,ms])=>{ms.sort((x,y)=>x.date.localeCompare(y.date));const vs=ms.map(m=>m.value),mn=Math.min(...vs),mx=Math.max(...vs),pad=(mx-mn)*.15||1;
+    h+='<div class="chartbox"><div class="ct"><b>'+esc(name)+'</b><span>'+ms.length+' 筆・'+esc(ms[0].unit||'')+'</span></div>'+(ms.length>=3?lineChart(ms.map(m=>m.date),vs,Math.floor(mn-pad),Math.ceil(mx+pad),ms[0].unit?' '+ms[0].unit:''):'<div class="insuff">尚無足夠資料（n='+ms.length+'，需 ≥ 3）</div>')+'</div>'});
+  h+='</section>';
+  // 6. period comparison
+  const P=periodsSplit(today);
+  h+='<section class="sec">'+sectionHead('階段比較','平均（n）')+'<p class="caption" style="margin:8px 0">基準期＝開始後前 '+state.settings.baselineDays+' 天；介入期依目前天數平均切成初期／中期／後期。n &lt; 7 時尚無足夠資料。</p><div class="tbl-wrap"><table class="t"><tr><th>指標</th><th>基準</th><th>初期</th><th>中期</th><th>後期</th></tr>'+METRICS.map(([k,l])=>'<tr><td>'+l+'</td>'+['base','early','mid','late'].map(p=>{const m=mean(vals(P[p],k));return '<td class="num">'+(m.n?f1(m.m)+'<span class="caption">('+m.n+')</span>':'—')+'</td>'}).join('')+'</tr>').join('')+'<tr><td>完成率</td>'+['base','early','mid','late'].map(p=>'<td class="num">'+pct(aggCompletion(P[p]).rate)+'</td>').join('')+'</tr></table></div>';
+  h+='<p class="caption">階段差異是描述性統計（DERIVED），不代表因果。睡眠、課業壓力、訓練量、WBTB 夜與期待效應都可能造成變化。</p></section>';
+  return h;
+}
+function vWeek(){
+  const today=logicalToday(),ws=view.weekOf||weekStart(today),we=addDays(ws,6),dates=range(ws,we<today?we:today);
+  let h='<div class="phead" style="border-bottom-color:var(--color-border)"><div class="eyebrow">週回顧</div><div class="row"><h2 class="display" style="font-size:24px"><span class="num">'+fmtDate(ws,false)+' – '+fmtDate(we,false)+'</span></h2><div class="dnav"><button data-act="wk" data-d="-1" aria-label="上一週">‹</button><button data-act="wk" data-d="1" aria-label="下一週">›</button></div></div></div>';
+  if(ws>today)return h+'<div class="empty">這週還沒開始。</div>';
+  h+='<div class="week7">'+range(ws,we).map(s=>{const c=dayCompletion(s),r=s>today?null:c.rate;return '<div><i title="'+s+'">'+(r!=null?'<s style="height:'+Math.round(r*100)+'%"></s>':'')+'</i>'+WD[weekday(s)]+'<br><span class="num">'+(s>today?'':r==null?(logOf(s)?'·':'—'):Math.round(r*100))+'</span></div>'}).join('')+'</div>';
+  const ac=aggCompletion(dates);h+='<div class="list-row"><span>本週整體執行率</span><span class="num">'+pct(ac.rate)+'（'+ac.done+'/'+ac.req+'）</span></div><div class="list-row"><span>每日日誌天數</span><span class="num">'+dates.filter(s=>logOf(s)).length+'/'+dates.length+'</span></div>';
+  const st=Object.values(taskStats(dates));
+  h+='<section class="sec">'+sectionHead('各實驗執行率')+(st.length?st.sort((a,b)=>(b.rate||0)-(a.rate||0)).map(o=>'<div class="list-row small"><span>'+esc(o.title)+(Object.keys(o.reasons).length?'<br><span class="caption">跳過原因：'+Object.entries(o.reasons).map(([k,v])=>k+'×'+v).join('、')+'</span>':'')+'</span><span class="num">'+(o.kind==='cond'?'做了 '+o.done+' 次':pct(o.rate)+' ('+o.done+'/'+(o.sched-o.na)+')')+'</span></div>').join(''):'<div class="empty">本週沒有排定的實驗</div>');
+  const easy=st.filter(o=>o.kind!=='cond'&&o.rate!=null&&o.rate>=.8),miss=st.filter(o=>o.kind!=='cond'&&o.rate!=null&&o.rate<.5);
+  if(easy.length||miss.length)h+='<p class="small">'+(easy.length?'容易持續：'+easy.map(o=>esc(o.title)).join('、')+'。':'')+(miss.length?'<br>經常被忽略（&lt;50%）：'+miss.map(o=>esc(o.title)).join('、')+'。':'')+'</p>';
+  const prev=range(addDays(ws,-7),addDays(ws,-1));Object.keys(state.experiments).forEach(id=>{const a1=expAdherence(id,dates),a0=expAdherence(id,prev);if(a1!=null&&a0!=null&&a1<.5&&a0<.5)h+='<div class="notice small"><b>'+esc(expMeta(id).short)+'</b>　連續兩週執行率低於 50%，依規則視為設計失敗：縮小、換觸發點或淘汰。</div>'});
+  h+='</section><section class="sec">'+sectionHead('指標趨勢','上週 → 本週')+'<div class="tbl-wrap"><table class="t"><tr><th>指標</th><th>上週</th><th>本週</th></tr>'+METRICS.map(([k,l])=>{const a=mean(vals(prev,k)),b=mean(vals(dates,k));return '<tr><td>'+l+'</td><td class="num">'+f1(a.m)+'<span class="caption">('+a.n+')</span></td><td class="num">'+f1(b.m)+'<span class="caption">('+b.n+')</span></td></tr>'}).join('')+'</table></div></section>';
+  const cf={},finds=[];dates.forEach(s=>{const l=logOf(s);(l&&l.conf||[]).forEach(c=>cf[c]=(cf[c]||0)+1);if(l&&l.e01&&l.e01.wbtb)cf['WBTB 夜']=(cf['WBTB 夜']||0)+1;if(l&&l.finding)finds.push([s,l.finding])});
+  h+='<section class="sec">'+sectionHead('生活干擾因素')+(Object.keys(cf).length?Object.entries(cf).map(([k,v])=>'<div class="list-row small"><span>'+esc(k)+'</span><span class="num">'+v+' 天</span></div>').join(''):'<div class="empty">本週沒有記錄干擾因素</div>')+'</section>';
+  if(finds.length)h+='<section class="sec">'+sectionHead('本週重要發現')+finds.map(([s,f])=>'<div class="list-row small"><span>'+esc(f)+'</span><span class="num muted">'+fmtDate(s,false)+'</span></div>').join('')+'</section>';
+  const key=ws;h+='<section class="sec">'+sectionHead('週筆記')+'<div class="field"><label for="wnote">是否感到負擔、下週要調整什麼</label><textarea id="wnote">'+esc(state.reviews.weekly[key]||'')+'</textarea></div><div class="btnrow"><button class="btn pri grow" data-act="wsave" data-k="'+key+'">儲存週筆記</button></div></section>';
+  return h;
+}
+function vMonth(){
+  const today=logicalToday(),mk=view.monthOf||monthKey(today),[y,m]=mk.split('-').map(Number);
+  const a=mk+'-01',endD=ymd(new Date(y,m,0,12)),dates=range(a,endD<today?endD:today);
+  let h='<div class="phead" style="border-bottom-color:var(--color-border)"><div class="eyebrow">月回顧</div><div class="row"><h2 class="display" style="font-size:24px"><span class="num">'+y+'</span> 年 <span class="num">'+m+'</span> 月</h2><div class="dnav"><button data-act="mo" data-d="-1" aria-label="上個月">‹</button><button data-act="mo" data-d="1" aria-label="下個月">›</button></div></div></div>';
+  if(a>today)return h+'<div class="empty">這個月還沒開始。</div>';
+  const P=periodsSplit(today),base=P.base,ids=Object.keys(state.experiments).filter(id=>dates.some(s=>activeOn(state.experiments[id],s)));
+  const logged=dates.filter(s=>logOf(s)).length;let mins=0;dates.forEach(s=>mins+=dayCompletion(s).minsDone);
+  h+='<div class="figs four" style="margin-top:14px"><div><div class="fig-v">'+logged+'<small>/'+dates.length+'</small></div><div class="fig-l">有日誌的天數</div></div><div><div class="fig-v">'+base.filter(s=>logOf(s)).length+'</div><div class="fig-l">基準期資料天數</div></div><div><div class="fig-v">'+Math.round(mins)+'<small>分</small></div><div class="fig-l">時間成本（預估加總）</div></div><div><div class="fig-v">'+ids.length+'</div><div class="fig-l">本月執行項目</div></div></div>';
+  h+='<section class="sec">'+sectionHead('與基準期比較','平均（n）')+'<div class="tbl-wrap"><table class="t"><tr><th>指標</th><th>基準</th><th>本月</th><th>差</th></tr>'+METRICS.map(([k,l])=>{const b=mean(vals(base,k)),c=mean(vals(dates.filter(s=>!base.includes(s)),k));const d=b.m!=null&&c.m!=null?c.m-b.m:null;return '<tr><td>'+l+'</td><td class="num">'+f1(b.m)+'<span class="caption">('+b.n+')</span></td><td class="num">'+f1(c.m)+'<span class="caption">('+c.n+')</span></td><td class="num">'+(d==null?'—':(d>=0?'+':'')+d.toFixed(1))+'</td></tr>'}).join('')+'</table></div><p class="caption">本月欄位不含基準期日期。描述統計（DERIVED），不是因果推論；請同時看下方的混淆因素。</p></section>';
+  const cf={};dates.forEach(s=>{const l=logOf(s);(l&&l.conf||[]).forEach(c=>cf[c]=(cf[c]||0)+1);if(l&&l.e01&&l.e01.wbtb)cf['WBTB 夜']=(cf['WBTB 夜']||0)+1;if(l&&l.activity&&l.activity!=='休息日')cf['訓練日']=(cf['訓練日']||0)+1});
+  h+='<section class="sec">'+sectionHead('可能的混淆因素')+(Object.keys(cf).length?Object.entries(cf).map(([k,v])=>'<div class="list-row small"><span>'+esc(k)+'</span><span class="num">'+v+' 天</span></div>').join(''):'<div class="empty">沒有記錄</div>')+'</section>';
+  const rec=state.measurements.filter(x=>x.key==='recall'&&monthKey(x.date)===mk);
+  h+='<section class="sec">'+sectionHead('主觀與客觀指標')+'<p class="small">'+(rec.length?'<span class="lbl-fact">DERIVED</span>本月延遲回憶測驗 '+rec.length+' 次：提取組平均 '+pct(rec.reduce((p,x)=>p+x.r.c/x.r.n,0)/rec.length)+'，重讀組 '+pct(rec.reduce((p,x)=>p+x.s.c/x.s.n,0)/rec.length)+'。與「主觀記憶」方向不一致時，以客觀測驗為準。':'本月沒有客觀測驗紀錄。主觀評分無法單獨證明能力提升。')+'</p></section>';
+  h+='<section class="sec">'+sectionHead('實驗決策','KEEP / MODIFY / EXTEND / PAUSE / REMOVE');
+  if(!ids.length)h+='<div class="empty">本月沒有進行中的實驗。</div>';
+  ids.forEach(id=>{const meta=expMeta(id),ex=state.experiments[id],adh=expAdherence(id,dates),dec=ex.decisions.find(d=>d.month===mk);
+    h+='<div style="padding:16px 0;border-bottom:1px solid var(--color-border)"><div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline"><h3>'+esc(meta.name)+'</h3>'+ev(meta.grade)+'</div><div class="meta">本月執行率 <span class="num">'+pct(adh)+'</span></div><p class="small ink2" style="margin:8px 0"><span class="lbl-fact">規則提示</span>'+decisionHint(id,dates,base)+'</p>';
+    if(id==='E01'){let dr=0,lc=0,nd=0;dates.forEach(s=>{const l=logOf(s);if(l&&l.e01){nd++;dr+=+(l.e01.dreams||0);if(l.e01.lucid&&l.e01.lucid!=='none')lc++}});const bd=base.map(s=>logOf(s)).filter(l=>l&&l.e01);const bdr=bd.length?bd.reduce((p,l)=>p+(+(l.e01.dreams||0)),0)/bd.length*7:null;h+='<p class="small">本月夢數 <span class="num">'+dr+'</span>（'+nd+' 天紀錄，約 '+(nd?f1(dr/nd*7):'—')+' 個／週；基準期約 '+f1(bdr)+' 個／週）；清醒夢 <span class="num">'+lc+'</span> 次。</p>'}
+    h+='<div class="chips" style="margin-top:10px">'+['KEEP','MODIFY','EXTEND','PAUSE','REMOVE'].map(k=>'<button data-act="dec" data-id="'+id+'" data-m="'+mk+'" data-v="'+k+'" class="'+(dec&&dec.decision===k?'on':'')+'" aria-pressed="'+!!(dec&&dec.decision===k)+'">'+k+'</button>').join('')+'</div><div class="field"><input type="text" placeholder="決策理由（先輸入再點選決策）" id="decnote-'+id+'" value="'+esc(dec&&dec.note||'')+'"></div></div>'});
+  h+='<p class="caption">完成率高不代表有效。PAUSE／REMOVE 的實際暫停請到該實驗頁面操作（會停止產生每日任務）。</p></section>';
+  h+='<section class="sec">'+sectionHead('本月結論')+'<div class="field"><label for="mnote">實際生活效益、是否值得繼續、是否觀察到遷移</label><textarea id="mnote">'+esc(state.reviews.monthly[mk]||'')+'</textarea></div><div class="btnrow"><button class="btn pri grow" data-act="msave" data-k="'+mk+'">儲存月結論</button></div></section>';
+  return h;
+}
+function decisionHint(id,dates,base){
+  const last14=dates.slice(-14),w2=dates.slice(-7),w1=dates.slice(-14,-7),a1=expAdherence(id,w2),a0=expAdherence(id,w1);
+  const n=dates.filter(s=>logOf(s)&&activeOn(state.experiments[id],s)).length;
+  if(a1!=null&&a0!=null&&a1<.5&&a0<.5)return '最近兩週執行率皆 &lt; 50% → 建議 MODIFY（縮小、換觸發點）或 REMOVE。';
+  if(id==='E01'){const bq=mean(vals(base,'sleepQ')).m,cq=mean(vals(last14,'sleepQ')).m;if(bq!=null&&cq!=null&&cq<=bq-1)return '近 14 天睡眠品質比基準期低 ≥ 1 分 → 守門指標下降，建議先 PAUSE WBTB。'}
+  if(n<14)return '本月有效紀錄少於 14 天，尚無足夠資料 → 建議 EXTEND。';
+  return '資料量足夠。依主指標與守門指標判斷；效果不確定時先 EXTEND 一次，第二次仍不確定則 REMOVE 或重新設計。';
+}
+
+/* ---------- RESEARCH ---------- */
+function vResearch(){
+  let h='<div class="phead"><div class="eyebrow">Research Library</div><h1>研究文獻</h1><p class="lede">P-0001–P-0048 來自「第一輪八大主題研究報告」（經 Europe PMC／Crossref 查證，多數僅根據摘要）；P-0049–P-0056 為 App 開發時補查。未整理的欄位明確標示，不以推測補齊。</p></div>';
+  h+='<div class="grid2"><div class="col-l">';
+  h+='<section class="sec">'+sectionHead('候選介入矩陣',INTERVENTIONS.length+' 項')+'<div class="tbl-wrap"><table class="t"><tr><th>方法</th><th>等級</th><th>微型直接證據</th></tr>'+INTERVENTIONS.map(iv=>'<tr><td><a href="#exp/'+(iv.status||iv.id)+'">'+esc(iv.name)+'</a><div class="caption">'+iv.id+'・'+esc(iv.domain)+(iv.status?'・已納入 '+iv.status:'')+'</div></td><td><span class="grade">'+iv.grade+'</span></td><td class="l" style="max-width:9em">'+esc(((DOSE[iv.id]||{}).direct||iv.micro).split('：')[0].split('（')[0])+'</td></tr>').join('')+'</table></div></section>';
+  h+='<section class="sec">'+sectionHead('論文','<span id="pcount">'+PAPERS.length+'</span> 篇')+'<div class="filters"><input type="search" id="rq" placeholder="搜尋作者、標題、ID" value="'+esc(view.rq)+'" aria-label="搜尋論文"><select id="rtopicSel" aria-label="主題篩選"><option value="">全部主題</option>'+Object.entries(TOPICS).map(([k,l])=>'<option value="'+k+'"'+(view.rtopic===k?' selected':'')+'>'+l+'</option>').join('')+'</select></div><div id="plist">'+paperList()+'</div></section>';
+  h+='</div><div class="col-r">';
+  h+='<section class="sec">'+sectionHead('證據分級')+'<dl class="spec" style="grid-template-columns:1fr">'+[['A','多項高品質人體研究或一致的系統性證據'],['B','有一定人體研究，效果或適用條件仍不確定'],['C','初步人體研究，證據有限，只能作探索性實驗'],['D','缺乏可靠人體實驗'],['E','效果有限、無效或風險不合理']].map(([g,t])=>'<div style="grid-template-columns:40px 1fr"><dt><span class="grade">'+g+'</span></dt><dd class="small">'+t+'</dd></div>').join('')+'</dl></section>';
+  h+='<section class="sec">'+sectionHead('研究共通原則')+'<ul class="small ink2" style="padding-left:18px;line-height:1.7"><li>訓練效果高度任務特異：記憶（P-0005）與平衡（P-0031、P-0032）都顯示遷移有限。</li><li>多數 1–2 分鐘微劑量沒有直接研究；例外為 P-0011、P-0017、P-0054。不把原劑量的效果直接套用到縮短版。</li><li>P-0030、P-0040 為預印本，需追蹤同儕審查版本。</li></ul></section>';
+  h+='<section class="sec">'+sectionHead('不列入的說法')+NOT_INCLUDED.map(r=>'<div class="list-row small"><span>'+esc(r[0])+'<br><span class="caption">'+esc(r[2])+'</span></span><span class="grade">'+r[1]+'</span></div>').join('')+'</section>';
+  h+='</div></div>';
+  return h;
+}
+function paperList(){
+  const q=view.rq.toLowerCase();const ps=PAPERS.filter(p=>(!view.rtopic||p.topic===view.rtopic)&&(!q||(p.id+p.a+p.t).toLowerCase().includes(q)));
+  const pc=$('#pcount');if(pc)pc.textContent=ps.length;
+  const NA='<span class="muted">摘要未整理</span>';
+  return ps.length?ps.map(p=>{const nt=PAPER_NOTES[p.id]||{},ivs=paperIvs(p.id);
+    return '<article class="paper ref"><div class="rid"><span>'+p.id+'・'+TOPICS[p.topic]+'</span><span>'+paperLevel(p)+'</span></div><div class="rt pt">'+esc(p.t)+'</div><div class="ra">'+esc(p.a)+'（'+p.y+'）・'+esc(p.d)+'</div><div class="rl">'+(p.doi?'<a href="'+paperUrl(p)+'" target="_blank" rel="noopener">doi:'+esc(p.doi)+'</a>':'<a href="'+paperUrl(p)+'" target="_blank" rel="noopener">'+esc(p.pm)+'</a> <span class="muted">（DOI 未確認）</span>')+(p.pm&&p.doi?'<span class="muted">　PMID '+p.pm+'</span>':'')+'</div><details><summary>研究細節</summary><dl class="kv"><dt>研究對象</dt><dd>'+(nt.pop?esc(nt.pop):NA)+'</dd><dt>介入劑量</dt><dd>'+(nt.dose?esc(nt.dose):NA)+'</dd><dt>主要結果</dt><dd>'+(nt.res?esc(nt.res):NA)+'</dd><dt>研究限制</dt><dd>'+(nt.lim?esc(nt.lim):NA)+'</dd><dt>證據層級</dt><dd>'+paperLevel(p)+'</dd><dt>相關介入</dt><dd>'+(ivs.length?ivs.map(x=>esc(x.iv.name)+'（'+x.role+'・等級 '+x.iv.grade+'）').join('<br>'):'—')+'</dd></dl></details></article>'}).join(''):'<div class="empty">沒有符合條件的論文</div>';
+}
+/* ---------- SETTINGS / DATA ---------- */
+function openSettings(){
+  const s=state.settings,n=Object.keys(state.days).length,bytes=(localStorage.getItem(KEY)||'').length;
+  openSheet('<h3>資料與設定</h3>'+
+  (storageOK?'':'<div class="notice">目前無法寫入瀏覽器儲存（可能是私密瀏覽模式）。紀錄不會被保存。</div>')+
+  '<div class="notice small"><b>資料只存在這台裝置、這個瀏覽器</b>（localStorage），沒有雲端同步。清除瀏覽器資料、刪除主畫面 App、或 iOS 長期未開啟，都可能讓紀錄消失。iPhone 上「Safari 網頁」與「加入主畫面的 App」是兩份不同的資料。請每週匯出 JSON。</div>'+
+  '<div class="list-row small"><span>紀錄天數</span><span class="mono">'+n+'</span></div><div class="list-row small"><span>資料大小</span><span class="mono">'+(bytes/1024).toFixed(1)+' KB</span></div><div class="list-row small"><span>上次匯出</span><span class="mono">'+(s.lastExport?s.lastExport.slice(0,16).replace('T',' '):'從未')+'</span></div><div class="list-row small"><span>持久儲存</span><span class="mono" id="persist">檢查中…</span></div>'+
+  '<div class="btnrow"><button class="btn pri grow" data-act="export-json">匯出 JSON 備份</button></div><div class="btnrow"><button class="btn grow" data-act="export-csv">匯出每日 CSV</button><button class="btn grow" data-act="export-mcsv">匯出測量 CSV</button></div>'+
+  '<div class="field"><label for="imp">從 JSON 匯入（會取代目前資料）</label><input type="file" id="imp" accept="application/json,.json"></div>'+
+  '<h3 style="margin-top:18px">設定</h3><div class="field"><label for="sd">專案開始日（基準期第 1 天）</label><input type="date" id="sd" value="'+s.startDate+'"></div><div class="two"><div class="field"><label for="bd">基準期天數</label><input type="number" id="bd" min="7" max="28" value="'+s.baselineDays+'"></div><div class="field"><label for="dh">換日時間（時）</label><input type="number" id="dh" min="0" max="8" value="'+s.dayStartHour+'"></div></div><p class="xs muted">換日時間：凌晨此時之前打開 App，仍算前一天（適合晚睡）。所有日期皆使用裝置本地時區。</p><div class="btnrow"><button class="btn grow" data-act="save-settings">儲存設定</button></div>'+
+  '<h3 style="margin-top:18px">重置</h3><div class="field"><label for="rst">輸入 RESET 以清除全部資料（無法復原，建議先匯出）</label><input type="text" id="rst" autocomplete="off"></div><div class="btnrow"><button class="btn danger grow" data-act="reset">清除全部資料</button><button class="btn grow" data-act="close">關閉</button></div>');
+  if(navigator.storage&&navigator.storage.persisted)navigator.storage.persisted().then(p=>{const el=$('#persist');if(el)el.textContent=p?'已啟用':'未啟用（瀏覽器可能在空間不足時清除）'}).catch(()=>{});else{const el=$('#persist');if(el)el.textContent='此瀏覽器不支援'}
+}
+function download(name,text,type){const b=new Blob([text],{type}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(u);a.remove()},500)}
+function csvCell(v){if(v==null)return '';v=String(v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
+function buildDailyCSV(){
+  const dates=Object.keys(state.days).sort();const taskIds=new Set();dates.forEach(s=>tasksFor(s).forEach(t=>taskIds.add(t.id)));Object.values(state.days).forEach(d=>Object.keys(d.tasks).forEach(k=>taskIds.add(k)));
+  const tids=[...taskIds].sort();
+  const head=['date','phase','project_day','bed','wake','sleep_h','sleep_quality','morning_alert','clarity','focus','memory','fatigue','soreness','activity','confounders','last_caffeine','e01_dreams','e01_lucid','e01_odd','e01_wbtb','completion_done','completion_required','completion_rate','note','observation','experiment_note','finding',...tids.map(t=>'task:'+t)];
+  const rows=[head.join(',')];
+  dates.forEach(s=>{const l=logOf(s)||{},e=l.e01||{},c=dayCompletion(s),ph=phaseOf(s);
+    const tc=tids.map(id=>{const r=taskRec(s,id);if(!r)return '';if(r.count!=null)return r.count;return r.status+(r.reason?':'+r.reason:'')});
+    rows.push([s,ph.key,ph.i+1,l.bed,l.wake,l.sleepH,l.sleepQ,l.alert,l.clarity,l.focus,l.memory,l.fatigue,l.soreness,l.activity,(l.conf||[]).join('|'),l.caf,e.dreams,e.lucid,e.odd,e.wbtb==null?'':e.wbtb?1:0,c.done,c.req,c.rate==null?'':c.rate.toFixed(3),l.note,l.obs,l.expNote,l.finding,...tc].map(csvCell).join(','))});
+  return '﻿'+rows.join('\n');
+}
+function buildMeasCSV(){const rows=['date,key,name,value,unit,retrieval_correct,retrieval_total,restudy_correct,restudy_total,note'];state.measurements.slice().sort((a,b)=>a.date.localeCompare(b.date)).forEach(m=>rows.push([m.date,m.key,m.name||'',m.value==null?'':m.value,m.unit||'',m.r?m.r.c:'',m.r?m.r.n:'',m.s?m.s.c:'',m.s?m.s.n:'',m.note||''].map(csvCell).join(',')));return '﻿'+rows.join('\n')}
+function validImport(o){return o&&o.version===1&&typeof o.days==='object'&&!Array.isArray(o.days)&&typeof o.experiments==='object'&&o.settings&&/^\d{4}-\d{2}-\d{2}$/.test(o.settings.startDate)&&Object.keys(o.days).every(k=>/^\d{4}-\d{2}-\d{2}$/.test(k))}
+
+function openMeasure(taskDate,m){
+  const today=logicalToday(),date=m?m.date:(taskDate||today),v=(k,d)=>m?m[k[0]][k[1]]:d;
+  openSheet('<h3>'+(m?'編輯延遲回憶測驗':'延遲回憶測驗')+'</h3><p class="small ink2">不看資料作答後對答案。提取組＝本週用回想練習的概念；重讀組＝本週只重讀的概念。</p><input type="hidden" id="mid" value="'+(m?m.id:'')+'"><div class="field"><label for="mdate">測驗日期</label><input type="date" id="mdate" value="'+date+'"></div><div class="two"><div class="field"><label for="rc">提取組答對</label><input type="number" id="rc" min="0" inputmode="numeric" value="'+v('rc',0)+'"></div><div class="field"><label for="rn">提取組題數</label><input type="number" id="rn" min="1" inputmode="numeric" value="'+v('rn',5)+'"></div></div><div class="two"><div class="field"><label for="sc">重讀組答對</label><input type="number" id="sc" min="0" inputmode="numeric" value="'+v('sc',0)+'"></div><div class="field"><label for="sn">重讀組題數</label><input type="number" id="sn" min="1" inputmode="numeric" value="'+v('sn',5)+'"></div></div><div class="field"><label for="mnote2">備註（例：前晚 WBTB）</label><input type="text" id="mnote2" value="'+esc(m&&m.note||'')+'"></div><p class="caption" id="merr" role="alert"></p><div class="btnrow"><button class="btn grow" data-act="close">取消</button><button class="btn pri grow" data-act="save-recall">儲存</button></div>');
+}
+function openCustomMeasure(m){
+  openSheet('<h3>'+(m?'編輯測量':'記錄其他測量')+'</h3><p class="small ink2">例：單腳站立秒數、CMJ 高度。固定測量時間與方法，可減少誤差。</p><input type="hidden" id="mid" value="'+(m?m.id:'')+'"><div class="field"><label for="cdate">日期</label><input type="date" id="cdate" value="'+(m?m.date:logicalToday())+'"></div><div class="field"><label for="cname">測量名稱</label><input type="text" id="cname" list="cnames" value="'+esc(m?m.name:'')+'"><datalist id="cnames">'+[...new Set(state.measurements.filter(x=>x.name).map(x=>x.name))].map(n=>'<option value="'+esc(n)+'">').join('')+'</datalist></div><div class="two"><div class="field"><label for="cval">數值</label><input type="number" step="any" id="cval" inputmode="decimal" value="'+(m?m.value:'')+'"></div><div class="field"><label for="cunit">單位</label><input type="text" id="cunit" value="'+esc(m&&m.unit||'')+'"></div></div><div class="field"><label for="cnote">備註</label><input type="text" id="cnote" value="'+esc(m&&m.note||'')+'"></div><p class="caption" id="merr" role="alert"></p><div class="btnrow"><button class="btn grow" data-act="close">取消</button><button class="btn pri grow" data-act="save-custom">儲存</button></div>');
+}
+function openSkip(tid){
+  openSheet('<h3>跳過這項實驗</h3><p class="small ink2">不需要強迫打卡。選擇原因，週回顧會用來判斷觸發點是否需要調整。</p><div class="chips">'+SKIP_REASONS.map(r=>'<button data-act="skip-reason" data-t="'+tid+'" data-v="'+r+'">'+r+'</button>').join('')+'</div><div class="btnrow"><button class="btn grow" data-act="close">取消</button></div>');
+}
+
+/* =========================================================
+   8. EVENTS
+   ========================================================= */
+function curDate(){return view.date||logicalToday()}
+function setTask(tid,rec){const d=day(curDate(),true);if(rec==null)delete d.tasks[tid];else d.tasks[tid]=rec;save();render()}
+document.addEventListener('click',async e=>{
+  const el=e.target.closest('[data-act]');if(!el)return;const a=el.dataset.act;
+  if(a==='sheet-bg'){if(e.target===el){if(modalResolve)modalResolve(false);closeSheet()}return}
+  if(el.tagName==='A'&&a!=='gotoday'&&a!=='settings')return;
+  e.preventDefault();
+  const tid=el.dataset.t;
+  switch(a){
+    case 'settings':openSettings();break;
+    case 'close':closeSheet();break;
+    case 'm-yes':if(modalResolve){const r=modalResolve;closeSheet();r(true)}break;
+    case 'm-no':if(modalResolve){const r=modalResolve;closeSheet();r(false)}break;
+    case 'day':if(view.route==='journal'&&jDirty&&!await confirmBox('有未儲存的變更','切換日期會捨棄這一頁尚未儲存的日誌內容。','捨棄並切換',true))break;view.date=addDays(curDate(),+el.dataset.d);jDraft=null;jDirty=false;render();window.scrollTo(0,0);break;
+    case 'row':view.open[tid]=!view.open[tid];render();break;
+    case 'edit-meas':{const m=state.measurements.find(x=>x.id===el.dataset.id);if(m)m.key==='recall'?openMeasure(null,m):openCustomMeasure(m);break}
+    case 'jdelete':{const date=curDate();if(!await confirmBox('刪除這一天的日誌？',fmtDate(date)+' 的睡眠、評分與筆記會被刪除；實驗完成狀態保留。','刪除',true))break;const d=day(date);if(d){d.log=null;save()}jDraft=null;jDirty=false;toast('已刪除日誌');render();break}
+    case 'gotoday':if(view.route==='journal'&&jDirty&&!await confirmBox('有未儲存的變更','回到今天會捨棄尚未儲存的日誌內容。','捨棄',true))break;view.date=null;jDraft=null;jDirty=false;if(location.hash==='#journal')render();else location.hash='#today';break;
+    case 'back':history.length>1?history.back():(location.hash='#experiments');break;
+    case 'done':setTask(tid,{status:'done',at:new Date().toISOString()});toast('已記錄完成');break;
+    case 'na':setTask(tid,{status:'na',at:new Date().toISOString()});break;
+    case 'undo':setTask(tid,null);break;
+    case 'skip':openSkip(tid);break;
+    case 'skip-reason':closeSheet();{const d=day(curDate(),true),prev=d.tasks[tid];d.tasks[tid]={status:'skipped',reason:el.dataset.v,at:new Date().toISOString()};if(prev&&prev.count!=null)d.tasks[tid].count=prev.count;save();render()}break;
+    case 'cnt':{const d=day(curDate(),true),r=d.tasks[tid]||{count:0},t=tasksFor(curDate()).find(x=>x.id===tid);const n=Math.max(0,(r.count||0)+(+el.dataset.d));
+      if(n===0&&!r.status)delete d.tasks[tid];else d.tasks[tid]={count:n,status:n>=(t?t.min:1)?'done':'partial',at:new Date().toISOString()};save();render();break}
+    case 'measure':if(tid==='E02.test')openMeasure(view.route==='today'?curDate():null);break;
+    case 'measure-custom':openCustomMeasure();break;
+    case 'save-recall':{const g=id=>+$('#'+id).value,date=$('#mdate').value;const rc=g('rc'),rn=g('rn'),sc=g('sc'),sn=g('sn');
+      if(!date||!(rn>0)||!(sn>0)||rc<0||sc<0||rc>rn||sc>sn){$('#merr').textContent='請檢查數字：題數需 ≥ 1，答對數不可大於題數。';$('#merr').style.color='var(--color-danger)';break}
+      const mid=$('#mid').value,rec={id:mid||'m'+Date.now(),date,key:'recall',r:{c:rc,n:rn},s:{c:sc,n:sn},note:$('#mnote2').value.trim(),at:new Date().toISOString()};
+      if(mid){const i=state.measurements.findIndex(x=>x.id===mid);if(i>=0)state.measurements[i]=rec}else state.measurements.push(rec);
+      if(tasksFor(date).some(t=>t.id==='E02.test'))day(date,true).tasks['E02.test']={status:'done',at:new Date().toISOString()};
+      save();closeSheet();toast('已儲存測驗結果');render();break}
+    case 'save-custom':{const name=$('#cname').value.trim(),v=$('#cval').value,date=$('#cdate').value;if(!name||v===''||!date){$('#merr').textContent='請填寫日期、測量名稱與數值。';$('#merr').style.color='var(--color-danger)';break}
+      const mid=$('#mid').value,rec={id:mid||'m'+Date.now(),date,key:'custom',name,value:+v,unit:$('#cunit').value.trim(),note:$('#cnote').value.trim(),at:new Date().toISOString()};
+      if(mid){const i=state.measurements.findIndex(x=>x.id===mid);if(i>=0)state.measurements[i]=rec}else state.measurements.push(rec);save();closeSheet();toast('已儲存');render();break}
+    case 'del-meas':if(await confirmBox('刪除這筆測量？','刪除後無法復原。','刪除',true)){state.measurements=state.measurements.filter(m=>m.id!==el.dataset.id);save();render()}break;
+    case 'activate':{const id=el.dataset.id,date=$('#actDate').value;if(!date){toast('請選擇開始日期');break}
+      const ok=await confirmBox('啟用實驗','將從 '+fmtDate(date)+' 起每天產生這項任務。建議先建立 7–14 天基準，並一次只加入一項。','啟用');if(!ok)break;
+      const ex=state.experiments[id];if(ex){ex.removed=false;ex.periods.push({start:date,end:null})}else state.experiments[id]={periods:[{start:date,end:null}],decisions:[]};save();toast('已啟用');render();break}
+    case 'set-start':{const id=el.dataset.id,v=$('#startDate').value;if(!v)break;const ex=state.experiments[id];if(ex.periods.length>1){toast('此實驗已有多段執行期間，無法直接改開始日');break}ex.periods[0].start=v;save();toast('開始日已更新');render();break}
+    case 'pause':{const id=el.dataset.id;if(!await confirmBox('暫停實驗','從明天起不再產生這項任務（今天保留）。可隨時恢復。','暫停'))break;const ex=state.experiments[id],p=ex.periods[ex.periods.length-1],t=logicalToday();
+      if(p.start>t){ex.periods.pop();if(!ex.periods.length)ex.periods.push({start:p.start,end:addDays(p.start,-1)})}else p.end=t;save();render();break}
+    case 'resume':{const id=el.dataset.id,ex=state.experiments[id],t=addDays(logicalToday(),0),p=ex.periods[ex.periods.length-1];if(p.end&&p.end>=t)p.end=null;else ex.periods.push({start:t,end:null});save();render();break}
+    case 'remove':{const id=el.dataset.id;if(!await confirmBox('淘汰實驗（REMOVE）','停止產生每日任務；過去的紀錄會保留在資料中。','淘汰',true))break;const ex=state.experiments[id],p=ex.periods[ex.periods.length-1],t=logicalToday();if(!p.end)p.end=p.start>t?addDays(p.start,-1):t;ex.removed=true;save();render();break}
+    case 'unremove':{const ex=state.experiments[el.dataset.id];ex.removed=false;save();toast('已改為暫停狀態，可從今天恢復');render();break}
+    case 'jrate':{markDirty();const k=el.dataset.k,v=+el.dataset.v;jDraft[k]=jDraft[k]===v?null:v;el.parentNode.querySelectorAll('button').forEach(b=>{b.classList.toggle('on',+b.dataset.v===jDraft[k]);b.setAttribute('aria-pressed',+b.dataset.v===jDraft[k])});const df=document.querySelector('[data-def="'+k+'"]');if(df)df.textContent=jDraft[k]?rateDef(k,jDraft[k]):'';break}
+    case 'jchip':{markDirty();const k=el.dataset.k,v=el.dataset.v;jDraft[k]=jDraft[k]===v?null:v;el.parentNode.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.v===jDraft[k]));break}
+    case 'jsel':{markDirty();const k=el.dataset.k;let v=el.dataset.v;if(v==='true')v=true;else if(v==='false')v=false;jDraft.e01[k]=jDraft.e01[k]===v?null:v;el.parentNode.querySelectorAll('button').forEach(b=>{let bv=b.dataset.v;if(bv==='true')bv=true;else if(bv==='false')bv=false;b.classList.toggle('on',bv===jDraft.e01[k])});break}
+    case 'jstep':{markDirty();const k=el.dataset.k;jDraft.e01[k]=Math.max(0,(jDraft.e01[k]||0)+(+el.dataset.d));el.parentNode.querySelector('.n').textContent=jDraft.e01[k];break}
+    case 'jconf':{markDirty();const v=el.dataset.v,i=jDraft.conf.indexOf(v);i>=0?jDraft.conf.splice(i,1):jDraft.conf.push(v);el.classList.toggle('on',i<0);break}
+    case 'jsave':saveJournal();break;
+    case 'ptab':view.progTab=el.dataset.v;render();break;
+    case 'prange':view.progRange=el.dataset.v==='all'?'all':+el.dataset.v;render();break;
+    case 'wk':view.weekOf=addDays(view.weekOf||weekStart(logicalToday()),7*(+el.dataset.d));render();break;
+    case 'mo':{const[y,m]=(view.monthOf||monthKey(logicalToday())).split('-').map(Number),d=new Date(y,m-1+(+el.dataset.d),1,12);view.monthOf=ymd(d).slice(0,7);render();break}
+    case 'wsave':state.reviews.weekly[el.dataset.k]=$('#wnote').value;save();toast('已儲存週筆記');break;
+    case 'msave':state.reviews.monthly[el.dataset.k]=$('#mnote').value;save();toast('已儲存月結論');break;
+    case 'dec':{const id=el.dataset.id,mk=el.dataset.m,ex=state.experiments[id],v=el.dataset.v,note=($('#decnote-'+id)||{}).value||'';ex.decisions=ex.decisions.filter(d=>d.month!==mk);ex.decisions.push({month:mk,decision:v,note,at:new Date().toISOString()});save();toast(expMeta(id).short+'：'+v);render();break}
+    case 'rtopic':view.rtopic=el.dataset.v;render();break;
+    case 'export-json':{const t=new Date();download('human-micro-experiment-'+ymd(t)+'.json',JSON.stringify(state,null,1),'application/json');state.settings.lastExport=t.toISOString();save();toast('已匯出 JSON');closeSheet();render();break}
+    case 'export-csv':download('hme-daily-'+ymd(new Date())+'.csv',buildDailyCSV(),'text/csv;charset=utf-8');toast('已匯出每日 CSV');break;
+    case 'export-mcsv':download('hme-measurements-'+ymd(new Date())+'.csv',buildMeasCSV(),'text/csv;charset=utf-8');toast('已匯出測量 CSV');break;
+    case 'save-settings':{const sd=$('#sd').value,bd=+$('#bd').value,dh=+$('#dh').value;if(!/^\d{4}-\d{2}-\d{2}$/.test(sd)||!(bd>=7&&bd<=28)||!(dh>=0&&dh<=8)){toast('設定值不正確');break}
+      const old=state.settings.startDate;state.settings.startDate=sd;state.settings.baselineDays=bd;state.settings.dayStartHour=dh;
+      const e1=state.experiments.E01;if(e1&&e1.periods.length===1&&e1.periods[0].start===old)e1.periods[0].start=sd;
+      save();closeSheet();toast('設定已儲存');render();break}
+    case 'reset':{if($('#rst').value!=='RESET'){toast('請輸入 RESET（大寫）');break}closeSheet();if(!await confirmBox('最後確認','將清除這台裝置上全部的實驗紀錄。','永久清除',true))break;
+      try{localStorage.setItem(KEY+'.prev',localStorage.getItem(KEY)||'')}catch(_){} state=defaultState();save();view.date=null;jDraft=null;toast('已清除全部資料');render();break}
+  }
+});
+document.addEventListener('change',e=>{
+  const t=e.target;
+  if(t.id==='rtopicSel'){view.rtopic=t.value;$('#plist').innerHTML=paperList()}
+  if(t.dataset&&t.dataset.j){jDraft[t.dataset.j]=t.value;markDirty();if(t.dataset.j==='bed'||t.dataset.j==='wake'){const h=sleepHours(jDraft.bed,jDraft.wake);$('#sleepH').innerHTML='睡眠時數：'+(h!=null?'<span class="num">'+h+'</span> 小時（由時間計算）':'—')}}
+  if(t.dataset&&t.dataset.j1){jDraft.e01[t.dataset.j1]=t.value}
+  if(t.id==='imp'&&t.files&&t.files[0]){const f=t.files[0],rd=new FileReader();rd.onload=async()=>{let o;try{o=JSON.parse(rd.result)}catch(_){toast('不是有效的 JSON 檔');return}
+    if(!validImport(o)){toast('檔案格式不符（需要本 App 匯出的 version 1 備份）');return}
+    closeSheet();if(!await confirmBox('匯入並取代目前資料？','檔案含 '+Object.keys(o.days).length+' 天紀錄、'+(o.measurements||[]).length+' 筆測量。目前資料會被取代（已暫存一份到本機 .prev）。','匯入',true))return;
+    try{localStorage.setItem(KEY+'.prev',localStorage.getItem(KEY)||'')}catch(_){} state=o;load2();save();jDraft=null;toast('匯入完成');render()};rd.readAsText(f)}
+});
+document.addEventListener('input',e=>{const t=e.target;if(t.dataset&&t.dataset.j&&t.tagName==='TEXTAREA'){jDraft[t.dataset.j]=t.value;markDirty()}if(t.dataset&&t.dataset.j1){jDraft.e01[t.dataset.j1]=t.value;markDirty()}if(t.id==='rq'){view.rq=t.value;$('#plist').innerHTML=paperList()}});
+document.addEventListener('pointerdown',e=>{if(e.target.closest('.chart'))chartPointer(e)});
+function load2(){state.settings=Object.assign(defaultState().settings,state.settings||{});if(!state.measurements)state.measurements=[];if(!state.reviews)state.reviews={weekly:{},monthly:{}}}
+window.addEventListener('hashchange',()=>{render();window.scrollTo(0,0)});
+const isTyping=el=>el&&(el.tagName==='TEXTAREA'||(el.tagName==='INPUT'&&!['checkbox','radio','file','button'].includes(el.type))||el.tagName==='SELECT');
+document.addEventListener('focusin',e=>{if(isTyping(e.target)&&window.matchMedia('(max-width:1023px)').matches)document.body.classList.add('kbd')});
+document.addEventListener('focusout',()=>setTimeout(()=>{if(!isTyping(document.activeElement))document.body.classList.remove('kbd')},60));
+window.addEventListener('beforeunload',e=>{if(jDirty){e.preventDefault();e.returnValue=''}});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&!view.date)render()});
+
+/* boot */
+load();
+if(navigator.storage&&navigator.storage.persist)navigator.storage.persist().catch(()=>{});
+render();
+if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost'))navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body>
+</html>
